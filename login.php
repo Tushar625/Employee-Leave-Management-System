@@ -35,7 +35,9 @@
 
 		$password = hash("ripemd128", $salt1 . $pass . $salt2);
 
-		$result = $link -> query("SELECT uid, uname FROM login WHERE email = '$email' AND password = '$password'");
+		$rank = mysql_sanitize_input($link, $_POST['ranks']);
+
+		$result = $link -> query("select eid, name from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks = $rank;");
 
 		if($result === false)
 		{
@@ -45,36 +47,29 @@
 		if($result -> num_rows === 1)
 		{
 			/*
-				an entry is found in login tabel so we start a session and store
-				user name, user id, qid of current quiz and if the player can play
-				or not in the session to be used through out the user section 
+				an entry is found in employee and login tabel so we start a session and store
+				user name, user id 
 			*/
 
 			include "PHP/start_secure_session.php";
+
+			include "PHP/emp_ranking_system.php";
 
 			start_secure_session();
 
 			$arr = $result -> fetch_assoc();
 
-			$_SESSION['USER_NAME'] = $arr['uname'];
+			$user = strtoupper(get_rank($rank));
 
-			$_SESSION['USER_ID'] = $arr['uid'];
+			$_SESSION[$user . "_NAME"] = $arr['name'];
 
-			// calculating current quiz id
-
-			include "PHP/start_date_current_qid.php";
-
-			$_SESSION['QUIZ_ID'] = $current_qid;
-
-			// can we play or not
-
-			include "PHP/can_play.php";
-
-			$_SESSION['can_play'] = can_play($link, $_SESSION['USER_ID'], $_SESSION['QUIZ_ID']);
+			$_SESSION[$user . "_ID"] = $arr['eid'];
 
 			$link -> close();
 
-			header("location: user profile.php");	// entering user section
+			$user = strtolower($user);
+
+			header("location: " . $user . "_index.php");	// entering user section
 		}
 		else
 		{
@@ -152,13 +147,25 @@
 			</li>
 
 			<li>
+				<label>
+					Rank
+					<select name = "ranks">
+						<option value = 0> Employee </option>
+						<option value = 1> Manager1 </option>
+						<option value = 2> Manager2 </option>
+						<option value = 3> HR </option>
+					</select>
+				</label>
+			</li>
+
+			<li>
 				<div class = "error message">
-					New around here! <a href = "register.php">Create your profile here</a>
+					Enter your credentials
 				</div>
 			</li>
 
 			<li>
-				<input class = "button" type = "submit" name = "submit" value = "Open Profile">
+				<input class = "button" type = "submit" name = "submit" value = "Login">
 			</li>
 
 			<li>
