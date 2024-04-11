@@ -54,11 +54,27 @@
 
 			if(isset($get))
 			{
-				$get = "$get&email_valid=true";
+				$get = "$get&email_valid=false";
 			}
 			else
 			{
-				$get = "email_valid=true";
+				$get = "email_valid=false";
+			}
+		}
+
+		// check if the phone no. is valid or not
+
+		if(strlen($_POST['phone']) != 10)
+		{
+			// the phone no. is not valid
+
+			if(isset($get))
+			{
+				$get = "$get&phone_valid=false";
+			}
+			else
+			{
+				$get = "phone_valid=false";
 			}
 		}
 
@@ -68,7 +84,7 @@
 		{
 			$link -> close();
 
-			header("location: register.php?$get");
+			header("location: emp_input.php?$get");
 		}
 
 		/*
@@ -76,7 +92,11 @@
 			and load them into login table
 		*/
 
-		$uname = mysql_sanitize_input($link, $_POST['uname']);
+		$name = mysql_sanitize_input($link, $_POST['name']);
+
+		$phone = mysql_sanitize_input($link, $_POST['phone']);
+
+		$ranks = mysql_sanitize_input($link, $_POST['ranks']);
 
 		$pass = $_POST['password'];
 
@@ -86,7 +106,22 @@
 
 		$password = hash("ripemd128", $salt1 . $pass . $salt2);
 		
-		$query = "INSERT INTO login(uname, email, password) VALUES('$uname', '$email', '$password');";
+		$query = "INSERT INTO employee(name, email, phone, ranks) VALUES('$name', '$email', $phone, $ranks);";
+
+		// fail check
+
+		if($link -> query($query) === false)
+		{
+			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+		}
+
+		// collecting his eid
+
+		$eid = $link -> query("SELECT eid FROM employee WHERE email = '$email'") -> fetch_assoc()['eid'];
+
+		// storing password in login table
+
+		$query = "INSERT INTO login(eid, password) VALUES($eid, '$password');";
 
 		// fail check
 
@@ -97,7 +132,7 @@
 
 		$link -> close();
 
-		header("location: register.php?success=true");
+		header("location: emp_input.php?success=true");
 	}
 
 ?>
@@ -135,7 +170,7 @@
 
 		<main>
 			
-		<form method = "post" action = "register.php">
+		<form method = "post" action = "emp_input.php">
 		
 		<ul class = "main_box nice_shadow">
 
@@ -176,6 +211,18 @@
 			<li>
 				<label> Phone <input type = "tel" name = "phone" maxlength = 10 required> </label>
 			</li>
+
+			<?php if(isset($_GET['phone_valid'])) :?>
+
+				<!-- the phone no. entered is invalid -->
+
+				<li>
+					<div class = "error message">
+						Invalid Phone No.
+					</div>
+				</li>
+
+			<?php endif; ?>
 
 			<li>
 				<label>
