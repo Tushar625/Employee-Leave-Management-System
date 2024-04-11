@@ -35,7 +35,7 @@
 
 		if($MIN_DAYS > $_POST['days'] || $_POST['days'] > $MAX_DAYS)
 		{
-			$get = "days_valid=false";
+			$get = "?days_valid=false";
 		}
 
 		// if get is created there is a problem and we reload the file
@@ -62,15 +62,31 @@
 				die("Form submission failure, head back to <a href = '../index.php'> Home </a>");
 			}
 
-			$get = 'success=true';
+			$get = '?success=true';
 		}
 
 		$link -> close();
-
-		header("location: leave_rules_input.php?$get");
+	}
+	else
+	{
+		$get = '';
 	}
 
 	// add selfe redirect once
+
+	/*
+		redirecting to itself once to:
+		
+		clear the past inputs to avoid resubmission of same quiz when
+		user returns back to previous input form
+
+		and to avoid form resubmission error on reload (more about this
+		in the documentation)
+	*/
+
+	include "../PHP/self_redirect_once.php";
+
+	self_redirect_once($get);
 
 ?>
 

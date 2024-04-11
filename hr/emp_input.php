@@ -87,60 +87,80 @@
 
 		// if get is created there is a problem and we reload the file
 
-		if(isset($get))
+		if(!isset($get))
 		{
-			$link -> close();
+			/*
+				no problem detected, hence we receive rest of the inputs
+				and load them into login table
+			*/
 
-			header("location: emp_input.php?$get");
-		}
+			$name = mysql_sanitize_input($link, $_POST['name']);
 
-		/*
-			no problem detected, hence we receive rest of the inputs
-			and load them into login table
-		*/
+			$phone = mysql_sanitize_input($link, $_POST['phone']);
 
-		$name = mysql_sanitize_input($link, $_POST['name']);
+			$ranks = mysql_sanitize_input($link, $_POST['ranks']);
 
-		$phone = mysql_sanitize_input($link, $_POST['phone']);
+			$pass = $_POST['password'];
 
-		$ranks = mysql_sanitize_input($link, $_POST['ranks']);
+			$salt1 = "$#&^f";
+			
+			$salt2 = "$@gh^f";
 
-		$pass = $_POST['password'];
+			$password = hash("ripemd128", $salt1 . $pass . $salt2);
+			
+			$query = "INSERT INTO employee(name, email, phone, ranks) VALUES('$name', '$email', $phone, $ranks);";
 
-		$salt1 = "$#&^f";
-		
-		$salt2 = "$@gh^f";
+			// fail check
 
-		$password = hash("ripemd128", $salt1 . $pass . $salt2);
-		
-		$query = "INSERT INTO employee(name, email, phone, ranks) VALUES('$name', '$email', $phone, $ranks);";
+			if($link -> query($query) === false)
+			{
+				die("Form submission failure, head back to <a href = '../index.php'> Home </a>");
+			}
 
-		// fail check
+			// collecting his eid
 
-		if($link -> query($query) === false)
-		{
-			die("Form submission failure, head back to <a href = '../index.php'> Home </a>");
-		}
+			$eid = $link -> query("SELECT eid FROM employee WHERE email = '$email'") -> fetch_assoc()['eid'];
 
-		// collecting his eid
+			// storing password in login table
 
-		$eid = $link -> query("SELECT eid FROM employee WHERE email = '$email'") -> fetch_assoc()['eid'];
+			$query = "INSERT INTO login(eid, password) VALUES($eid, '$password');";
 
-		// storing password in login table
+			// fail check
 
-		$query = "INSERT INTO login(eid, password) VALUES($eid, '$password');";
+			if($link -> query($query) === false)
+			{
+				die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+			}
 
-		// fail check
-
-		if($link -> query($query) === false)
-		{
-			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+			$get = "success=true";
 		}
 
 		$link -> close();
 
-		header("location: emp_input.php?success=true");
+		$get = "?$get";
+
+		// header("location: emp_input.php?");
 	}
+	else
+	{
+		$get = '';
+	}
+
+	// add selfe redirect once
+
+	/*
+		redirecting to itself once to:
+		
+		clear the past inputs to avoid resubmission of same quiz when
+		user returns back to previous input form
+
+		and to avoid form resubmission error on reload (more about this
+		in the documentation)
+	*/
+
+	include "../PHP/self_redirect_once.php";
+
+	self_redirect_once($get);
 
 ?>
 

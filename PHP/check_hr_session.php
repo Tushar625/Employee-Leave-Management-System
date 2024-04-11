@@ -9,6 +9,8 @@
 		// invalid admin session
 
 		header("location: ../index.php");
+
+		exit();
 	}
 
 ?>

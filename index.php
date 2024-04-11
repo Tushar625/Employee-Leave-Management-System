@@ -4,26 +4,6 @@
 
 	destroy_session_and_data();	// destroy any existing session
 
-	/*
-		"PHP/poke_names_datalist.php" contains the source code for the datalist holding
-		the pokemon names, it's created by "PHP/poke_names_datalist_init.php" file and
-		stored permanently in 'PHP' folder and is used by the forms that receives pokemon
-		names as inputs.
-
-		If "PHP/poke_names_datalist.php" is missing it is created by "PHP/poke_names_datalist_init.php"
-		else we don't use "PHP/poke_names_datalist_init.php".
-
-		This is done to ensure that the forms using the list of pokemon names don't have
-		to download list of pokemon names from poke api, each time they are used, only when
-		"PHP/poke_names_datalist.php" is missing and "index.php" is opened, the list is
-		downloaded from poke api by "PHP/poke_names_datalist_init.php"
-	*/
-
-	if(!file_exists("PHP/poke_names_datalist.php"))
-	{
-		include "PHP/poke_names_datalist_init.php";
-	}
-
 ?>
 
 <!DOCTYPE html>
