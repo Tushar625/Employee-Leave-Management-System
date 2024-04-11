@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	include "PHP/check_admin_session.php";
+	// include "PHP/check_admin_session.php";
 
 ?>
 
@@ -17,7 +17,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>admin_home</title>
+		<title>HR_home</title>
 
 		<style>
 
@@ -47,13 +47,25 @@
 
 			<li>
 
-				<a href = "quiz input.php"><button class = "button"> Input a Quiz </button></a>
+				<a href = "emp_input.php"><button class = "button"> Enlist an Employee </button></a>
 
 			</li>
 
 			<li>
 
-				<a href = "quiz display.php"><button class = "button"> Display all Quiz </button></a>
+				<a href = "view_employees.php"><button class = "button"> Display all Employee </button></a>
+
+			</li>
+
+			<li>
+
+				<a href = "leave_rules_input.php"><button class = "button"> Input a Leave Rule </button></a>
+
+			</li>
+
+			<li>
+
+				<a href = "view_leave_rules.php"><button class = "button"> Display all Leave Rules </button></a>
 
 			</li>
 
