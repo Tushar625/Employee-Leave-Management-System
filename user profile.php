@@ -1,6 +1,6 @@
 <?php
 
-	include "PHP/check_user_session.php";
+	// include "PHP/check_user_session.php";
 
 	include "PHP/config.php";
 
@@ -99,6 +99,11 @@
 			@import url("CSS/header styles.css");
 
 			@import url("CSS/list styles.css");
+
+			.main_box > * .button, .main_box > * .message
+			{
+				width: 20em;
+			}
 
 			.message
 			{
