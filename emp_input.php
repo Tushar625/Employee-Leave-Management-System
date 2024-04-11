@@ -1,5 +1,7 @@
 <?php
 
+	// Empdetails input
+
 	if(isset($_POST['submit']))
 	{
 		include "PHP/config.php";
@@ -152,7 +154,7 @@
 			<!-- Maxlength is set according to size of uname field in login table -->
 
 			<li>
-				<label> User Name <input name = "uname" maxlength = 30 required> </label>
+				<label> Emp Name <input name = "name" maxlength = 30 required> </label>
 			</li>
 
 			<li>
@@ -170,6 +172,22 @@
 				</li>
 
 			<?php endif; ?>
+
+			<li>
+				<label> Phone <input type = "tel" name = "phone" maxlength = 10 required> </label>
+			</li>
+
+			<li>
+				<label>
+					Rank
+					<select name = "ranks">
+						<option value = 0> Employee </option>
+						<option value = 1> Manager1 </option>
+						<option value = 2> Manager2 </option>
+						<option value = 3> HR </option>
+					</select>
+				</label>
+			</li>
 			
 			<li>
 				<label> Password (For Profile) <input type = "password" name = "password" maxlength = 10 required> </label>

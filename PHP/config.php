@@ -6,7 +6,7 @@
 
 	// establishing link to the server
 
-	$link = @new mysqli("localhost", "root", "td9940433@", "poke");
+	$link = @new mysqli("localhost", "root", "td9940433@", "ELMS");
 
 	if($link -> connect_error)
 	{

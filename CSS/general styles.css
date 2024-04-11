@@ -11,8 +11,8 @@ html
 
 *, *::after, *::before
 {
-	font-family: Caveat;
-	font-size: 105%;
+	font-family: Arial, Helvetica, sans-serif;
+	/* font-size: 105%; */
     box-sizing: inherit;
     text-size-adjust: 150%; /* To prevent font resizing in android */
 }
