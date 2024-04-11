@@ -12,8 +12,6 @@
 
 		include "PHP/mysql_sanitize_input.php";
 
-		include "PHP/validate_email.php";
-
 		// here we use get variables to send error messages while redirecting to itself
 
 		/*
@@ -35,37 +33,37 @@
 
 		// if get is created there is a problem and we reload the file
 
-		if(isset($get))
+		if(!isset($get))
 		{
-			$link -> close();
+			/*
+				no problem detected, hence we receive rest of the inputs
+				and load them into leave rules table
+			*/
 
-			header("location: leave_rules_input.php?$get");
-		}
+			$name = mysql_sanitize_input($link, $_POST['name']);
 
-		/*
-			no problem detected, hence we receive rest of the inputs
-			and load them into leave rules table
-		*/
+			$days = mysql_sanitize_input($link, $_POST['days']);
 
-		$name = mysql_sanitize_input($link, $_POST['name']);
+			$need_doc = mysql_sanitize_input($link, $_POST['need_doc']);
+			
+			$query = "INSERT INTO leave_rule(name, days, need_doc) VALUES('$name', $days, $need_doc);";
 
-		$days = mysql_sanitize_input($link, $_POST['days']);
+			// fail check
 
-		$need_doc = mysql_sanitize_input($link, $_POST['need_doc']);
-		
-		$query = "INSERT INTO leave_rule(name, days, need_doc) VALUES('$name', $days, $need_doc);";
+			if($link -> query($query) === false)
+			{
+				die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+			}
 
-		// fail check
-
-		if($link -> query($query) === false)
-		{
-			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+			$get = 'success=true';
 		}
 
 		$link -> close();
 
-		header("location: leave_rules_input.php?success=true");
+		header("location: leave_rules_input.php?$get");
 	}
+
+	// add selfe redirect once
 
 ?>
 
