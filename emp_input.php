@@ -145,7 +145,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>create_profile</title>
+		<title>emp_input</title>
 
 		<style>
 
@@ -180,7 +180,7 @@
 
 				<li>
 					<div class = "info message">
-						Profile created, Want to <a href = "login.php">Log in</a> now?
+						Profile created, Successfully
 					</div>
 				</li>
 

@@ -30,7 +30,7 @@ CREATE TABLE employee(
 CREATE TABLE leave_rule(
     lid         BIGINT AUTO_INCREMENT,
     name        VARCHAR(30) NOT NULL,
-    days        TINYINT NOT NULL,
+    days        SMALLINT NOT NULL,
     need_doc    BOOLEAN NOT NULL,
 
     # constraints
