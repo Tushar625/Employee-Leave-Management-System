@@ -29,7 +29,7 @@
 
 /* making message look softer with a nice shadow */
 
-.main_box li .message
+.main_box > * .message
 {
 	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
 	border: none;
@@ -37,13 +37,13 @@
 
 /* used to display the answer */
 
-.main_box li .error
+.main_box > * .error
 {
 	text-align: center;
 	box-shadow: none;
 }
 
-.main_box li .button
+.main_box > * .button
 {
 	border: none;
 }

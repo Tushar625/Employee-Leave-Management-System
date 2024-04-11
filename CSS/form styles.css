@@ -60,7 +60,7 @@ main
 	spacing the list items a bit
 */
 
-.main_box li
+.main_box > *
 {
 	margin: .5em 0;
 }
@@ -73,7 +73,7 @@ main
 	how input boxes and buttons should look like
 */
 
-.main_box li input, .main_box li select, .main_box li textarea, .main_box li .button, .main_box li .message
+.main_box > * input, .main_box > * select, .main_box > * textarea, .main_box > * .button, .main_box > * .message
 {
 	width: 100%;
 	height: 2em;
@@ -88,7 +88,7 @@ main
 	some extra property for text area
 */
 
-.main_box li textarea
+.main_box > * textarea
 {
 	font: inherit;
 	resize: vertical;
@@ -101,7 +101,7 @@ main
 	there after any element with button class will look like this
 */
 
-.main_box li .message
+.main_box > * .message
 {
 	border-style: dashed;
 	height: fit-content;
@@ -128,7 +128,7 @@ main
 	there after any element with button class will look like this
 */
 
-.main_box li .button
+.main_box > * .button
 {
 	/* margin-top: 1em; */
 	background-color: rgb(173, 200, 230);
