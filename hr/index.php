@@ -21,13 +21,13 @@
 
 		<style>
 
-			@import url("CSS/general styles.css");
+			@import url("../CSS/general styles.css");
 
-			@import url("CSS/form styles.css");
+			@import url("../CSS/form styles.css");
 
-			@import url("CSS/header styles.css");
+			@import url("../CSS/header styles.css");
 
-			@import url("CSS/index styles.css");
+			@import url("../CSS/index styles.css");
 
 		</style>
 
@@ -37,7 +37,7 @@
 		
 		<header>
 
-			<?php include "PHP/admin_header.php";?>
+			<?php include "../PHP/admin_header.php";?>
 		
 		</header>
 

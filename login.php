@@ -69,7 +69,7 @@
 
 			$user = strtolower($user);
 
-			header("location: " . $user . "_index.php");	// entering user section
+			header("location: " . $user . "/index.php");	// entering user section
 		}
 		else
 		{

@@ -5,6 +5,7 @@
 {
 	max-width: 95%;
 	width: 100%;
+	padding: 1em;
 	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.399);
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -13,7 +14,7 @@
 
 .main_box > * .button, .main_box > * .message
 {
-	text-align: center;
+	/* text-align: center; */
 	width: 15em;
 }
 

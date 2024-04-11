@@ -7,11 +7,11 @@
 
 	// include "PHP/check_admin_session.php";
 
-	include "PHP/config.php";	// connect to database
+	include "../PHP/config.php";	// connect to database
 
 	// all quizes in quiz table
 
-	$result = $link -> query("SELECT * FROM leave_rule;");
+	$result = $link -> query("SELECT * FROM employee;");
 
 	$link -> close();
 
@@ -25,17 +25,17 @@
 
 		<meta charset = "UTF-8">
 
-		<title>view_leave_rules</title>
+		<title>view_employees</title>
 
 		<style>
 
-			@import url("CSS/general styles.css");
+			@import url("../CSS/general styles.css");
 
-			@import url("CSS/form styles.css");
+			@import url("../CSS/form styles.css");
 
-			@import url("CSS/header styles.css");
+			@import url("../CSS/header styles.css");
 
-			@import url("CSS/list styles.css");
+			@import url("../CSS/list styles.css");
 
 			.main_box li .button
 			{
@@ -62,7 +62,7 @@
 
 		<?php $nav_interval = 10; $nav_index = 0;?>
 
-		<!-- getting the tuples in leave rule table -->
+		<!-- getting the tuples in emp rule table -->
 
 		<?php for(;$row = $result -> fetch_assoc(); $nav_index++): /* index of the quiz read */?>
 
@@ -70,7 +70,7 @@
 
 		<?php if(($nav_index % $nav_interval) === 0):?>
 
-			<ul id = <?php echo "menu$nav_index";?> class = "main_box next_box">
+			<ul id = <?php echo "menu$nav_index";?> class = "main_box previous_box">
 
 				<!-- for first menu bar these two not necessary -->
 
@@ -125,23 +125,23 @@
 
 		<form method = "post" action = "quiz update delete.php">
 
-		<!-- hidden form elements lid for update and delete -->
+		<!-- hidden form elements eid for update and delete -->
 
-		<input type = 'hidden' name = "lid" value = <?php echo $row['lid'];?>>
+		<input type = 'hidden' name = "eid" value = <?php echo $row['eid'];?>>
 
-		<!-- the leave box -->
+		<!-- the emp box -->
 
-		<ul id = <?php echo "leave" . $row['lid'];?> class = "main_box next_box">
+		<ul id = <?php echo "emp" . $row['eid'];?> class = "main_box next_box">
 
-			<!-- the lid of leave -->
+			<!-- the eid of emp -->
 			
-			<li>
+			<!-- <li>
 				<div class = "message">
-					<?php echo "Leave #" . $row['lid'];?>
+					<?php echo "Emp #" . $row['eid'];?>
 				</div>
-			</li>
+			</li> -->
 
-			<!-- the leave attributes -->
+			<!-- the emp attributes -->
 
 			<li>
 				<div class = "message">
@@ -151,19 +151,32 @@
 
 			<li>
 				<div class = "message">
-					<?php echo "Maximum ". $row["days"] . " Days"?>
+					<?php echo $row["email"]?>
 				</div>
 			</li>
 
 			<li>
 				<div class = "message">
-					<?php echo (($row["need_doc"]) ? "Need" : "Need no ") . " Supporting Document"?>
+					<?php echo $row["phone"]?>
+				</div>
+			</li>
+
+			<li>
+				<div class = "message">
+					<?php
+						
+						include_once "../PHP/emp_ranking_system.php";
+
+						echo get_rank($row['ranks']);
+
+					?>
 				</div>
 			</li>
 
 			<!-- update buttom -->
 
 			<li>
+
 				<input class = "button" type = "submit" name = "update_request" value = "Update">
 			</li>
 
@@ -181,7 +194,7 @@
 
 		<!-- top and previous button at the end of the page -->
 
-		<ul class = 'main_box next_box'>
+		<ul class = 'main_box previous_box'>
 
 			<li>
 				<a href = "<?php echo "#menu" . ($nav_index - $nav_index % $nav_interval)?>"><button class = 'button'> Previous </button></a>

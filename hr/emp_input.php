@@ -4,11 +4,11 @@
 
 	if(isset($_POST['submit']))
 	{
-		include "PHP/config.php";
+		include "../PHP/config.php";
 
-		include "PHP/mysql_sanitize_input.php";
+		include "../PHP/mysql_sanitize_input.php";
 
-		include "PHP/validate_email.php";
+		include "../PHP/validate_email.php";
 
 		// here we use get variables to send error messages while redirecting to itself
 
@@ -112,7 +112,7 @@
 
 		if($link -> query($query) === false)
 		{
-			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+			die("Form submission failure, head back to <a href = '../index.php'> Home </a>");
 		}
 
 		// collecting his eid
@@ -149,9 +149,9 @@
 
 		<style>
 
-			@import url("CSS/general styles.css");
+			@import url("../CSS/general styles.css");
 
-			@import url("CSS/form styles.css");
+			@import url("../CSS/form styles.css");
 
 		</style>
 
