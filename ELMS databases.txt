@@ -108,6 +108,6 @@ DESC leave_request;
 
 # set the AUTO_INCREMENT values
 
-ALTER TABLE login AUTO_INCREMENT = 1;
+ALTER TABLE employee AUTO_INCREMENT = 1;
 
-ALTER TABLE quiz AUTO_INCREMENT = 1;
+ALTER TABLE leave_rule AUTO_INCREMENT = 1;
