@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	// include "PHP/check_admin_session.php";
+	include "../PHP/check_hr_session.php";
 
 	include "../PHP/config.php";	// connect to database
 
@@ -37,11 +37,6 @@
 
 			@import url("../CSS/list styles.css");
 
-			.main_box li .button
-			{
-				border: none;
-			}
-
 		</style>
 
 	</head>
@@ -50,7 +45,7 @@
 		
 		<header id = 'first'>
 
-			<?php //include "PHP/admin_header.php";?>
+			<?php include "header.php";?>
 			
 		</header>
 

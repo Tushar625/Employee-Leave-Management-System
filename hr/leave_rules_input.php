@@ -1,5 +1,12 @@
 <?php
 
+	/*
+		check if it's valid admin session or not if not redirect
+		to index or home page
+	*/
+
+	include "../PHP/check_hr_session.php";
+
 	$MIN_DAYS = 1;
 
 	$MAX_DAYS = 365;
@@ -83,6 +90,8 @@
 
 			@import url("../CSS/form styles.css");
 
+			@import url("../CSS/header styles.css");
+
 		</style>
 
 	</head>
@@ -96,7 +105,9 @@
 			profile and play
 		-->
 		
-		<header></header>
+		<header>
+			<?php include "header.php";?>
+		</header>
 
 		<main>
 			
