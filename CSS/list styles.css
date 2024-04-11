@@ -3,7 +3,27 @@
 
 .main_box
 {
+	max-width: 95%;
+	width: 100%;
 	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.399);
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.main_box > * .button, .main_box > * .message
+{
+	text-align: center;
+	width: 15em;
+}
+
+form
+{
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 /* this indicates past quiz */

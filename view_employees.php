@@ -165,7 +165,7 @@
 				<div class = "message">
 					<?php
 						
-						include "PHP/emp_ranking_system.php";
+						include_once "PHP/emp_ranking_system.php";
 
 						echo get_rank($row['ranks']);
 
@@ -175,7 +175,8 @@
 
 			<!-- update buttom -->
 
-			<li>		
+			<li>
+
 				<input class = "button" type = "submit" name = "update_request" value = "Update">
 			</li>
 
