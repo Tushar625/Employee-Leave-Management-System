@@ -1,0 +1,49 @@
+
+/* changing some attributes of main_box */
+
+.main_box
+{
+	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.399);
+}
+
+/* this indicates past quiz */
+
+.previous_box
+{
+	box-shadow: 1px 1px 5px -1px rgba(255, 0, 0, 0.6);
+}
+
+/* this indicates current quiz */
+
+.current_box
+{
+	box-shadow: 1px 1px 5px -1px rgba(0, 255, 0, 0.6);
+}
+
+/* this indicates upcoming quiz */
+
+.next_box
+{
+	box-shadow: 1px 1px 5px -1px rgba(0, 0, 255, 0.6);
+}
+
+/* making message look softer with a nice shadow */
+
+.main_box li .message
+{
+	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
+	border: none;
+}
+
+/* used to display the answer */
+
+.main_box li .error
+{
+	text-align: center;
+	box-shadow: none;
+}
+
+.main_box li .button
+{
+	border: none;
+}

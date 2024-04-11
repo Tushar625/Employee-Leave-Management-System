@@ -1,0 +1,59 @@
+/* header styles */
+
+/*
+	we set height for header and main section in a way to prevent
+	the page from scrolling
+*/
+
+ul.header_list
+{
+	min-height: 3.5em;
+	display: flex;
+	align-items: center;
+	background: rgb(230, 203, 173);
+	border-radius: .3em;
+	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.7);
+	white-space: nowrap;	/* prevent header text from wrapping */
+}
+
+main
+{
+	min-height: 0dvh;	/* only to prevent the header bar of mobile browsers from vanishing */
+	min-height: calc(90dvh - 3.5em);
+}
+
+/*
+	each element inside flex box
+*/
+
+ul.header_list li
+{
+	padding: 0 1em;	/* 1em padding on both side */
+}
+
+/*
+	this also a flex box element
+*/
+
+ul.header_list img
+{
+	width: 1.5em;
+	margin-left: 1em;
+}
+
+/* the hypertexts in header tab looks like buttons */
+
+.header_button
+{
+	margin: .5em;
+	border-radius: .5em;
+	border-style: dotted;
+	border-width: 1px;
+}
+
+/* right most button, thrown to extreme right of the header bar */
+
+.left_most
+{
+	margin-left: auto;
+}

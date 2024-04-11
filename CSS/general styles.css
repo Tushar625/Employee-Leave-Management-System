@@ -1,0 +1,72 @@
+
+@font-face {
+    font-family: Caveat;
+    src: url("../Caveat/Caveat-VariableFont_wght.ttf");
+}
+
+html
+{
+    box-sizing: border-box;
+}
+
+*, *::after, *::before
+{
+	font-family: Caveat;
+	font-size: 105%;
+    box-sizing: inherit;
+    text-size-adjust: 150%; /* To prevent font resizing in android */
+}
+
+ul
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body
+{
+    font-size: 2.7vmin;
+    padding: 0;
+}
+
+main
+{
+    min-height: 100vh;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+/*
+	provids the nice shadow around any element, any element can use
+	it to get the nice shadow
+*/
+
+.nice_shadow
+{
+	box-shadow: 0px 0px 128px rgba(0, 0, 0, 0.2), 0px 32px 100px -48px rgba(0, 0, 0, 0.8) !important;
+	/*
+		here we use two overlapping shadows
+		
+		First one has a blur radius of 128px, that means,
+		
+		128px: This sets the blur radius of the shadow, which controls how soft
+		or hard the edges of the shadow appear. A higher value creates a softer,
+		more diffused shadow.
+
+		This creats an ambiant shadow around the image
+
+		For the second image we use spread as -48px
+
+		-48px: This introduces a new property called "spread". A positive spread
+		value expands the shadow beyond the blur radius, while a negative value
+		shrinks it inwards. Here, -48px shrinks the shadow inwards, creating a
+		darker inner area.
+
+		We also place this shadow slightly lower to create some round shadow below
+		the image.
+	*/
+}

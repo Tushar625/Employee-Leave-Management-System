@@ -1,0 +1,113 @@
+CREATE DATABASE ELMS;
+
+# the login table
+
+# employee(eid, name, email, phone, rank(em(0), m1(1), m2(2), hr(3)))
+
+CREATE TABLE employee(
+    eid         BIGINT AUTO_INCREMENT,
+    name        VARCHAR(30) NOT NULL,
+    email       VARCHAR(50) NOT NULL,
+    phone       BIGINT(10) NOT NULL,
+    ranks       TINYINT NOT NULL,
+
+    # constraints
+
+    CONSTRAINT pk PRIMARY KEY(eid),
+    
+    CONSTRAINT ec UNIQUE(email),
+    
+    CONSTRAINT rk CHECK(ranks >= 0 AND ranks <= 3)
+);
+
+=====================================================================
+=====================================================================
+
+# the leave rules table
+
+# leave_rule(lid, name, days, need_doc)
+
+CREATE TABLE leave_rule(
+    lid         BIGINT AUTO_INCREMENT,
+    name        VARCHAR(30) NOT NULL,
+    days        TINYINT NOT NULL,
+    need_doc    BOOLEAN NOT NULL,
+
+    # constraints
+
+    CONSTRAINT pk PRIMARY KEY(lid)
+);
+
+=====================================================================
+=====================================================================
+
+# the leave request table
+
+# leave_request(eid, lid, start_date, end_date, support_doc, mg1_consent, mg2_consent)
+
+CREATE TABLE leave_request(
+    eid         BIGINT,
+    lid         BIGINT,
+    start_date  DATE NOT NULL,
+    end_date    DATE NOT NULL,
+    support_doc MEDIUMBLOB,
+    mg1_consent VARCHAR(500),
+    mg2_consent VARCHAR(500),
+
+    # constraints
+
+    CONSTRAINT pk
+    PRIMARY KEY(eid, lid),
+    
+    CONSTRAINT fk1
+    FOREIGN KEY(eid) REFERENCES employee(eid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+
+    CONSTRAINT fk2
+    FOREIGN KEY(lid) REFERENCES leave_rule(lid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+=====================================================================
+=====================================================================
+
+# the login table
+
+# login(eid, password)
+
+CREATE TABLE login(
+    eid         BIGINT,
+    password    CHAR(32) NOT NULL,
+
+    # constraints
+
+    CONSTRAINT pk PRIMARY KEY(eid),
+    
+    CONSTRAINT fk
+    FOREIGN KEY(eid) REFERENCES employee(eid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+=====================================================================
+=====================================================================
+
+# DISPLAY WHAT WE MADE
+
+SHOW TABLES;
+
+DESC login;
+
+DESC employee;
+
+DESC leave_rule;
+
+DESC leave_request;
+
+# set the AUTO_INCREMENT values
+
+ALTER TABLE login AUTO_INCREMENT = 1;
+
+ALTER TABLE quiz AUTO_INCREMENT = 1;
