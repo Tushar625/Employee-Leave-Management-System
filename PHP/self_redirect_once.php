@@ -16,6 +16,8 @@
 			$_SESSION['redirect_once'] = true;
 
 			header("location: " . $_SERVER['SCRIPT_NAME'] . $get_variables);
+
+			exit();
 		}
 		else
 		{

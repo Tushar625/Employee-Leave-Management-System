@@ -53,13 +53,13 @@
 
 			<li>
 
-				<a href = "view_employees.php"><button class = "button"> Display all Employee </button></a>
+				<a href = "leave_rules_input.php"><button class = "button"> Input a Leave Rule </button></a>
 
 			</li>
 
 			<li>
 
-				<a href = "leave_rules_input.php"><button class = "button"> Input a Leave Rule </button></a>
+				<a href = "view_employees.php"><button class = "button"> Display all Employees </button></a>
 
 			</li>
 

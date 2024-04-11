@@ -40,7 +40,7 @@
 
 		$email = strtolower(mysql_sanitize_input($link, $_POST['email']));
 
-		$result = $link -> query("SELECT * FROM login WHERE email = '$email'");
+		$result = $link -> query("SELECT * FROM employee WHERE email = '$email'");
 
 		if($result -> num_rows > 0)
 		{

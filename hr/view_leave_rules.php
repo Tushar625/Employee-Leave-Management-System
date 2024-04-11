@@ -118,11 +118,13 @@
 
 		<!-- Making a form (necessary for update) and a box -->
 
-		<form method = "post" action = "quiz update delete.php">
+		<form id = <?php echo "leave" . $nav_index;?> method = "post" action = "quiz update delete.php">
 
 		<!-- hidden form elements lid for update and delete -->
 
 		<input type = 'hidden' name = "lid" value = <?php echo $row['lid'];?>>
+
+		<input type = 'hidden' name = "nav" value = <?php echo $nav_index;?>>
 
 		<!-- the leave box -->
 

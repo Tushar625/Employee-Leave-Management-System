@@ -118,11 +118,13 @@
 
 		<!-- Making a form (necessary for update) and a box -->
 
-		<form method = "post" action = "quiz update delete.php">
+		<form id = <?php echo "emp" . $nav_index;?> method = "post" action = "emp update delete.php">
 
 		<!-- hidden form elements eid for update and delete -->
 
 		<input type = 'hidden' name = "eid" value = <?php echo $row['eid'];?>>
+
+		<input type = 'hidden' name = "nav" value = <?php echo $nav_index;?>>
 
 		<!-- the emp box -->
 
