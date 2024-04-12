@@ -78,7 +78,7 @@
 			
 			<li>
 				<?php $used_days = used_leave_days($link, $eid, $row['lid'])?>
-				<div class = "<?php echo ($used_days == $row['days']) ? "message redbutton" : "message greenbutton"?>">
+				<div class = "<?php echo ($used_days == $row['days']) ? "message redbutton" : "message"?>">
 					<span><?php echo $row['name']?></span>
 					
 					<span class = "left_bar"><?php echo $used_days . " / " . $row['days']?> <progress max = '<?php echo $row['days']?>' value = '<?php echo $used_days?>'></progress></span>

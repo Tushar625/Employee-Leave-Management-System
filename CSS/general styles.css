@@ -4,6 +4,11 @@
     src: url("../Caveat/Caveat-VariableFont_wght.ttf");
 }
 
+@font-face {
+    font-family: Segoe_ui;
+    src: url("../segoe_ui/Segoe UI.ttf");
+}
+
 html
 {
     box-sizing: border-box;
@@ -11,7 +16,8 @@ html
 
 *, *::after, *::before
 {
-	font-family: Helvetica, sans-serif;
+	/* font-family: Helvetica, sans-serif; */
+	font-family: Segoe_ui;
 	/* font-size: 105%; */
     box-sizing: inherit;
     text-size-adjust: 150%; /* To prevent font resizing in android */
