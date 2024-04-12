@@ -43,6 +43,21 @@
 
 			@import url("../CSS/list styles.css");
 
+			.main_box > * .update, .main_box > * .delete
+			{
+				background-color: white;
+			}
+
+			.main_box > * .update
+			{
+				box-shadow: 1px 1px 5px -1px rgba(0, 255, 0, 0.6);
+			}
+
+			.main_box > * .delete
+			{
+				box-shadow: 1px 1px 5px -1px rgba(255, 0, 0, 0.6);
+			}
+
 		</style>
 
 	</head>
@@ -71,7 +86,7 @@
 
 		<?php if(($nav_index % $nav_interval) === 0):?>
 
-			<ul id = <?php echo "menu$nav_index";?> class = "main_box previous_box">
+			<ul id = <?php echo "menu$nav_index";?> class = "main_box current_box">
 
 				<!-- for first menu bar these two not necessary -->
 
@@ -121,16 +136,6 @@
 			</ul>
 
 		<?php endif; ?>
-
-		<!-- Making a form (necessary for update) and a box -->
-
-		<!-- <form id = <?php echo "navid" . $nav_index;?> method = "post" action = "emp update delete.php"> -->
-
-		<!-- hidden form elements eid for update and delete -->
-
-		<!-- <input type = 'hidden' name = "eid" value = <?php echo $row['eid'];?>> -->
-
-		<!-- <input type = 'hidden' name = "nav" value = <?php echo $nav_index;?>> -->
 
 		<!-- the record box -->
 
@@ -204,27 +209,17 @@
 
 			<!-- update buttom -->
 
-			<!-- <li>
-				<input class = "button" type = "submit" name = "update_request" value = "Update">
-			</li> -->
-
 			<li>
-				<a href = "<?php echo "update.php?id=$id&type=$type"?>"><button class = 'button'> Update </button></a>
+				<a href = "<?php echo "update.php?id=$id&type=$type"?>"><button class = 'button update'> Update </button></a>
 			</li>
 
 			<!-- delete buttom -->
 
-			<!-- <li>
-				<input class = "button" type = "submit" name = "delete_request" value = "Delete">
-			</li> -->
-
 			<li>
-				<a href = "<?php echo "delete.php?id=$id&navid=$nav_index&type=$type"?>"><button class = 'button'> Delete </button></a>
+				<a href = "<?php echo "delete.php?id=$id&navid=$nav_index&type=$type"?>"><button class = 'button delete'> Delete </button></a>
 			</li>
 
 		</ul>
-
-		<!-- </form> -->
 
 		<?php endfor; ?>
 

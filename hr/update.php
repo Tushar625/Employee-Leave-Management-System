@@ -61,4 +61,8 @@
 			header("location: leave_update.php?id=$id");
 		}
 	}
+	else
+	{
+		header("location: index.php");
+	}
 ?>
