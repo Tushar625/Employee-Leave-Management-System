@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	// include "../PHP/check_hr_session.php";
+	include "../PHP/check_emp_session.php";
 	
 	include "../PHP/config.php";
 
@@ -23,7 +23,7 @@
 	{
 		$lid = mysql_sanitize_input($link, $_GET['lid']);
 
-		$eid = 1;//$_SESSION['EMPLOYEE_ID'];
+		$eid = $_SESSION['EMPLOYEE_ID'];
 
 		// >>>> check if this leave exists and if we need supporting document for this leave
 
@@ -71,7 +71,7 @@
 
 		$lid = mysql_sanitize_input($link, $_POST['lid']);
 
-		$eid = 1;//$_SESSION['EMPLOYEE_ID'];
+		$eid = $_SESSION['EMPLOYEE_ID'];
 
 		// >>>> checking the input dates
 
@@ -176,10 +176,8 @@
 		$link -> close();
 
 		// success hence redirect to employee index
-
-		die("Success");
 		
-		// header("location: index.php");		
+		header("location: index.php");		
 	}
 	else
 	{
@@ -220,7 +218,7 @@
 		-->
 		
 		<header>
-			<!-- <?php include "header.php";?> -->
+			<?php include "header.php";?>
 		</header>
 
 		<main>

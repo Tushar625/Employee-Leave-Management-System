@@ -33,14 +33,16 @@
 
 		$result = $link -> query($query);
 
-		if($result -> num_rows == 0)
+		$used_days = $result -> fetch_assoc()['total_days'];
+
+		if($result -> num_rows == 0 || $used_days == false)
 		{
 			// leave not taken
 
 			return 0;
 		}
 
-		return $result -> fetch_assoc()['total_days'];
+		return $used_days;
 	}
 
 	function leave_days_remaining($link, $eid, $lid)

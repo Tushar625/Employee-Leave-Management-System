@@ -182,7 +182,7 @@
 			</li>
 
 			<li>
-				<input class = "button" type = "submit" name = "submit" value = "Create Profile">
+				<input class = "button" type = "submit" name = "submit" value = "Create Leave Rule">
 			</li>
 
 		</ul>

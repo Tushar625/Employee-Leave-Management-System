@@ -61,7 +61,7 @@
 	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
 }
 
-.main_box > * .greenbutton, .main_box > * .redbutton
+.main_box > * .greenbutton, .main_box > * .redbutton, .main_box > * .bluebutton
 {
 	background-color: white;
 }
@@ -74,4 +74,9 @@
 .main_box > * .redbutton
 {
 	box-shadow: 1px 1px 5px -1px rgba(255, 0, 0, 0.6);
+}
+
+.main_box > * .bluebutton
+{
+	box-shadow: 1px 1px 5px -1px rgba(0, 0, 255, 0.6);
 }

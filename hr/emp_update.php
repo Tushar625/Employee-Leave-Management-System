@@ -148,12 +148,6 @@
 		
 		<ul class = "main_box nice_shadow">
 
-			<li>
-				<div class = "info message">
-					Update Employee Details
-				</div>
-			</li>
-
 			<!-- Maxlength is set according to size of uname field in login table -->
 
 			<li>

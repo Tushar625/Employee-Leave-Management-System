@@ -37,7 +37,7 @@
 
 		$rank = mysql_sanitize_input($link, $_POST['ranks']);
 
-		$result = $link -> query("select eid, name from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks = $rank;");
+		$result = $link -> query("select eid, name from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks >= $rank;");
 
 		if($result === false)
 		{

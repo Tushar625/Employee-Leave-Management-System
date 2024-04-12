@@ -54,6 +54,7 @@ main
 	border-radius: .6em;
 	display: flex;
 	flex-direction: column;
+	background-color: white;
 }
 
 /*

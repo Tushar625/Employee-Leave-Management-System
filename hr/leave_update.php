@@ -134,12 +134,6 @@
 		
 		<ul class = "main_box nice_shadow">
 
-			<li>
-				<div class = "info message">
-					Update the Leave Rule
-				</div>
-			</li>
-
 			<!-- Maxlength is set according to size of uname field in login table -->
 
 			<li>
