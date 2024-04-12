@@ -1,5 +1,14 @@
 <?php
 
+	function count_leave_days($start_date, $end_date)
+	{
+		$start_date = strtotime($start_date);
+
+		$end_date = strtotime($end_date);
+
+		return round(($end_date - $start_date) / (60 * 60 * 24)) + 1;
+	}
+
 	function total_leave_days($link, $lid)
 	{
 		// total no. of days for this leave
@@ -18,9 +27,11 @@
 
 	function used_leave_days($link, $eid, $lid)
 	{
-		// total no. of days this leave used by this employee (approved or requested leaves)
+		// total no. of days of this leave are used by this employee (approved or requested leaves)
 
-		$result = $link -> query("SELECT count(*) as days FROM leave_request WHERE eid = $eid AND lid = $lid AND (mg2_consent = 'A' OR mg2_consent is NULL)");
+		$query = "SELECT SUM(days) AS total_days FROM (SELECT DATEDIFF(end_date, start_date) + 1 AS days FROM leave_request WHERE eid = $eid AND lid = $lid AND (mg2_consent = 'A' OR mg2_consent is NULL)) AS days_table";
+
+		$result = $link -> query($query);
 
 		if($result -> num_rows == 0)
 		{
@@ -29,7 +40,7 @@
 			return 0;
 		}
 
-		return $result -> fetch_assoc()['days'];
+		return $result -> fetch_assoc()['total_days'];
 	}
 
 	function leave_days_remaining($link, $eid, $lid)

@@ -43,21 +43,23 @@ CREATE TABLE leave_rule(
 
 # the leave request table
 
-# leave_request(eid, lid, start_date, end_date, support_doc, mg1_consent, mg2_consent)
+# leave_request(lrid, eid, lid, start_date, end_date, support_doc, ftype, mg1_consent, mg2_consent)
 
 CREATE TABLE leave_request(
+    lrid        BIGINT AUTO_INCREMENT,
     eid         BIGINT,
     lid         BIGINT,
     start_date  DATE NOT NULL,
     end_date    DATE NOT NULL,
     support_doc MEDIUMBLOB,
+    ftype       VARCHAR(5),  # file extension
     mg1_consent VARCHAR(500),
     mg2_consent VARCHAR(500),
 
     # constraints
 
     CONSTRAINT pk
-    PRIMARY KEY(eid, lid),
+    PRIMARY KEY(lrid),
     
     CONSTRAINT fk1
     FOREIGN KEY(eid) REFERENCES employee(eid)

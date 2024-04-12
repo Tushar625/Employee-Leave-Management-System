@@ -25,22 +25,33 @@
 
 		$eid = 1;//$_SESSION['EMPLOYEE_ID'];
 
-		// check if the employee can take this leave or not
+		// >>>> check if this leave exists and if we need supporting document for this leave
 
-		// die();
-
-		// check if we need supporting document for this leave
-
-		$result = $link -> query("SELECT need_doc FROM leave_rule WHERE lid = $lid");
+		$result = $link -> query("SELECT name, need_doc FROM leave_rule WHERE lid = $lid");
 
 		if($result -> num_rows == 0)
 		{
 			// leave not exist
 
-			die();
+			die("Invalid leave request, head back to <a href = 'index.php'> Employee index </a>");
 		}
 
-		$need_doc = $result -> fetch_assoc()['need_doc'];
+		$tuple = $result -> fetch_assoc();
+
+		$need_doc = $tuple['need_doc'];
+
+		$leave_name = $tuple['name'];
+
+		// >>>> check if the employee can take this leave or not
+
+		$days_avail = leave_days_remaining($link, $eid, $lid);
+
+		if($days_avail <= 0)
+		{
+			// cannot take leave
+
+			die("You can't apply for this leave, head back to <a href = 'index.php'> Employee index </a>");
+		}
 
 		$link -> close();
 	}
@@ -62,22 +73,24 @@
 
 		$eid = 1;//$_SESSION['EMPLOYEE_ID'];
 
-		// checking the dates
+		// >>>> checking the input dates
 
-		$start_date = strtotime(mysql_sanitize_input($link, $_POST['start_date']));
+		$start_date = mysql_sanitize_input($link, $_POST['start_date']);
 
-		$end_date = strtotime(mysql_sanitize_input($link, $_POST['end_date']));
+		$end_date = mysql_sanitize_input($link, $_POST['end_date']);
 
-		$requested_days = round(($end_date - $start_date) / (60 * 60 * 24));
+		$requested_days = count_leave_days($start_date, $end_date);
 
 		// check if start > end date or requested_days are more than remaining days
 
-		if($requested_days < 0 || $requested_days > leave_days_remaining($link, $eid, $lid))
+		if($requested_days <= 0 || $requested_days > leave_days_remaining($link, $eid, $lid))
 		{
+			// dates are not valid
+
 			$get = "days_valid=false";
 		}
 
-		// checking the doc
+		// >>>> checking the doc
 
 		if(isset($_FILES['document']))
 		{
@@ -86,13 +99,13 @@
 			$fname = $_FILES['document']['name'];
 			$fsize = $_FILES['document']['size'];
 			$error = $_FILES['document']['error'];
-			$tname = $_FILES['document']['tmp_name'];
+			$tname = $_FILES['document']['tmp_name'];	// imp
 
 			// getting file type (extension)
 
 			$ftype = explode('.', $fname);
 
-			$ftype = strtolower(end($ftype));
+			$ftype = strtolower(end($ftype));	// imp
 
 			// checks
 
@@ -109,13 +122,16 @@
 				$err = "file_size_valid=false";
 			}
 
-			if(isset($get))
+			if(isset($err))
 			{
-				$get = "$get&$err";
-			}
-			else
-			{
-				$get = $err;
+				if(isset($get))
+				{
+					$get = "$get&$err";
+				}
+				else
+				{
+					$get = $err;
+				}
 			}
 		}
 
@@ -135,26 +151,39 @@
 			and load them into leave request table
 		*/
 
-		$name = mysql_sanitize_input($link, $_POST['name']);
+		// checking if we need to store the document or not
 
-		$days = mysql_sanitize_input($link, $_POST['days']);
+		if(isset($tname))
+		{
+			// preparing the document for storage
 
-		$need_doc = mysql_sanitize_input($link, $_POST['need_doc']);
-		
-		$query = "INSERT INTO leave_rule(name, days, need_doc) VALUES('$name', $days, $need_doc);";
+			$fcontent = $link -> real_escape_string(file_get_contents($tname));
+
+			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, support_doc, ftype) VALUES($eid, $lid, '$start_date', '$end_date', '$fcontent', '$ftype')";
+		}
+		else
+		{
+			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date) VALUES($eid, $lid, '$start_date', '$end_date')";
+		}
 
 		// fail check
 
 		if($link -> query($query) === false)
 		{
-			die("Form submission failure, head back to <a href = '../index.php'> Home </a>");
+			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
 		}
 
 		$link -> close();
 
 		// success hence redirect to employee index
 
-		header("location: index.php");		
+		die("Success");
+		
+		// header("location: index.php");		
+	}
+	else
+	{
+		header("location: index.php");
 	}
 
 ?>
@@ -203,6 +232,12 @@
 		<ul class = "main_box nice_shadow">
 
 			<!-- Maxlength is set according to size of uname field in login table -->
+
+			<li>
+				<div class = "info message">
+					<?php echo "$leave_name, available $days_avail days"?>
+				</div>
+			</li>
 
 			<li>
 				<label> Start Date <input name = "start_date" type = date required> </label>

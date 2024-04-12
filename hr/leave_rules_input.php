@@ -59,7 +59,7 @@
 
 			if($link -> query($query) === false)
 			{
-				die("Form submission failure, head back to <a href = '../index.php'> Home </a>");
+				die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
 			}
 
 			$get = '?success=true';
