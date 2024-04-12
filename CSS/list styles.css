@@ -60,3 +60,18 @@
 	border: none;
 	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
 }
+
+.main_box > * .greenbutton, .main_box > * .redbutton
+{
+	background-color: white;
+}
+
+.main_box > * .greenbutton
+{
+	box-shadow: 1px 1px 5px -1px rgba(0, 255, 0, 0.6);
+}
+
+.main_box > * .redbutton
+{
+	box-shadow: 1px 1px 5px -1px rgba(255, 0, 0, 0.6);
+}

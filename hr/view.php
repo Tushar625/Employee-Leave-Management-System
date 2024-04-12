@@ -43,21 +43,6 @@
 
 			@import url("../CSS/list styles.css");
 
-			.main_box > * .update, .main_box > * .delete
-			{
-				background-color: white;
-			}
-
-			.main_box > * .update
-			{
-				box-shadow: 1px 1px 5px -1px rgba(0, 255, 0, 0.6);
-			}
-
-			.main_box > * .delete
-			{
-				box-shadow: 1px 1px 5px -1px rgba(255, 0, 0, 0.6);
-			}
-
 		</style>
 
 	</head>
@@ -210,13 +195,13 @@
 			<!-- update buttom -->
 
 			<li>
-				<a href = "<?php echo "update.php?id=$id&type=$type"?>"><button class = 'button update'> Update </button></a>
+				<a href = "<?php echo "update.php?id=$id&type=$type"?>"><button class = 'button greenbutton'> Update </button></a>
 			</li>
 
 			<!-- delete buttom -->
 
 			<li>
-				<a href = "<?php echo "delete.php?id=$id&navid=$nav_index&type=$type"?>"><button class = 'button delete'> Delete </button></a>
+				<a href = "<?php echo "delete.php?id=$id&navid=$nav_index&type=$type"?>"><button class = 'button redbutton'> Delete </button></a>
 			</li>
 
 		</ul>
