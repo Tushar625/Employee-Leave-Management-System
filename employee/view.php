@@ -15,9 +15,9 @@
 	{
 		switch($mg2consent)
 		{
-			case'A': return "Approved";
-			case'': return "Pending";
-			default: return "Declined";
+			case'A': return "&#x1F44D;";//"Approved";
+			case'': return "&#129320;";//"Waiting";
+			default: return "&#x1F44E;";//"Declined";
 		}
 	}
 
@@ -116,7 +116,7 @@
 
 		<?php if(($nav_index % $nav_interval) === 0):?>
 
-			<ul id = <?php echo "menu$nav_index";?> class = "main_box current_box">
+			<ul id = <?php echo "menu$nav_index";?> class = "main_box">
 
 				<!-- for first menu bar these two not necessary -->
 
@@ -177,7 +177,7 @@
 
 		<div id = <?php echo "navid" . $nav_index;?>></div>
 
-		<ul id = <?php echo "id" . $id;?> class = "main_box next_box">
+		<ul id = <?php echo "id" . $id;?> class = "<?php echo "main_box " . get_status_color($row['mg2_consent']) . "_box"?>">
 
 			<li>
 				<div class = "message">
@@ -203,15 +203,15 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> <?php echo get_status($row['mg2_consent'])?> 
 				</div>
 			</li>
 
-			<li>
+			<!-- <li>
 				<button class = "<?php echo "button " . get_status_color($row['mg2_consent']) . "button"?>">
 					<?php echo get_status($row['mg2_consent'])?>
 				</button>
-			</li>
+			</li> -->
 
 		</ul>
 
@@ -219,7 +219,7 @@
 
 		<!-- top and previous button at the end of the page -->
 
-		<ul class = 'main_box previous_box'>
+		<ul class = 'main_box'>
 
 			<li>
 				<a href = "<?php echo "#menu" . ($nav_index - $nav_index % $nav_interval)?>"><button class = 'button'> Previous </button></a>

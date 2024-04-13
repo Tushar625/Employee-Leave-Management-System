@@ -71,7 +71,7 @@
 
 		<?php if(($nav_index % $nav_interval) === 0):?>
 
-			<ul id = <?php echo "menu$nav_index";?> class = "main_box current_box">
+			<ul id = <?php echo "menu$nav_index";?> class = "main_box green_box">
 
 				<!-- for first menu bar these two not necessary -->
 
@@ -132,7 +132,7 @@
 
 		<div id = <?php echo "navid" . $nav_index;?>></div>
 
-		<ul id = <?php echo "id" . $id;?> class = "main_box next_box">
+		<ul id = <?php echo "id" . $id;?> class = "main_box blue_box">
 
 			<?php if($type == true):?>
 
@@ -210,7 +210,7 @@
 
 		<!-- top and previous button at the end of the page -->
 
-		<ul class = 'main_box previous_box'>
+		<ul class = 'main_box red_box'>
 
 			<li>
 				<a href = "<?php echo "#menu" . ($nav_index - $nav_index % $nav_interval)?>"><button class = 'button'> Previous </button></a>

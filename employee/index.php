@@ -67,8 +67,10 @@
 		</header>
 
 		<main>
+
+		<div class = "main_box nice_shadow">
 		
-		<ul class = "main_box main_box1 nice_shadow">
+		<ul class = "main_box main_box1">
 
 			<!-- getting the tuples in leave rule table -->
 
@@ -79,7 +81,7 @@
 				<div class = "<?php echo ($used_days == $row['days']) ? "message redbutton" : "message greenbutton"?>">
 					<span><?php echo $row['name']?></span>
 					
-					<span class = "left_bar"><?php echo $used_days . " / " . $row['days']?> <progress max = '<?php echo $row['days']?>' value = '<?php echo $used_days?>'></progress></span>
+					<span class = "left_bar"><?php echo $used_days . "/" . $row['days']?> <progress max = '<?php echo $row['days']?>' value = '<?php echo $used_days?>'></progress></span>
 				</div>
 			</li>
 
@@ -87,7 +89,7 @@
 
 		</ul>
 
-		<ul class = "main_box main_box1 nice_shadow">
+		<ul class = "main_box main_box1">
 
 			<!-- view history button -->
 
@@ -115,17 +117,47 @@
 
 		?>
 
+		<?php if($result -> num_rows):?>
+
+			<!-- <ul class = "main_box">
+
+				<li>
+					<button class = "button bluebutton">
+						Waiting
+					</button>
+				</li>
+
+			</ul> -->
+
+		<?php endif?>
+
 		<!-- Display pending leave requests -->
 
-		<div class = "main_box nice_shadow">
+		<!-- <div class = "main_box nice_shadow"> -->
 
 			<?php for(;$row = $result -> fetch_assoc(); $nav_index++): /* index of the record read */?>
 
-			<ul id = "<?php echo "navid$nav_index"?>" class = "main_box">
+			<?php
+				$lid = $row['lid'];
+
+				$lrid = $row['lrid'];
+			?>
+
+			<ul id = "<?php echo "navid$nav_index"?>" class = "main_box blue_box">
 			
 			<li>
 				<div class = "message">
-					<?php echo $row['name']?>
+
+					<a href = "<?php echo "delete.php?navid=$nav_index&lid=$lid&lrid=$lrid"?>">&#10006;</a>
+					
+					<?php echo "&nbsp;" . $row['name'] . "&nbsp;"?>
+
+					<?php if($row['need_doc'] == true):?>
+					
+						<a href = "<?php echo "support_doc.php?lid=$lid&lrid=$lrid"?>">&#128209;</a>
+					
+					<?php endif?>
+
 				</div>
 			</li>
 
@@ -147,39 +179,33 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#129320;
 				</div>
 			</li>
 
-			<li>
+			<!-- <li>
 				<button class = "button bluebutton">
-					Pending
+					Waiting
 				</button>
-			</li>
+			</li> -->
 
-			<li>
+			<!-- <li>
 				<?php if($row['need_doc'] == true):?>
 					
-					<a href = "choose_leave.php"><button class = 'button bluebutton'> View Document </button></a>
+					<a href = "<?php echo "support_doc.php?lid=$lid&lrid=$lrid"?>"><button class = 'button bluebutton'> Document </button></a>
 				
 				<?php else:?>
 					
-					<button class = 'button bluebutton' disabled> No Document </button>
+					<button class = 'button whitebutton' disabled> No Document </button>
 
 				<?php endif?>
-			</li>
+			</li> -->
 
-			<li>
+			<!-- <li>
 				
-				<?php
-					$lid = $row['lid'];
-
-					$lrid = $row['lrid'];
-				?>
-				
-				<a href = "<?php echo "delete.php?navid=$nav_index&lid=$lid&lrid=$lrid"?>"><button class = 'button redbutton'> Delete Request </button></a>
+				<a href = "<?php echo "delete.php?navid=$nav_index&lid=$lid&lrid=$lrid"?>"><button class = 'button redbutton'> Delete </button></a>
 			
-			</li>
+			</li> -->
 
 			</ul>
 
@@ -187,18 +213,18 @@
 
 			<?php if($nav_index === 0):?>
 
-				<ul class = "main_box">
+				<!-- <ul class = "main_box">
 
 				<li>
-					<button class = "button redbutton">No Leave Request Pending</button>
-				</li>
+					<button class = "button whitebutton">No Leave Request Pending</button>
+				</li> -->
 
 			<?php endif?>
 
 			</ul>
 
 
-		</div>
+		<!-- </div> -->
 
 		<?php
 
@@ -212,11 +238,21 @@
 
 		<!-- Display last 3 approved leave requests -->
 
-		<div class = "main_box nice_shadow">
+		<!-- <ul class = "main_box">
+
+			<li>
+				<button class = "button greenbutton">
+					Approved
+				</button>
+			</li>
+
+		</ul> -->
+
+		<!-- <div class = "main_box nice_shadow"> -->
 
 			<?php for(;$row = $result -> fetch_assoc();): /* index of the record read */?>
 
-			<ul class = "main_box">
+			<ul class = "main_box green_box">
 			
 			<li>
 				<div class = "message">
@@ -242,29 +278,27 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#x1F44D;
 				</div>
-			</li>
-
-			<li>
-				<button class = "button greenbutton">
-					Approved
-				</button>
 			</li>
 
 			</ul>
 
 			<?php endfor?>
 
-			<ul class = "main_box">
+			<?php if($result -> num_rows):?>
 
-			<li>
-				<a href = "view.php?type=1"><button class = "button">View All Approved</button></a>
-			</li>
+				<ul class = "main_box">
 
-			</ul>
+					<li>
+						<a href = "view.php?type=1"><button class = "button greenbutton">All Approved</button></a>
+					</li>
 
-		</div>
+				</ul>
+
+			<?php endif?>
+
+		<!-- </div> -->
 
 		<?php
 
@@ -280,11 +314,21 @@
 
 		<!-- Display last 3 declined leave requests -->
 
-		<div class = "main_box nice_shadow">
+		<!-- <ul class = "main_box">
+
+			<li>
+				<button class = "button redbutton">
+					Declined
+				</button>
+			</li>
+
+		</ul> -->
+
+		<!-- <div class = "main_box nice_shadow"> -->
 
 			<?php for(;$row = $result -> fetch_assoc();): /* index of the record read */?>
 
-			<ul class = "main_box">
+			<ul class = "main_box red_box">
 			
 			<li>
 				<div class = "message">
@@ -310,27 +354,25 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#x1F44E;
 				</div>
-			</li>
-
-			<li>
-				<button class = "button redbutton">
-					Declined
-				</button>
 			</li>
 
 			</ul>
 
 			<?php endfor?>
 
-			<ul class = "main_box">
+			<?php if($result -> num_rows):?>
 
-			<li>
-				<a href = "view.php?type=2"><button class = "button">View All Declined</button></a>
-			</li>
+				<ul class = "main_box">
 
-			</ul>
+					<li>
+						<a href = "view.php?type=2"><button class = "button redbutton">All Declined</button></a>
+					</li>
+
+				</ul>
+
+			<?php endif?>
 
 		</div>
 

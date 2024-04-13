@@ -20,21 +20,21 @@
 
 /* this indicates past quiz */
 
-.previous_box
+.red_box
 {
 	box-shadow: 1px 1px 5px -1px rgba(255, 0, 0, 0.6);
 }
 
 /* this indicates current quiz */
 
-.current_box
+.green_box
 {
 	box-shadow: 1px 1px 5px -1px rgba(0, 255, 0, 0.6);
 }
 
 /* this indicates upcoming quiz */
 
-.next_box
+.blue_box
 {
 	box-shadow: 1px 1px 5px -1px rgba(0, 0, 255, 0.6);
 }
@@ -61,7 +61,7 @@
 	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
 }
 
-.main_box > * .greenbutton, .main_box > * .redbutton, .main_box > * .bluebutton
+.main_box > * .greenbutton, .main_box > * .redbutton, .main_box > * .bluebutton, .main_box > * .whitebutton
 {
 	background-color: white;
 }

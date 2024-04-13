@@ -128,7 +128,7 @@
 
 		<form method = "post" action = "game processing.php">
 
-		<ul class = "main_box next_box">
+		<ul class = "main_box blue_box">
 
 			<?php for($i = 0; $i < 5; $i++):?>
 
@@ -146,7 +146,7 @@
 
 		</ul>
 
-		<ul class = "main_box next_box">
+		<ul class = "main_box blue_box">
 
 			<li>
 				<input name = "ans" placeholder= "Guess the Pokemon" list = "poke_names">

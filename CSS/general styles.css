@@ -17,8 +17,8 @@ html
 *, *::after, *::before
 {
 	/* font-family: Helvetica, sans-serif; */
-	font-family: Segoe_ui;
-	/* font-size: 105%; */
+	font-family: Segoe_ui, sans-serif;
+	font-size: 98%;
     box-sizing: inherit;
     text-size-adjust: 150%; /* To prevent font resizing in android */
 }
