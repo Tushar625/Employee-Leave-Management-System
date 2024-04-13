@@ -10,8 +10,6 @@
 
 	$result = $link -> query("SELECT lid, name, days FROM leave_rule");
 
-	// $link -> close();
-
 ?>
 
 <!DOCTYPE html>
@@ -109,17 +107,21 @@
 
 			// pending ones
 
-			$query = "SELECT name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent is NULL order by lrid desc";
+			$query = "SELECT lid, lrid, name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent is NULL order by lrid desc";
 		
 			$result = $link -> query($query);
 
+			$nav_index = 0;
+
 		?>
+
+		<!-- Display pending leave requests -->
 
 		<div class = "main_box nice_shadow">
 
-			<?php for(;$row = $result -> fetch_assoc();): /* index of the record read */?>
+			<?php for(;$row = $result -> fetch_assoc(); $nav_index++): /* index of the record read */?>
 
-			<ul class = "main_box">
+			<ul id = "<?php echo "navid$nav_index"?>" class = "main_box">
 			
 			<li>
 				<div class = "message">
@@ -129,13 +131,23 @@
 
 			<li>
 				<div class = "message">
-					<?php echo $row['start_date'] . " - " . $row['end_date']?>
+					<?php
+
+						if($row['start_date'] == $row['end_date'])
+						{
+							echo $row['start_date'];
+						}
+						else
+						{
+							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+						}
+					?>
 				</div>
 			</li>
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . " Days"?>
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
 				</div>
 			</li>
 
@@ -158,12 +170,33 @@
 			</li>
 
 			<li>
-				<a href = "choose_leave.php"><button class = 'button redbutton'> Delete Request </button></a>
+				
+				<?php
+					$lid = $row['lid'];
+
+					$lrid = $row['lrid'];
+				?>
+				
+				<a href = "<?php echo "delete.php?navid=$nav_index&lid=$lid&lrid=$lrid"?>"><button class = 'button redbutton'> Delete Request </button></a>
+			
 			</li>
 
 			</ul>
 
 			<?php endfor?>
+
+			<?php if($nav_index === 0):?>
+
+				<ul class = "main_box">
+
+				<li>
+					<button class = "button redbutton">No Leave Request Pending</button>
+				</li>
+
+			<?php endif?>
+
+			</ul>
+
 
 		</div>
 
@@ -176,6 +209,8 @@
 			$result = $link -> query($query);
 
 		?>
+
+		<!-- Display last 3 approved leave requests -->
 
 		<div class = "main_box nice_shadow">
 
@@ -191,7 +226,23 @@
 
 			<li>
 				<div class = "message">
-					<?php echo $row['start_date'] . " - " . $row['end_date']?>
+					<?php
+
+						if($row['start_date'] == $row['end_date'])
+						{
+							echo $row['start_date'];
+						}
+						else
+						{
+							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+						}
+					?>
+				</div>
+			</li>
+
+			<li>
+				<div class = "message">
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
 				</div>
 			</li>
 
@@ -223,7 +274,11 @@
 		
 			$result = $link -> query($query);
 
+			$link -> close();
+
 		?>
+
+		<!-- Display last 3 declined leave requests -->
 
 		<div class = "main_box nice_shadow">
 
@@ -239,7 +294,23 @@
 
 			<li>
 				<div class = "message">
-					<?php echo $row['start_date'] . " - " . $row['end_date']?>
+					<?php
+
+						if($row['start_date'] == $row['end_date'])
+						{
+							echo $row['start_date'];
+						}
+						else
+						{
+							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+						}
+					?>
+				</div>
+			</li>
+
+			<li>
+				<div class = "message">
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
 				</div>
 			</li>
 

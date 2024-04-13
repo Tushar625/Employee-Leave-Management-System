@@ -187,13 +187,23 @@
 
 			<li>
 				<div class = "message">
-					<?php echo $row['start_date'] . " - " . $row['end_date']?>
+					<?php
+
+						if($row['start_date'] == $row['end_date'])
+						{
+							echo $row['start_date'];
+						}
+						else
+						{
+							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+						}
+					?>
 				</div>
 			</li>
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . " Days"?>
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
 				</div>
 			</li>
 
