@@ -12,8 +12,6 @@
 
 		include_once "../PHP/doc_display.php";
 
-		// DELETE request from emp or leave display
-
 		$eid = $_SESSION['EMPLOYEE_ID'];
 
 		$lrid = mysql_sanitize_input($link, $_GET["lrid"]);
@@ -34,6 +32,8 @@
 		$link -> close();
 
 		$row = $result -> fetch_assoc();
+
+		// sending the file content and type to a function to print or display it
 
 		doc_display($row['support_doc'], $row['ftype']);
 	}

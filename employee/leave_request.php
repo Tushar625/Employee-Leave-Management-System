@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid emp session or not if not redirect
 		to index or home page
 	*/
 
@@ -17,10 +17,14 @@
 
 	$files_accepted = ".jpg, .jpeg, .png, .pdf";
 
-	// Empdetails input
-
 	if(isset($_GET['lid']))
 	{
+		/*
+			this file receives 'lid' of a leave via get method
+			and prepares a form accordingly to accept a leave
+			request
+		*/
+
 		$lid = mysql_sanitize_input($link, $_GET['lid']);
 
 		$eid = $_SESSION['EMPLOYEE_ID'];
@@ -38,8 +42,10 @@
 
 		$tuple = $result -> fetch_assoc();
 
-		$need_doc = $tuple['need_doc'];
+		// supporting doc and type of leave
 
+		$need_doc = $tuple['need_doc'];
+		
 		$leave_name = $tuple['name'];
 
 		// >>>> check if the employee can take this leave or not
@@ -48,25 +54,25 @@
 
 		if($days_avail <= 0)
 		{
-			// cannot take leave
+			// cannot take this leave
 
 			die("You can't apply for this leave, head back to <a href = 'index.php'> Employee index </a>");
 		}
 
 		$link -> close();
+
+		// now  we prepare the form
 	}
 	else if(isset($_POST['submit']))
 	{
-		// here we use get variables to send error messages while redirecting to itself
-
 		/*
-			After each successful submission we redirect to the same form to display
-			the error or success message. As the inputs submitted here will be stored
-			into the login file, redirection is used to ensure that no resubmission
-			error will be generated upon reload or back. (More about this error in the
-			documentation)
+			After each successful submission we redirect to the same file to display
+			the error message.
+			
+			GET variables are used to convey the error messages.
 
-			While redirecting we use get method to send the error or success message.
+			Frontend (form) gets modified accordingly to those GET variables to display
+			the errors in input data
 		*/
 
 		$lid = mysql_sanitize_input($link, $_POST['lid']);
@@ -124,6 +130,8 @@
 
 			if(isset($err))
 			{
+				// if $err exists (error detected) we add it to $get
+
 				if(isset($get))
 				{
 					$get = "$get&$err";
@@ -135,7 +143,10 @@
 			}
 		}
 
-		// if get is created there is a problem and we reload the file
+		/*
+			if $get is created there is a problem and we reload the file by
+			rediecting to itself, none of the input data are stored
+		*/
 
 		if(isset($get))
 		{
@@ -153,7 +164,7 @@
 
 		// checking if we need to store the document or not
 
-		if(isset($tname))
+		if(isset($tname))	// $tname -> temporary location of the doc
 		{
 			// preparing the document for storage
 
@@ -177,7 +188,9 @@
 
 		// success hence redirect to employee index
 		
-		header("location: index.php");		
+		// new waiting is kept on top, hence, "#navid0"
+
+		header("location: index.php#navid0");		
 	}
 	else
 	{
@@ -209,33 +222,32 @@
 	</head>
 	
 	<body>
-
-		<!--
-			We don't keep any return to home button here to discourage
-			user from accidentally return from registration form, I want
-			him to create an account successfully and then login to his
-			profile and play
-		-->
 		
 		<header>
 			<?php include "header.php";?>
 		</header>
 
 		<main>
+
+		<!-- for forms sending images or documents we need, 'enctype = "multipart/form-data"' -->
 			
 		<form method = "post" action = "leave_request.php" enctype = "multipart/form-data">
+
+		<!-- this is the only way to let backend know the 'lid' -->
 
 		<input name = "lid" type = hidden value = <?php echo $lid?> required>
 		
 		<ul class = "main_box nice_shadow">
 
-			<!-- Maxlength is set according to size of uname field in login table -->
+			<!-- Displaying the leave name and no. of days available (user friendly) -->
 
 			<li>
 				<div class = "info message">
 					<?php echo "$leave_name, available $days_avail days"?>
 				</div>
 			</li>
+
+			<!-- date inputs -->
 
 			<li>
 				<label> Start Date <input name = "start_date" type = date required> </label>
@@ -245,9 +257,11 @@
 				<label> End Date <input name = "end_date" type = date required> </label>
 			</li>
 
+			<!-- date input errors -->
+
 			<?php if(isset($_GET['days_valid'])) :?>
 
-				<!-- the max days entered is invalid -->
+				<!-- the dates entered are invalid -->
 
 				<li>
 					<div class = "error message">
@@ -257,9 +271,11 @@
 
 			<?php endif; ?>
 
-			<!-- doc -->
+			<!-- support doc input (only if required by the leave rule) -->
 
 			<?php if($need_doc):?>
+
+				<!-- leave rule need support doc -->
 
 				<li>
 					<label> Doc (<?php echo $files_accepted?>) 
@@ -270,11 +286,17 @@
 					</label>
 				</li>
 
+				<!-- max size message -->
+
 				<li>
 					<div class = "error message">
-						Below <?php echo $max_size?> MB
+						<?php echo $max_size?> MB or less
 					</div>
 				</li>
+
+				<!-- doc input errors -->
+
+				<!-- transmission error (i.e., file not sent properly) -->
 
 				<?php if(isset($_GET['file_transmission_valid'])) :?>
 
@@ -286,6 +308,8 @@
 
 				<?php endif; ?>
 
+				<!-- file type error -->
+
 				<?php if(isset($_GET['file_type_valid'])) :?>
 
 					<li>
@@ -295,6 +319,8 @@
 					</li>
 
 				<?php endif; ?>
+
+				<!-- file size error -->
 
 				<?php if(isset($_GET['file_size_valid'])) :?>
 
@@ -307,6 +333,8 @@
 				<?php endif; ?>
 
 			<?php else:?>
+
+				<!-- leave rule doesn't need support doc -->
 
 				<li>
 					<div class = "info message">

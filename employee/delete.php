@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid hr session or not if not redirect
+		check if it's valid emp session or not if not redirect
 		to index or home page
 	*/
 
@@ -13,7 +13,7 @@
 
 		include "../PHP/mysql_sanitize_input.php";
 
-		// DELETE request from emp or leave display
+		// DELETE request from emp index
 
 		$eid = $_SESSION['EMPLOYEE_ID'];
 
@@ -23,12 +23,12 @@
 
 		$nav = $_GET["navid"];
 
-		// deleting emp or leave
+		// deleting leave requests
 
 		$query = "delete from leave_request where eid = $eid and lid = $lid and lrid = $lrid";
 
 		/*
-			deletion failure will lead back to home
+			deletion failure will lead back to emp home
 			page (this is very unlikely to happen)
 		*/
 
@@ -39,7 +39,7 @@
 
 		$link -> close();
 
-		// redirect to the quiz right before the deleted quiz
+		// redirect to the leave request right before the deleted quiz
 
 		header("location: index.php#navid" . ($nav - 1));
 	}

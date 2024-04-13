@@ -167,7 +167,9 @@
 			<!-- leave name with delete and view doc button -->
 			
 			<li>
-				<div class = "message">
+				<!-- mark latest leave request with red -->
+				
+				<div class = "<?php echo (($nav_index === 0) ? "message redbutton" : "message")?>">
 
 					<!-- delete button -->
 
@@ -369,6 +371,8 @@
 		</main>
 
 		<footer></footer>
+
+		<script src="../JS/scroll_back.js"></script>
 
 	</body>
 

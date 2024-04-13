@@ -10,8 +10,6 @@
 
 	$result = $link -> query("SELECT lid, name, days FROM leave_rule");
 
-	// $link -> close();
-
 ?>
 
 <!DOCTYPE html>
@@ -55,29 +53,38 @@
 			<?php for(;$row = $result -> fetch_assoc();): /* index of the record read */?>
 			
 			<li>
-
-				<!-- <li> -->
 					
-					<?php
-						$remaining_days = $row['days'] - used_leave_days($link, $eid, $row['lid']);
-						$id = $row['lid'];
-					?>
+				<?php
+					$remaining_days = $row['days'] - used_leave_days($link, $eid, $row['lid']);
+					$id = $row['lid'];
+				?>
 
-					<?php if($remaining_days > 0):?>
+				<!-- 
+					here we calculate the remaining days of each leave and disable the corresponding
+					leave request button if no days remains
 
-						<a href = "<?php echo "leave_request.php?lid=$id"?>"><button class = 'button bluebutton'> <?php echo $row['name']?> </button></a>
+					blue shadow -> active button
 
-					<?php else:?>
+					red shadow -> inactive button
+				 -->
 
-						<button class = 'button redbutton' disable> <?php echo $row['name']?> </button>
+				<?php if($remaining_days > 0):?>
 
-					<?php endif?>
+					<a href = "<?php echo "leave_request.php?lid=$id"?>"><button class = 'button bluebutton'> <?php echo $row['name']?> </button></a>
 
-				<!-- </li> -->
+				<?php else:?>
+
+					<button class = 'button redbutton' disabled> <?php echo $row['name']?> </button>
+
+				<?php endif?>
 				
 			</li>
 
 			<?php endfor?>
+				
+		</ul>
+
+		<?php $link -> close()?>
 
 		</main>
 
