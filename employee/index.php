@@ -42,6 +42,7 @@
 			.main_box > * .d_box
 			{
 				width: 23.5em;
+				/* so that its size matches to that of dashboard_menu */
 			}
 
 			.main_box > * .dashboard_menu
@@ -175,7 +176,7 @@
 					
 					<!-- leave name -->
 
-					<?php echo "&nbsp;" . $row['name'] . "&nbsp;"?>
+					<?php echo $row['name']?>
 
 					<!-- create view doc button only if this leave needs doc -->
 
