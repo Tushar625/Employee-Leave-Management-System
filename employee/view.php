@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid emp session or not if not redirect
 		to index or home page
 	*/
 
@@ -11,13 +11,15 @@
 
 	include "../PHP/leave_days.php";
 
+	include "../PHP/std_date_format.php";
+
 	function get_status($mg2consent)
 	{
 		switch($mg2consent)
 		{
-			case'A': return "&#x1F44D;";//"Approved";
-			case'': return "&#129320;";//"Waiting";
-			default: return "&#x1F44E;";//"Declined";
+			case'A': return "&#x1F44D;";	//"Approved";
+			case'': return "&#129320;";	//"Waiting";
+			default: return "&#x1F44E;";	//"Declined";
 		}
 	}
 
@@ -25,19 +27,17 @@
 	{
 		switch($mg2consent)
 		{
-			case'A': return "green";
-			case'': return "blue";
-			default: return "red";
+			case'A': return "green";	//"Approved"
+			case'': return "blue";	//"Waiting"
+			default: return "red";	//"Declined"
 		}
 	}
 
 	$eid = $_SESSION['EMPLOYEE_ID'];
 
-	// all quizes in quiz table
-
 	$type = $_GET["type"];
 
-	// deleting emp or leave
+	// type is used to give 3 views using, different query is used for them
 
 	switch($type)
 	{
@@ -59,8 +59,6 @@
 			
 				break;
 	}
-
-	// $query = ($type == true) ? "SELECT * FROM employee" : "SELECT * FROM leave_rule";
 
 	$result = $link -> query($query);
 
@@ -175,9 +173,18 @@
 		
 		?>
 
+		<!-- 
+			We use both types of ids, navid for sequential access, id for direct access of these leaves
+
+			We use color code to differentiate between different types of leaves (waiting, approved or
+			declined)
+		 -->
+
 		<div id = <?php echo "navid" . $nav_index;?>></div>
 
 		<ul id = <?php echo "id" . $id;?> class = "<?php echo "main_box " . get_status_color($row['mg2_consent']) . "_box"?>">
+
+			<!-- type of leave requested -->
 
 			<li>
 				<div class = "message">
@@ -185,21 +192,25 @@
 				</div>
 			</li>
 
+			<!-- starting and ending days of leave request -->
+
 			<li>
 				<div class = "message">
 					<?php
 
 						if($row['start_date'] == $row['end_date'])
 						{
-							echo $row['start_date'];
+							echo std_date_format($row['start_date']);
 						}
 						else
 						{
-							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+							echo std_date_format($row['start_date']) . " &#8594; " . std_date_format($row['end_date']);
 						}
 					?>
 				</div>
 			</li>
+
+			<!-- No. of leave days and status of leave request -->
 
 			<li>
 				<div class = "message">
@@ -207,11 +218,17 @@
 				</div>
 			</li>
 
-			<!-- <li>
-				<button class = "<?php echo "button " . get_status_color($row['mg2_consent']) . "button"?>">
-					<?php echo get_status($row['mg2_consent'])?>
-				</button>
-			</li> -->
+			<!-- consent of manager 2 -->
+
+			<?php if(get_status_color($row['mg2_consent']) == 'red'):?>
+
+				<li>
+					<div class = "message">
+						<?php echo $row['mg2_consent']?> 
+					</div>
+				</li>
+
+			<?php endif?>
 
 		</ul>
 

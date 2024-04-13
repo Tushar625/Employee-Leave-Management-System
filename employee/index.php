@@ -1,10 +1,17 @@
 <?php
 
+	/*
+		check if it's valid emp session or not if not redirect
+		to index or home page
+	*/
+
 	include "../PHP/check_emp_session.php";
 
 	include "../PHP/config.php";
 
 	include "../PHP/leave_days.php";
+
+	include "../PHP/std_date_format.php";
 
 	$eid = $_SESSION['EMPLOYEE_ID'];
 
@@ -69,25 +76,46 @@
 		<main>
 
 		<div class = "main_box nice_shadow">
+
+		<!--
+			>>>> here we present a dashboard to display how many leave days has
+			been used by the employee, wrt total no. of days available for each
+			leave in leave rules table, we use progress bar for it
+		-->
 		
 		<ul class = "main_box main_box1">
 
-			<!-- getting the tuples in leave rule table -->
+			<!-- one iteration of the loop creates the entry for one leave in the dashboard -->
 
-			<?php for(;$row = $result -> fetch_assoc();): /* index of the record read */?>
+			<?php for(;$row = $result -> fetch_assoc();):?>
 			
 			<li>
-				<?php $used_days = used_leave_days($link, $eid, $row['lid'])?>
-				<div class = "<?php echo ($used_days == $row['days']) ? "message redbutton" : "message greenbutton"?>">
+				
+				<!-- from eid and lid (of a leave) we calculate no. of leave days used by the employee -->
+
+				<?php $remaining_days = $row['days'] - used_leave_days($link, $eid, $row['lid'])?>
+
+				<!--
+					little bit of color coding used here:
+					red shadow -> all leave days are spent
+					green shadow -> not all leave days are spent
+				-->
+				
+				<div class = "<?php echo ($remaining_days == 0) ? "message redbutton" : "message greenbutton"?>">
+					
 					<span><?php echo $row['name']?></span>
 					
-					<span class = "left_bar"><?php echo $used_days . "/" . $row['days']?> <progress max = '<?php echo $row['days']?>' value = '<?php echo $used_days?>'></progress></span>
+					<span class = "left_bar"><?php echo $remaining_days . "/" . $row['days']?> <progress max = '<?php echo $row['days']?>' value = '<?php echo $remaining_days?>'></progress></span>
+				
 				</div>
+
 			</li>
 
 			<?php endfor?>
 
 		</ul>
+
+		<!-- >>>> two buttons only -->
 
 		<ul class = "main_box main_box1">
 
@@ -105,9 +133,16 @@
 
 		</ul>
 
+		<!--
+			>>>> Now we display all the ** waiting leave requests ** and also
+			add options to delete them and view supporting doc
+
+			we use blue shadow for waiting list as per our color convension
+		-->
+
 		<?php
 
-			// pending ones
+			// getting waiting ones out of database
 
 			$query = "SELECT lid, lrid, name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent is NULL order by lrid desc";
 		
@@ -117,40 +152,32 @@
 
 		?>
 
-		<?php if($result -> num_rows):?>
+		<?php for(;$row = $result -> fetch_assoc(); $nav_index++): /* index of the record read */?>
 
-			<!-- <ul class = "main_box">
+		<?php
+			$lid = $row['lid'];
 
-				<li>
-					<button class = "button bluebutton">
-						Waiting
-					</button>
-				</li>
+			$lrid = $row['lrid'];
+		?>
 
-			</ul> -->
+		<!-- navid is used to fecilitate proper return after deletion -->
 
-		<?php endif?>
+		<ul id = "<?php echo "navid$nav_index"?>" class = "main_box blue_box">
 
-		<!-- Display pending leave requests -->
-
-		<!-- <div class = "main_box nice_shadow"> -->
-
-			<?php for(;$row = $result -> fetch_assoc(); $nav_index++): /* index of the record read */?>
-
-			<?php
-				$lid = $row['lid'];
-
-				$lrid = $row['lrid'];
-			?>
-
-			<ul id = "<?php echo "navid$nav_index"?>" class = "main_box blue_box">
+			<!-- leave name with delete and view doc button -->
 			
 			<li>
 				<div class = "message">
 
+					<!-- delete button -->
+
 					<a href = "<?php echo "delete.php?navid=$nav_index&lid=$lid&lrid=$lrid"?>">&#10006;</a>
 					
+					<!-- leave name -->
+
 					<?php echo "&nbsp;" . $row['name'] . "&nbsp;"?>
+
+					<!-- create view doc button only if this leave needs doc -->
 
 					<?php if($row['need_doc'] == true):?>
 					
@@ -161,21 +188,25 @@
 				</div>
 			</li>
 
+			<!-- start and end dates of the leave -->
+
 			<li>
 				<div class = "message">
 					<?php
 
 						if($row['start_date'] == $row['end_date'])
 						{
-							echo $row['start_date'];
+							echo std_date_format($row['start_date']);
 						}
 						else
 						{
-							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+							echo std_date_format($row['start_date']) . " &#8594; " . std_date_format($row['end_date']);
 						}
 					?>
 				</div>
 			</li>
+
+			<!-- no. of days and emoji to indicate status -->
 
 			<li>
 				<div class = "message">
@@ -183,52 +214,19 @@
 				</div>
 			</li>
 
-			<!-- <li>
-				<button class = "button bluebutton">
-					Waiting
-				</button>
-			</li> -->
+		</ul>
 
-			<!-- <li>
-				<?php if($row['need_doc'] == true):?>
-					
-					<a href = "<?php echo "support_doc.php?lid=$lid&lrid=$lrid"?>"><button class = 'button bluebutton'> Document </button></a>
-				
-				<?php else:?>
-					
-					<button class = 'button whitebutton' disabled> No Document </button>
+		<?php endfor?>
 
-				<?php endif?>
-			</li> -->
+		<!--
+			>>>> Now we display last 3 ** approved leave requests **
 
-			<!-- <li>
-				
-				<a href = "<?php echo "delete.php?navid=$nav_index&lid=$lid&lrid=$lrid"?>"><button class = 'button redbutton'> Delete </button></a>
-			
-			</li> -->
-
-			</ul>
-
-			<?php endfor?>
-
-			<?php if($nav_index === 0):?>
-
-				<!-- <ul class = "main_box">
-
-				<li>
-					<button class = "button whitebutton">No Leave Request Pending</button>
-				</li> -->
-
-			<?php endif?>
-
-			</ul>
-
-
-		<!-- </div> -->
+			we use green shadow for approved list as per our color convension
+		-->
 
 		<?php
 
-			// last 3 approved ones
+			// getting last 3 approved ones out of database
 
 			$query = "SELECT name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc limit 3";
 		
@@ -236,23 +234,11 @@
 
 		?>
 
-		<!-- Display last 3 approved leave requests -->
+		<?php for(;$row = $result -> fetch_assoc();):?>
 
-		<!-- <ul class = "main_box">
+		<ul class = "main_box green_box">
 
-			<li>
-				<button class = "button greenbutton">
-					Approved
-				</button>
-			</li>
-
-		</ul> -->
-
-		<!-- <div class = "main_box nice_shadow"> -->
-
-			<?php for(;$row = $result -> fetch_assoc();): /* index of the record read */?>
-
-			<ul class = "main_box green_box">
+			<!-- leave name -->
 			
 			<li>
 				<div class = "message">
@@ -260,21 +246,25 @@
 				</div>
 			</li>
 
+			<!-- dates -->
+
 			<li>
 				<div class = "message">
 					<?php
 
 						if($row['start_date'] == $row['end_date'])
 						{
-							echo $row['start_date'];
+							echo std_date_format($row['start_date']);
 						}
 						else
 						{
-							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+							echo std_date_format($row['start_date']) . " &#8594; " . std_date_format($row['end_date']);
 						}
 					?>
 				</div>
 			</li>
+
+			<!-- days and status emoji -->
 
 			<li>
 				<div class = "message">
@@ -282,27 +272,33 @@
 				</div>
 			</li>
 
+		</ul>
+
+		<?php endfor?>
+
+		<?php if($result -> num_rows):?>
+
+			<!-- A link to the list of all approved leaves, don't display it no approved leaves exists -->
+
+			<ul class = "main_box">
+
+				<li>
+					<a href = "view.php?type=1"><button class = "button greenbutton">All Approved</button></a>
+				</li>
+
 			</ul>
 
-			<?php endfor?>
+		<?php endif?>
 
-			<?php if($result -> num_rows):?>
+		<!--
+			>>>> Now we display last 3 ** declined leave requests **
 
-				<ul class = "main_box">
-
-					<li>
-						<a href = "view.php?type=1"><button class = "button greenbutton">All Approved</button></a>
-					</li>
-
-				</ul>
-
-			<?php endif?>
-
-		<!-- </div> -->
+			we use green shadow for approved list as per our color convension
+		-->
 
 		<?php
 
-			// last 3 declined ones
+			// getting last 3 declined ones out of database
 
 			$query = "SELECT name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc limit 3";
 		
@@ -312,23 +308,11 @@
 
 		?>
 
-		<!-- Display last 3 declined leave requests -->
+		<?php for(;$row = $result -> fetch_assoc();):?>
 
-		<!-- <ul class = "main_box">
+		<ul class = "main_box red_box">
 
-			<li>
-				<button class = "button redbutton">
-					Declined
-				</button>
-			</li>
-
-		</ul> -->
-
-		<!-- <div class = "main_box nice_shadow"> -->
-
-			<?php for(;$row = $result -> fetch_assoc();): /* index of the record read */?>
-
-			<ul class = "main_box red_box">
+			<!-- leave name -->
 			
 			<li>
 				<div class = "message">
@@ -336,21 +320,25 @@
 				</div>
 			</li>
 
+			<!-- dates -->
+
 			<li>
 				<div class = "message">
 					<?php
 
 						if($row['start_date'] == $row['end_date'])
 						{
-							echo $row['start_date'];
+							echo std_date_format($row['start_date']);
 						}
 						else
 						{
-							echo $row['start_date'] . " &#8594; " . $row['end_date'];
+							echo std_date_format($row['start_date']) . " &#8594; " . std_date_format($row['end_date']);
 						}
 					?>
 				</div>
 			</li>
+
+			<!-- days and status emoji -->
 
 			<li>
 				<div class = "message">
@@ -358,21 +346,23 @@
 				</div>
 			</li>
 
+		</ul>
+
+		<?php endfor?>
+
+		<?php if($result -> num_rows):?>
+
+			<!-- A link to the list of all declined leaves, don't display it no declined leaves exists -->
+
+			<ul class = "main_box">
+
+				<li>
+					<a href = "view.php?type=2"><button class = "button redbutton">All Declined</button></a>
+				</li>
+
 			</ul>
 
-			<?php endfor?>
-
-			<?php if($result -> num_rows):?>
-
-				<ul class = "main_box">
-
-					<li>
-						<a href = "view.php?type=2"><button class = "button redbutton">All Declined</button></a>
-					</li>
-
-				</ul>
-
-			<?php endif?>
+		<?php endif?>
 
 		</div>
 
