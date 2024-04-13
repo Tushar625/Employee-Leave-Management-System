@@ -39,26 +39,22 @@
 
 			@import url("../CSS/list styles.css");
 
-			.main_box1 > * .button, .main_box1 > * .message
+			.main_box > * .d_box
+			{
+				width: 23.5em;
+			}
+
+			.main_box > * .dashboard_menu
 			{
 				width: 23em;
-			}
-
-			.message
-			{
 				display: flex;	/* to properly align the progress bar */
-				align-items: center;
 				white-space: nowrap;
+				flex-direction: column;
 			}
 
-			.left_bar
+			.dashboard_menu > span
 			{
-				margin-left: auto;
-			}
-
-			.rank
-			{
-				color: brown;
+				text-align: center;
 			}
 
 		</style>
@@ -83,7 +79,7 @@
 			leave in leave rules table, we use progress bar for it
 		-->
 		
-		<ul class = "main_box main_box1">
+		<ul class = "main_box">
 
 			<!-- one iteration of the loop creates the entry for one leave in the dashboard -->
 
@@ -101,11 +97,13 @@
 					green shadow -> not all leave days are spent
 				-->
 				
-				<div class = "<?php echo ($remaining_days == 0) ? "message redbutton" : "message greenbutton"?>">
+				<div class = "message dashboard_menu <?php echo ($remaining_days == 0) ? "redbutton" : "greenbutton"?>">
 					
 					<span><?php echo $row['name']?></span>
 					
-					<span class = "left_bar"><?php echo $remaining_days . "/" . $row['days']?> <progress max = '<?php echo $row['days']?>' value = '<?php echo $remaining_days?>'></progress></span>
+					<span><progress max = '<?php echo $row['days']?>' value = '<?php echo $remaining_days?>'></progress></span>
+
+					<span><?php echo $remaining_days . "/" . $row['days']?></span>
 				
 				</div>
 
@@ -117,18 +115,18 @@
 
 		<!-- >>>> two buttons only -->
 
-		<ul class = "main_box main_box1">
+		<ul class = "main_box">
 
 			<!-- view history button -->
 
 			<li>
-				<a href = "view.php?type=0"><button class = 'button bluebutton'> Leave History </button></a>
+				<a href = "view.php?type=0"><button class = 'button d_box bluebutton'> Leave History </button></a>
 			</li>
 
 			<!-- delete buttom -->
 
 			<li>
-				<a href = "choose_leave.php"><button class = 'button bluebutton'> Leave Request </button></a>
+				<a href = "choose_leave.php"><button class = 'button d_box bluebutton'> Leave Request </button></a>
 			</li>
 
 		</ul>
