@@ -37,7 +37,20 @@
 
 		$rank = mysql_sanitize_input($link, $_POST['ranks']);
 
-		$result = $link -> query("select eid, name from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks >= $rank;");
+		if($rank == 0)
+		{
+			// wants to login as an employee (every employee is allowed)
+
+			$query = "select eid, name from employee natural join login WHERE email = '$email' AND password = '$password'";
+		}
+		else
+		{
+			// wants to login with his own rank (a manager can't enter as HR and vice versa)
+
+			$query = "select eid, name from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks = $rank";
+		}
+
+		$result = $link -> query($query);
 
 		if($result === false)
 		{

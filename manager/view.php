@@ -62,7 +62,7 @@
 		
 		<header id = 'first'>
 
-			<!-- <?php include "header.php";?> -->
+			<?php include "header.php";?>
 			
 		</header>
 
