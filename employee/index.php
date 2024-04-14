@@ -48,6 +48,7 @@
 			.main_box > * .dashboard_menu
 			{
 				width: 23em;
+				padding: .5em;
 				display: flex;	/* to properly align the progress bar */
 				white-space: nowrap;
 				flex-direction: column;
