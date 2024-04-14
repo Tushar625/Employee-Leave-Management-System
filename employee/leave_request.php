@@ -31,7 +31,7 @@
 
 		// >>>> check if this leave exists and if we need supporting document for this leave
 
-		$result = $link -> query("SELECT name, need_doc FROM leave_rule WHERE lid = $lid");
+		$result = $link -> query("SELECT type, need_doc FROM leave_rule WHERE lid = $lid");
 
 		if($result -> num_rows == 0)
 		{
@@ -46,7 +46,7 @@
 
 		$need_doc = $tuple['need_doc'];
 		
-		$leave_name = $tuple['name'];
+		$leave_name = $tuple['type'];
 
 		// >>>> check if the employee can take this leave or not
 
@@ -239,7 +239,7 @@
 		
 		<ul class = "main_box nice_shadow">
 
-			<!-- Displaying the leave name and no. of days available (user friendly) -->
+			<!-- Displaying the leave type and no. of days available (user friendly) -->
 
 			<li>
 				<div class = "info message">

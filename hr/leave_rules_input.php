@@ -47,13 +47,13 @@
 				and load them into leave rules table
 			*/
 
-			$name = mysql_sanitize_input($link, $_POST['name']);
+			$type = mysql_sanitize_input($link, $_POST['type']);
 
 			$days = mysql_sanitize_input($link, $_POST['days']);
 
 			$need_doc = mysql_sanitize_input($link, $_POST['need_doc']);
 			
-			$query = "INSERT INTO leave_rule(name, days, need_doc) VALUES('$name', $days, $need_doc);";
+			$query = "INSERT INTO leave_rule(type, days, need_doc) VALUES('$type', $days, $need_doc);";
 
 			// fail check
 
@@ -146,7 +146,7 @@
 			<!-- Maxlength is set according to size of uname field in login table -->
 
 			<li>
-				<label> Leave Name <input name = "name" maxlength = 30 required> </label>
+				<label> Leave Name <input name = "type" maxlength = 30 required> </label>
 			</li>
 
 			<li>

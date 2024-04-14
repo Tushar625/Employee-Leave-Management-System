@@ -174,7 +174,7 @@
 
 				<li>
 					<div class = "message">
-						<?php echo $row["name"]?>
+						<?php echo $row["type"]?>
 					</div>
 				</li>
 

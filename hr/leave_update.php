@@ -28,11 +28,11 @@
 			die("Update failure (days beyond the range), head back to <a href = 'view.php?type=0#id$lid'> Display all Leave Rules </a>");
 		}
 
-		$name = mysql_sanitize_input($link, $_POST['name']);
+		$type = mysql_sanitize_input($link, $_POST['type']);
 		$days = mysql_sanitize_input($link, $_POST['days']);
 		$need_doc = mysql_sanitize_input($link, $_POST['need_doc']);
 
-		$query = "UPDATE leave_rule SET name = '$name', days = $days, need_doc = $need_doc WHERE lid = $lid;";
+		$query = "UPDATE leave_rule SET type = '$type', days = $days, need_doc = $need_doc WHERE lid = $lid;";
 
 		if($link -> query($query) === false)
 		{
@@ -82,7 +82,7 @@
 		else
 		{
 			$lid = $_SESSION["tuple"]['lid'];
-			$name = $_SESSION["tuple"]['name'];
+			$type = $_SESSION["tuple"]['type'];
 			$days = $_SESSION["tuple"]['days'];
 			$need_doc = $_SESSION["tuple"]['need_doc'];
 
@@ -137,7 +137,7 @@
 			<!-- Maxlength is set according to size of uname field in login table -->
 
 			<li>
-				<label> Leave Name <input name = "name" maxlength = 30 value = "<?php echo $name;?>" required> </label>
+				<label> Leave Name <input name = "type" maxlength = 30 value = "<?php echo $type;?>" required> </label>
 			</li>
 
 			<li>

@@ -43,19 +43,19 @@
 	{
 		case 0:	// all leave history desc order
 				
-				$query = "SELECT lrid, name, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
+				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
 				
 				break;
 
 		case 1:	// all approved leave history desc order
 				
-				$query = "SELECT lrid, name, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc";
+				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc";
 					
 				break;
 		
 		case 2:	// all declined leave history desc order
 		
-				$query = "SELECT lrid, name, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc";
+				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc";
 			
 				break;
 	}
@@ -188,7 +188,7 @@
 
 			<li>
 				<div class = "message">
-					<?php echo $row['name']?>
+					<?php echo $row['type']?>
 				</div>
 			</li>
 

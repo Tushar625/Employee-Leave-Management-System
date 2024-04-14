@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_emp_session.php";
+	// include "../PHP/check_emp_session.php";
 
 	include "../PHP/config.php";
 
@@ -13,9 +13,15 @@
 
 	include "../PHP/std_date_format.php";
 
-	$eid = $_SESSION['EMPLOYEE_ID'];
+	// $eid = $_SESSION['EMPLOYEE_ID'];
 
-	$result = $link -> query("SELECT lid, type, days FROM leave_rule");
+	$consent = "mg2_consent";
+
+	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE eid = $eid AND $consent is NULL order by lrid desc";
+
+	
+
+	$result = $link -> query("SELECT lid, name, days FROM leave_rule");
 
 ?>
 
@@ -101,7 +107,7 @@
 				
 				<div class = "message dashboard_menu <?php echo ($remaining_days == 0) ? "redbutton" : "greenbutton"?>">
 					
-					<span><?php echo $row['type']?></span>
+					<span><?php echo $row['name']?></span>
 					
 					<span><progress max = '<?php echo $row['days']?>' value = '<?php echo $remaining_days?>'></progress></span>
 
@@ -144,7 +150,7 @@
 
 			// getting waiting ones out of database
 
-			$query = "SELECT lid, lrid, type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent is NULL order by lrid desc";
+			$query = "SELECT lid, lrid, name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent is NULL order by lrid desc";
 		
 			$result = $link -> query($query);
 
@@ -164,7 +170,7 @@
 
 		<ul id = "<?php echo "navid$nav_index"?>" class = "main_box blue_box">
 
-			<!-- leave type with delete and view doc button -->
+			<!-- leave name with delete and view doc button -->
 			
 			<li>
 				<!-- mark latest leave request with red -->
@@ -175,9 +181,9 @@
 
 					<a href = "<?php echo "delete.php?navid=$nav_index&lid=$lid&lrid=$lrid"?>">&#10006;</a>
 					
-					<!-- leave type -->
+					<!-- leave name -->
 
-					<?php echo $row['type']?>
+					<?php echo $row['name']?>
 
 					<!-- create view doc button only if this leave needs doc -->
 
@@ -230,7 +236,7 @@
 
 			// getting last 3 approved ones out of database
 
-			$query = "SELECT type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc limit 3";
+			$query = "SELECT name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc limit 3";
 		
 			$result = $link -> query($query);
 
@@ -240,11 +246,11 @@
 
 		<ul class = "main_box green_box">
 
-			<!-- leave type -->
+			<!-- leave name -->
 			
 			<li>
 				<div class = "message">
-					<?php echo $row['type']?>
+					<?php echo $row['name']?>
 				</div>
 			</li>
 
@@ -302,7 +308,7 @@
 
 			// getting last 3 declined ones out of database
 
-			$query = "SELECT type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc limit 3";
+			$query = "SELECT name, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc limit 3";
 		
 			$result = $link -> query($query);
 
@@ -314,11 +320,11 @@
 
 		<ul class = "main_box red_box">
 
-			<!-- leave type -->
+			<!-- leave name -->
 			
 			<li>
 				<div class = "message">
-					<?php echo $row['type']?>
+					<?php echo $row['name']?>
 				</div>
 			</li>
 

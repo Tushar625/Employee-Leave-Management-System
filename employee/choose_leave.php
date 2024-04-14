@@ -8,7 +8,7 @@
 
 	$eid = $_SESSION['EMPLOYEE_ID'];
 
-	$result = $link -> query("SELECT lid, name, days FROM leave_rule");
+	$result = $link -> query("SELECT lid, type, days FROM leave_rule");
 
 ?>
 
@@ -70,11 +70,11 @@
 
 				<?php if($remaining_days > 0):?>
 
-					<a href = "<?php echo "leave_request.php?lid=$id"?>"><button class = 'button bluebutton'> <?php echo $row['name']?> </button></a>
+					<a href = "<?php echo "leave_request.php?lid=$id"?>"><button class = 'button bluebutton'> <?php echo $row['type']?> </button></a>
 
 				<?php else:?>
 
-					<button class = 'button redbutton' disabled> <?php echo $row['name']?> </button>
+					<button class = 'button redbutton' disabled> <?php echo $row['type']?> </button>
 
 				<?php endif?>
 				
