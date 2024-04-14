@@ -5,9 +5,16 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_emp_session.php";
+	include "../PHP/check_mng_session.php";
+
+	if(!isset($_GET["eid"]))
+	{
+		header("location: index.php");
+	}
 
 	include "../PHP/config.php";	// connect to database
+
+	include "../PHP/mysql_sanitize_input.php";
 
 	include "../PHP/leave_days.php";
 
@@ -15,32 +22,11 @@
 
 	include "../PHP/leave_request_status.php";
 
-	$eid = $_SESSION['EMPLOYEE_ID'];
+	$eid = mysql_sanitize_input($link, $_GET["eid"]);
 
-	$type = $_GET["type"];
+	// all leave history desc order
 
-	// type is used to give 3 views using, different query is used for them
-
-	switch($type)
-	{
-		case 0:	// all leave history desc order
-				
-				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
-				
-				break;
-
-		case 1:	// all approved leave history desc order
-				
-				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc";
-					
-				break;
-		
-		case 2:	// all declined leave history desc order
-		
-				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc";
-			
-				break;
-	}
+	$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
 
 	$result = $link -> query($query);
 
@@ -76,7 +62,7 @@
 		
 		<header id = 'first'>
 
-			<?php include "header.php";?>
+			<!-- <?php include "header.php";?> -->
 			
 		</header>
 

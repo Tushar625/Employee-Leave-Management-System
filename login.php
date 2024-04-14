@@ -59,7 +59,17 @@
 
 			$arr = $result -> fetch_assoc();
 
-			$user = strtoupper(get_rank($rank));
+			// getting name of the directory where the section for this user is stored
+
+			$user_section = get_rank_section($rank);
+
+			$user = strtoupper($user_section);
+
+			if(is_manager($rank))
+			{
+				// for managers we need to store his rank seperately
+				$_SESSION[$user . "_RANK"] = $rank;
+			}
 
 			$_SESSION[$user . "_NAME"] = $arr['name'];
 
@@ -67,9 +77,7 @@
 
 			$link -> close();
 
-			$user = strtolower($user);
-
-			header("location: " . $user . "/index.php");	// entering user section
+			header("location: " . $user_section . "/index.php");	// entering user section
 		}
 		else
 		{
