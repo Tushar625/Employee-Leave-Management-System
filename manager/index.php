@@ -13,9 +13,13 @@
 
 	include "../PHP/std_date_format.php";
 
-	$consent = "mg1_consent";
+	include "../PHP/emp_ranking_system.php";
 
-	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE $consent is NULL";
+	$mrank = $_SESSION["MANAGER_RANK"];
+
+	$consent = ($mrank == 1) ? "mg1_consent is NULL" : "mg1_consent is NOT NULL AND mg2_consent is NULL";
+
+	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE $consent";
 
 	$result = $link -> query($query);
 
@@ -74,6 +78,14 @@
 		
 		<ul class = "main_box nice_shadow">
 
+			<?php if($result -> num_rows == 0):?>
+
+				<li>
+					<div class = "message redbutton"><center>Empty List &#128526;</center></div>
+				</li>
+
+			<?php endif?>
+
 			<!-- one iteration of the loop creates the entry for one leave in the dashboard -->
 
 			<?php for(;$row = $result -> fetch_assoc();):?>
@@ -92,7 +104,7 @@
 				
 			?>
 
-			<li>
+			<li id = "<?php echo "lrid$lrid"?>">
 
 				<!--
 					little bit of color coding used here:
@@ -149,7 +161,19 @@
 
 					<span><?php echo $approved_days . "/" . $row['days']?> Taken</span>
 
-					<span class = "bluebutton">Comment <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a> Please</span>
+					<?php if($mrank == 1):?>
+						
+						<span class = "bluebutton">Comment <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a> Please</span>
+
+					<?php else:?>
+
+						<span class = "bluebutton">
+							Consent <a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a>
+							Approve <a href = "<?php echo "approve.php?lrid=$lrid"?>">&#10004;</a>
+							Decline <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a>
+						</span>
+
+					<?php endif?>
 				
 				</div>
 

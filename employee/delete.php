@@ -23,9 +23,9 @@
 
 		$nav = $_GET["navid"];
 
-		// deleting leave requests
+		// deleting leave requests, only ones not seen by top manager
 
-		$query = "delete from leave_request where eid = $eid and lid = $lid and lrid = $lrid";
+		$query = "delete from leave_request where eid = $eid and lid = $lid and lrid = $lrid and mg2_consent is null";
 
 		/*
 			deletion failure will lead back to emp home

@@ -11,6 +11,8 @@
 
 	include "../PHP/mysql_sanitize_input.php";
 
+	$mrank = $_SESSION["MANAGER_RANK"];
+
 	if(isset($_GET["lrid"]))
 	{
 		$lrid = mysql_sanitize_input($link, $_GET['lrid']);
@@ -40,7 +42,7 @@
 
 		$comment = mysql_sanitize_input($link, $_POST['comment']);
 
-		$consent = "mg1_consent";
+		$consent = ($mrank == 1) ? "mg1_consent" : "mg2_consent";
 
 		$query = "UPDATE leave_request SET $consent = '$comment' WHERE lrid = $lrid";
 
