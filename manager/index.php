@@ -15,13 +15,15 @@
 
 	// $eid = $_SESSION['EMPLOYEE_ID'];
 
-	$consent = "mg2_consent";
 
-	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE eid = $eid AND $consent is NULL order by lrid desc";
 
-	
+	$consent = "mg1_consent";
 
-	$result = $link -> query("SELECT lid, name, days FROM leave_rule");
+	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE $consent is NULL order by lrid desc";
+
+	$result = $link -> query($query);
+
+	// die($link -> error);
 
 ?>
 
@@ -45,24 +47,13 @@
 
 			@import url("../CSS/list styles.css");
 
-			.main_box > * .d_box
-			{
-				width: 23.5em;
-				/* so that its size matches to that of dashboard_menu */
-			}
-
-			.main_box > * .dashboard_menu
-			{
-				width: 23em;
-				padding: .5em;
-				display: flex;	/* to properly align the progress bar */
-				white-space: nowrap;
-				flex-direction: column;
-			}
+			@import url("../CSS/dashboard styles.css");
 
 			.dashboard_menu > span
 			{
-				text-align: center;
+				border-radius: inherit;
+				margin: .2em;
+				box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
 			}
 
 		</style>
@@ -79,7 +70,7 @@
 
 		<main>
 
-		<div class = "main_box nice_shadow">
+		<!-- <div class = "main_box nice_shadow"> -->
 
 		<!--
 			>>>> here we present a dashboard to display how many leave days has
@@ -87,7 +78,7 @@
 			leave in leave rules table, we use progress bar for it
 		-->
 		
-		<ul class = "main_box">
+		<ul class = "main_box nice_shadow">
 
 			<!-- one iteration of the loop creates the entry for one leave in the dashboard -->
 
@@ -97,7 +88,7 @@
 				
 				<!-- from eid and lid (of a leave) we calculate no. of leave days used by the employee -->
 
-				<?php $remaining_days = $row['days'] - used_leave_days($link, $eid, $row['lid'])?>
+				<?php $approved_days = approved_leave_days($link, $row['eid'], $row['lid'])?>
 
 				<!--
 					little bit of color coding used here:
@@ -105,13 +96,56 @@
 					green shadow -> not all leave days are spent
 				-->
 				
-				<div class = "message dashboard_menu <?php echo ($remaining_days == 0) ? "redbutton" : "greenbutton"?>">
+				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "greenbutton"?>">
 					
-					<span><?php echo $row['name']?></span>
-					
-					<span><progress max = '<?php echo $row['days']?>' value = '<?php echo $remaining_days?>'></progress></span>
+					<span>
+						&#x1F50D;
+						<?php echo $row['name']?>
+					</span>
 
-					<span><?php echo $remaining_days . "/" . $row['days']?></span>
+					<span>
+						
+						<?php echo $row['type']?>
+						
+						<!-- create view doc button only if this leave needs doc -->
+
+						<?php if($row['need_doc'] == true):?>
+							
+							<a href = "<?php echo "support_doc.php?lid=$lid&lrid=$lrid"?>">&#128209;</a>
+						
+						<?php endif?>
+
+						<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
+
+					</span>
+
+					<span>
+						<?php
+
+							if($row['start_date'] == $row['end_date'])
+							{
+								echo std_date_format($row['start_date']);
+							}
+							else
+							{
+								echo std_date_format($row['start_date']) . " &#8594; " . std_date_format($row['end_date']);
+							}
+						?>
+					</span>
+				
+				</div>
+
+			</li>
+
+			<li>
+
+				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "greenbutton"?>">
+					
+					<span><progress max = '<?php echo $row['days']?>' value = '<?php echo $approved_days?>'></progress></span>
+
+					<span><?php echo $approved_days . "/" . $row['days']?> Taken</span>
+
+					<span class = "bluebutton">Comment &#128221; Please</span>
 				
 				</div>
 
@@ -120,6 +154,8 @@
 			<?php endfor?>
 
 		</ul>
+
+		<?php die()?>
 
 		<!-- >>>> two buttons only -->
 

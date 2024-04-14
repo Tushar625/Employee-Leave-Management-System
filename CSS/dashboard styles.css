@@ -1,0 +1,19 @@
+.main_box > * .d_box
+{
+	width: 23.5em;
+	/* so that its size matches to that of dashboard_menu */
+}
+
+.main_box > * .dashboard_menu
+{
+	width: 23em;
+	padding: .5em;
+	display: flex;	/* to properly align the progress bar */
+	white-space: nowrap;
+	flex-direction: column;
+}
+
+.dashboard_menu > span
+{
+	text-align: center;
+}
