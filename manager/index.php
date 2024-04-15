@@ -159,7 +159,15 @@
 					
 					<span><a href = "<?php echo "stats.php?eid=$eid"?>"><progress max = '<?php echo $row['days']?>' value = '<?php echo $approved_days?>'></progress></a></span>
 
-					<span><?php echo $approved_days . "/" . $row['days']?> Taken <a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a></span>
+					<span>
+						
+						<?php echo $approved_days . "/" . $row['days']?> Taken 
+
+						<?php if($mrank == 2):?>
+							<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a>
+						<?php endif?>
+
+					</span>
 
 					<?php if($mrank == 1):?>
 						
