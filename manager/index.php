@@ -112,7 +112,7 @@
 					green shadow -> not all leave days are spent
 				-->
 				
-				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "greenbutton"?>">
+				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
 					
 					<span>
 						<a href = "<?php echo "view.php?eid=$eid"?>">&#x1F50D;</a>
@@ -155,20 +155,20 @@
 
 			<li>
 
-				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "greenbutton"?>">
+				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
 					
 					<span><a href = "<?php echo "stats.php?eid=$eid"?>"><progress max = '<?php echo $row['days']?>' value = '<?php echo $approved_days?>'></progress></a></span>
 
-					<span><?php echo $approved_days . "/" . $row['days']?> Taken</span>
+					<span><?php echo $approved_days . "/" . $row['days']?> Taken <a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a></span>
 
 					<?php if($mrank == 1):?>
 						
-						<span class = "bluebutton">Comment <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a> Please</span>
+						<span>Comment <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a> Please</span>
 
 					<?php else:?>
 
-						<span class = "bluebutton">
-							Consent <a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a>
+						<span>
+							<!-- Consent <a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a> -->
 							Approve <a href = "<?php echo "approve.php?lrid=$lrid"?>">&#10004;</a>
 							Decline <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a>
 						</span>
