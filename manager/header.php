@@ -1,6 +1,6 @@
 <ul class = "header_list">
 				
-	<img src = "../images/poke ball.png">
+	<img src = "../images/holiday.png">
 
 	<li id = "title">Welcome, <a href = "index.php"><?php echo $_SESSION['MANAGER_NAME']?></a></li>
 

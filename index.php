@@ -36,11 +36,11 @@
 
 			<ul class = "header_list">
 				
-				<img src = "images/poke ball.png">
+				<img src = "images/Holiday.png">
 			
-				<li id = "title">Shuckle Quiz</li>
+				<li id = "title">Employee Leave Management System</li>
 
-				<li class = "left_most header_button"><a href = "admin login.php">Admin</a></li>
+				<!-- <li class = "left_most header_button"><a href = "admin login.php">Admin</a></li> -->
 
 			</ul>
 		
@@ -50,15 +50,15 @@
 		
 		<ul class = "main_box">
 
-			<li>
+			<!-- <li>
 
 				<a href = "register.php"><button class = "button"> Create New Profile </button></a>
 
-			</li>
+			</li> -->
 
 			<li>
 
-				<a href = "login.php"><button class = "button"> Open Your Profile </button></a>
+				<a href = "login.php"><button class = "button"> Log in </button></a>
 
 			</li>
 
