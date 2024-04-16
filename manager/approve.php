@@ -30,7 +30,15 @@
 
 		$comment = 'A';
 
-		$query = "UPDATE leave_request SET $consent = '$comment' WHERE lrid = $lrid";
+		/*
+			manager1 can enter his consent if mg1_consent and mg2_consent both are null
+
+			manager2 can enter his consent if mg1_consent is not null but mg2_consent is null
+		*/
+
+		$mg1_consent = ($mrank == 1) ? "IS NULL" : "IS NOT NULL";
+
+		$query = "UPDATE leave_request SET $consent = '$comment' WHERE lrid = $lrid  AND mg1_consent $mg1_consent AND mg2_consent IS NULL";
 
 		// fail check
 

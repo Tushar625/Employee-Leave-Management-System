@@ -32,7 +32,11 @@
 
 		$consent = ($mrank == 2) ? "mg1_consent" : "mg2_consent";
 
-		$query = "SELECT $consent from leave_request WHERE lrid = $lrid";
+		// mg2 can see the consent of mg1 only before he gives his consent
+
+		$senior_consent = ($mrank == 1) ? "mg1_consent" : "mg2_consent";
+
+		$query = "SELECT $consent from leave_request WHERE lrid = $lrid AND $senior_consent IS NULL";
 
 		$result = $link -> query($query);
 

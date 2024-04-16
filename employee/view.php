@@ -40,6 +40,12 @@
 				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc";
 			
 				break;
+
+		default: // page not found
+
+				header("HTTP/1.0 404 Not Found", true, 404);
+
+				exit();
 	}
 
 	$result = $link -> query($query);
