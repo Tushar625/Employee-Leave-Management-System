@@ -77,7 +77,8 @@ main
 .main_box > * input, .main_box > * select, .main_box > * textarea, .main_box > * .button, .main_box > * .message, .main_box > * .file
 {
 	width: 100%;
-	height: 2em;
+	line-height: 2em;
+	min-height: 2em;
 	padding: 0 .5em;
 	border-radius: .3em;
 	border-width: 1px;
@@ -94,6 +95,7 @@ main
 	font: inherit;
 	resize: vertical;
 	min-height: 6em;
+	line-height: 1.2em;
 	padding: .5em;
 }
 
