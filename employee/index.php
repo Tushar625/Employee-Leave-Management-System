@@ -126,7 +126,7 @@
 
 			// getting waiting ones out of database
 
-			$query = "SELECT lid, lrid, type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent is NULL order by lrid desc";
+			$query = "SELECT lid, lrid, type, start_date, end_date, reason, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent is NULL order by lrid desc";
 		
 			$result = $link -> query($query);
 
@@ -194,7 +194,15 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#129320;
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#128580;
+				</div>
+			</li>
+
+			<!-- reason -->
+
+			<li>
+				<div class = "message">
+					<?php echo $row['reason']?>
 				</div>
 			</li>
 
@@ -212,7 +220,7 @@
 
 			// getting last 3 approved ones out of database
 
-			$query = "SELECT type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc limit 3";
+			$query = "SELECT type, start_date, end_date, reason, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc limit 3";
 		
 			$result = $link -> query($query);
 
@@ -256,6 +264,14 @@
 				</div>
 			</li>
 
+			<!-- reason -->
+
+			<li>
+				<div class = "message">
+					<?php echo $row['reason']?>
+				</div>
+			</li>
+
 		</ul>
 
 		<?php endfor?>
@@ -284,7 +300,7 @@
 
 			// getting last 3 declined ones out of database
 
-			$query = "SELECT type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc limit 3";
+			$query = "SELECT type, start_date, end_date, reason, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc limit 3";
 		
 			$result = $link -> query($query);
 
@@ -327,6 +343,14 @@
 			<li>
 				<div class = "message">
 					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#x1F44E;
+				</div>
+			</li>
+
+			<!-- reason -->
+
+			<li>
+				<div class = "message">
+					<?php echo $row['reason']?>
 				</div>
 			</li>
 

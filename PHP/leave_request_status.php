@@ -5,7 +5,7 @@
 		switch($mg2consent)
 		{
 			case'A': return "&#x1F44D;";	//"Approved";
-			case'': return "&#129320;";	//"Waiting";
+			case'': return "&#128580;";	//"Waiting";
 			default: return "&#x1F44E;";	//"Declined";
 		}
 	}

@@ -25,19 +25,19 @@
 	{
 		case 0:	// all leave history desc order
 				
-				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
+				$query = "SELECT lrid, type, start_date, end_date, reason, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
 				
 				break;
 
 		case 1:	// all approved leave history desc order
 				
-				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc";
+				$query = "SELECT lrid, type, start_date, end_date, reason, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc";
 					
 				break;
 		
 		case 2:	// all declined leave history desc order
 		
-				$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc";
+				$query = "SELECT lrid, type, start_date, end_date, reason, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc";
 			
 				break;
 
@@ -203,6 +203,14 @@
 			<li>
 				<div class = "message">
 					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> <?php echo get_status_emoji($row['mg2_consent'])?> 
+				</div>
+			</li>
+
+			<!-- reason -->
+
+			<li>
+				<div class = "message">
+					<?php echo $row['reason']?>
 				</div>
 			</li>
 

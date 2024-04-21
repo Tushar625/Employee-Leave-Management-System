@@ -51,7 +51,8 @@ CREATE TABLE leave_request(
     lid         BIGINT,
     start_date  DATE NOT NULL,
     end_date    DATE NOT NULL,
-    support_doc MEDIUMBLOB,
+    reason      VARCHAR(500) NOT NULL,
+	support_doc MEDIUMBLOB,
     ftype       VARCHAR(5),  # file extension
     mg1_consent VARCHAR(500),
     mg2_consent VARCHAR(500),

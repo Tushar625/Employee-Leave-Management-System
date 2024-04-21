@@ -162,6 +162,8 @@
 			and load them into leave request table
 		*/
 
+		$reason = mysql_sanitize_input($link, $_POST['reason']);
+
 		// checking if we need to store the document or not
 
 		if(isset($tname))	// $tname -> temporary location of the doc
@@ -170,11 +172,11 @@
 
 			$fcontent = $link -> real_escape_string(file_get_contents($tname));
 
-			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, support_doc, ftype) VALUES($eid, $lid, '$start_date', '$end_date', '$fcontent', '$ftype')";
+			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, reason, support_doc, ftype) VALUES($eid, $lid, '$start_date', '$end_date', '$reason', '$fcontent', '$ftype')";
 		}
 		else
 		{
-			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date) VALUES($eid, $lid, '$start_date', '$end_date')";
+			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, reason) VALUES($eid, $lid, '$start_date', '$end_date', '$reason')";
 		}
 
 		// fail check
@@ -247,6 +249,10 @@
 				</div>
 			</li>
 
+			<li>
+				<label> Reason <textarea name = "reason" maxlength = 500 required></textarea></label>
+			</li>
+
 			<!-- date inputs -->
 
 			<li>
@@ -278,7 +284,7 @@
 				<!-- leave rule need support doc -->
 
 				<li>
-					<label> Doc (<?php echo $files_accepted?>) 
+					<label> Doc (<em><?php echo $files_accepted?></em>)
 						<div class = "file">
 							<input type = "hidden" name = "MAX_FILE_SIZE" value = <?php echo ($max_size * 1024 * 1024)?>>
 							<input type = "file" name = "document" accept = "<?php echo $files_accepted?>" required>
