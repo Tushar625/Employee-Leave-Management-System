@@ -55,8 +55,8 @@
 			<li>
 					
 				<?php
-					$remaining_days = $row['days'] - used_leave_days($link, $eid, $row['lid']);
-					$id = $row['lid'];
+					$lid = $row['lid'];
+					$remaining_days = $row['days'] - used_leave_days($link, $eid, $lid);
 				?>
 
 				<!-- 
@@ -70,7 +70,7 @@
 
 				<?php if($remaining_days > 0):?>
 
-					<a href = "<?php echo "leave_request.php?lid=$id"?>"><button class = 'button bluebutton'> <?php echo $row['type']?> </button></a>
+					<a href = "<?php echo "leave_request.php?lid=$lid"?>"><button class = 'button bluebutton'> <?php echo $row['type']?> </button></a>
 
 				<?php else:?>
 

@@ -27,7 +27,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>user_profile</title>
+		<title>Employee Index</title>
 
 		<style>
 

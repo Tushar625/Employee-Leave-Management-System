@@ -62,7 +62,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>view</title>
+		<title>View</title>
 
 		<style>
 
@@ -153,7 +153,7 @@
 
 		<?php endif; ?>
 
-		<!-- the record box -->
+		<!-- the leave record box -->
 
 		<?php
 		
@@ -210,6 +210,8 @@
 
 			<?php if(get_status_color($row['mg2_consent']) == 'red'):?>
 
+				<!-- if declined -->
+
 				<li>
 					<div class = "message">
 						<?php echo $row['reason']?>
@@ -219,6 +221,8 @@
 				</li>
 
 			<?php else:?>
+
+				<!-- if waiting or approved -->
 
 				<li>
 					<div class = "message">

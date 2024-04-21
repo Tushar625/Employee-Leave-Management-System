@@ -28,8 +28,8 @@
 		$query = "delete from leave_request where eid = $eid and lid = $lid and lrid = $lrid and mg2_consent is null";
 
 		/*
-			deletion failure will lead back to emp home
-			page (this is very unlikely to happen)
+			deletion failure will cause 404 error
+			(this is very unlikely to happen)
 		*/
 
 		if($link -> query($query) == false)
@@ -43,12 +43,14 @@
 
 		$link -> close();
 
-		// redirect to the leave request right before the deleted quiz
+		// redirect to the leave request right before the deleted quiz in index page
 
 		header("location: index.php#navid" . ($nav - 1));
 	}
 	else
 	{
+		// no URL parameters provided
+		
 		header("location: index.php");
 	}
 

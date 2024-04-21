@@ -146,7 +146,7 @@
 		}
 
 		/*
-			if $get is created there is a problem and we reload the file by
+			>>>> if $get is created there is a problem and we reload the file by
 			rediecting to itself, none of the input data are stored
 		*/
 
@@ -160,9 +160,11 @@
 		}
 		
 		/*
-			no problem detected, hence we receive rest of the inputs
+			>>>> no problem detected, hence we receive rest of the inputs
 			and load them into leave request table
 		*/
+
+		// >>>> reason for leave
 
 		$reason = mysql_sanitize_input($link, $_POST['reason']);
 
@@ -211,7 +213,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>leave_rules</title>
+		<title>Leave Request</title>
 
 		<style>
 
