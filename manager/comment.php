@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid mg session or not if not redirect
 		to index or home page
 	*/
 
@@ -21,22 +21,7 @@
 	}
 	else if(isset($_POST['submit']))
 	{
-		// here we use get variables to send error messages while redirecting to itself
-
-		/*
-			After each successful submission we redirect to the same form to display
-			the error or success message. As the inputs submitted here will be stored
-			into the login file, redirection is used to ensure that no resubmission
-			error will be generated upon reload or back. (More about this error in the
-			documentation)
-
-			While redirecting we use get method to send the error or success message.
-		*/
-
-		/*
-			no problem detected, hence we receive rest of the inputs
-			and load them into leave rules table
-		*/
+		// now we store manager consent
 
 		$lrid = mysql_sanitize_input($link, $_POST['lrid']);
 
@@ -95,13 +80,6 @@
 	</head>
 	
 	<body>
-
-		<!--
-			We don't keep any return to home button here to discourage
-			user from accidentally return from registration form, I want
-			him to create an account successfully and then login to his
-			profile and play
-		-->
 		
 		<header>
 			<?php include "header.php";?>
@@ -115,9 +93,7 @@
 		
 		<ul class = "main_box nice_shadow">
 
-			<!-- Indicate successfull Registration creation -->
-
-			<!-- Maxlength is set according to size of uname field in login table -->
+			<!-- input the comment or consent -->
 
 			<li>
 				<textarea name = "comment" maxlength = 500 required></textarea>

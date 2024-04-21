@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid emp session or not if not redirect
+		check if it's valid mg session or not if not redirect
 		to index or home page
 	*/
 
@@ -17,9 +17,15 @@
 
 	$mrank = $_SESSION["MANAGER_RANK"];
 
-	$consent = ($mrank == 1) ? "mg1_consent is NULL" : "mg1_consent is NOT NULL AND mg2_consent is NULL";
+	/*
+		manager1 can see the tuples where mg1_consent and mg2_consent both are null
 
-	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE $consent";
+		manager2 can see the tuples where mg1_consent is not null but mg2_consent is null
+	*/
+
+	$mg1_consent = ($mrank == 1) ? "IS NULL" : "IS NOT NULL";
+
+	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE mg1_consent $mg1_consent AND mg2_consent IS NULL";
 
 	$result = $link -> query($query);
 
@@ -33,7 +39,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>user_profile</title>
+		<title>Manager Index</title>
 
 		<style>
 
@@ -46,6 +52,11 @@
 			@import url("../CSS/list styles.css");
 
 			@import url("../CSS/dashboard styles.css");
+
+			/*
+				here span will contain important text information hence
+				getting nice border around it
+			*/
 
 			.dashboard_menu > span
 			{
@@ -68,8 +79,6 @@
 
 		<main>
 
-		<!-- <div class = "main_box nice_shadow"> -->
-
 		<!--
 			>>>> here we present a dashboard to display how many leave days has
 			been used by the employee, wrt total no. of days available for each
@@ -77,6 +86,8 @@
 		-->
 		
 		<ul class = "main_box nice_shadow">
+
+			<!-- checking how many leave requests we have -->
 
 			<?php if($result -> num_rows == 0):?>
 
@@ -90,7 +101,7 @@
 
 			<?php for(;$row = $result -> fetch_assoc();):?>
 			
-			<!-- from eid and lid (of a leave) we calculate no. of leave days used by the employee -->
+			<!-- from eid and lid (of a leave) we calculate no. of leave days (approved) already used by the employee -->
 
 			<?php
 				
@@ -106,18 +117,25 @@
 
 			<li id = "<?php echo "lrid$lrid"?>">
 
-				<!--
-					little bit of color coding used here:
-					red shadow -> all leave days are spent
-					green shadow -> not all leave days are spent
-				-->
+				<!-- 
+					here we show emp details and leave details
+				 -->
 				
 				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
 					
+					<!-- emp name -->
+
 					<span>
+						
+						<!-- button to display leave history of the employee -->
+
 						<a href = "<?php echo "view.php?eid=$eid"?>">&#x1F50D;</a>
+
 						<?php echo $row['name']?>
+
 					</span>
+
+					<!-- leave type and no. of days -->
 
 					<span>
 						
@@ -134,6 +152,8 @@
 						<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
 
 					</span>
+
+					<!-- start and end date -->
 
 					<span>
 						<?php
@@ -153,30 +173,46 @@
 
 			</li>
 
+			<!-- 
+				leave stats and consent or approval
+			 -->
+
 			<li>
 
 				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
 					
+					<!-- 
+						leave stats as a progress bar and a hidden button to display complete
+						leave stats of this emp in brief with progress bars
+					 -->
+
 					<span><a href = "<?php echo "stats.php?eid=$eid"?>"><progress max = '<?php echo $row['days']?>' value = '<?php echo $approved_days?>'></progress></a></span>
+
+					<!-- no. of leaves already approved to this emp -->
 
 					<span>
 						
 						<?php echo $approved_days . "/" . $row['days']?> Taken 
 
-						<?php //if($mrank == 2):?>
-							<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a>
-						<?php //endif?>
+						<!-- hidden button to display leave reason and mg1 consent -->
+
+						<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a>
 
 					</span>
 
+					<!-- approval and consent buttons -->
+
 					<?php if($mrank == 1):?>
+
+						<!-- for mg1 -->
 						
 						<span>Comment <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a> Please</span>
 
 					<?php else:?>
 
+						<!-- for mg2 -->
+
 						<span>
-							<!-- Consent <a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a> -->
 							Approve <a href = "<?php echo "approve.php?lrid=$lrid"?>">&#10004;</a>
 							Decline <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a>
 						</span>

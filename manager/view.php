@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid emp session or not if not redirect
+		check if it's valid mg session or not if not redirect
 		to index or home page
 	*/
 
@@ -9,6 +9,8 @@
 
 	if(!isset($_GET["eid"]))
 	{
+		// if eid URL parameter is not set go to index
+
 		header("location: index.php");
 	}
 
@@ -42,7 +44,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>view</title>
+		<title>View</title>
 
 		<style>
 

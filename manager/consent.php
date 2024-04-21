@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid mg session or not if not redirect
 		to index or home page
 	*/
 
@@ -23,11 +23,15 @@
 
 		$data = ($mrank == 1) ? "reason" : "reason, mg1_consent";
 
-		// mg2 or mg1 can see the reason and the consent of mg1 only before he gives his consent
+		/*
+			manager1 can see only if mg1_consent and mg2_consent both are null
 
-		$consent_check = ($mrank == 1) ? "mg1_consent IS NULL" : "mg1_consent IS NOT NULL AND mg2_consent IS NULL";
+			manager2 can see only if mg1_consent is not null but mg2_consent is null
+		*/
 
-		$query = "SELECT $data from leave_request WHERE lrid = $lrid AND $consent_check";
+		$mg1_consent = ($mrank == 1) ? "IS NULL" : "IS NOT NULL";
+
+		$query = "SELECT $data from leave_request WHERE lrid = $lrid AND mg1_consent $mg1_consent AND mg2_consent IS NULL";
 
 		$result = $link -> query($query);
 
@@ -50,7 +54,7 @@
 
 			if($mrank == 2)
 			{
-				// if mg2 is watching
+				// only mg2 sees mg1 consent
 
 				$consent = $row["mg1_consent"];
 			}
@@ -79,7 +83,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>Comments</title>
+		<title>Consent</title>
 
 		<style>
 
@@ -94,13 +98,6 @@
 	</head>
 	
 	<body>
-
-		<!--
-			We don't keep any return to home button here to discourage
-			user from accidentally return from registration form, I want
-			him to create an account successfully and then login to his
-			profile and play
-		-->
 		
 		<header>
 			<?php include "header.php";?>

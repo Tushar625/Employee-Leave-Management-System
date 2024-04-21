@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid emp session or not if not redirect
+		check if it's valid mg session or not if not redirect
 		to index or home page
 	*/
 
@@ -9,6 +9,8 @@
 
 	if(!isset($_GET["eid"]))
 	{
+		// if eid URL parameter is not set go to index
+
 		header("location: index.php");
 	}
 
@@ -34,7 +36,7 @@
 
 		<meta charset = "UTF-8">
 
-		<title>user_profile</title>
+		<title>Employee Leave Statistics</title>
 
 		<style>
 
@@ -61,8 +63,6 @@
 		</header>
 
 		<main>
-
-		<!-- <div class = "main_box nice_shadow"> -->
 
 		<!--
 			>>>> here we present a dashboard to display how many leave days has

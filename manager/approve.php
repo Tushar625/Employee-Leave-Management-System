@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid mg session or not if not redirect
 		to index or home page
 	*/
 
@@ -9,7 +9,7 @@
 
 	if($_SESSION["MANAGER_RANK"] == 1)
 	{
-		// check if mg1 accessing it, he can't access it
+		// check if mg1 accessing it, he can't access this page
 
 		header("location: ../index.php");
 
@@ -28,7 +28,7 @@
 
 		$consent = ($mrank == 1) ? "mg1_consent" : "mg2_consent";
 
-		$comment = 'A';
+		$comment = 'A';	// 'A' is stored as manager consent to reflect approval
 
 		/*
 			manager1 can enter his consent if mg1_consent and mg2_consent both are null
