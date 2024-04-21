@@ -220,7 +220,7 @@
 
 			// getting last 3 approved ones out of database
 
-			$query = "SELECT type, start_date, end_date, reason, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc limit 3";
+			$query = "SELECT type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent = 'A' order by lrid desc limit 3";
 		
 			$result = $link -> query($query);
 
@@ -264,14 +264,6 @@
 				</div>
 			</li>
 
-			<!-- reason -->
-
-			<li>
-				<div class = "message">
-					<?php echo $row['reason']?>
-				</div>
-			</li>
-
 		</ul>
 
 		<?php endfor?>
@@ -283,7 +275,7 @@
 			<ul class = "main_box">
 
 				<li>
-					<a href = "view.php?type=1"><button class = "button greenbutton">All Approved</button></a>
+					<a href = "view.php?type=1"><button class = "button greenbutton"><b>All Approved</b></button></a>
 				</li>
 
 			</ul>
@@ -300,7 +292,7 @@
 
 			// getting last 3 declined ones out of database
 
-			$query = "SELECT type, start_date, end_date, reason, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc limit 3";
+			$query = "SELECT type, start_date, end_date, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid AND mg2_consent <> 'A' AND mg2_consent is NOT NULL order by lrid desc limit 3";
 		
 			$result = $link -> query($query);
 
@@ -346,14 +338,6 @@
 				</div>
 			</li>
 
-			<!-- reason -->
-
-			<li>
-				<div class = "message">
-					<?php echo $row['reason']?>
-				</div>
-			</li>
-
 		</ul>
 
 		<?php endfor?>
@@ -365,7 +349,7 @@
 			<ul class = "main_box">
 
 				<li>
-					<a href = "view.php?type=2"><button class = "button redbutton">All Declined</button></a>
+					<a href = "view.php?type=2"><button class = "button redbutton"><b>All Declined</b></button></a>
 				</li>
 
 			</ul>

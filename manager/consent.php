@@ -46,13 +46,13 @@
 		{
 			$row = $result -> fetch_assoc();
 			
-			$reason = "Reason: " . $row["reason"];
+			$reason = $row["reason"];
 
 			if($mrank == 2)
 			{
 				// if mg2 is watching
 
-				$consent = get_rank($mrank - 1) . ": " . $row["mg1_consent"];
+				$consent = $row["mg1_consent"];
 			}
 		}
 		else
@@ -111,13 +111,13 @@
 		<ul class = "main_box nice_shadow">
 			
 			<li>
-				<div class = "message info"><?php echo $reason?></div>
+				Reason<div class = "message"><?php echo $reason?></div>
 			</li>	
 			
 			<?php if(isset($consent)):?>
 
 				<li>
-					<div class = "message error"><?php echo $consent?></div>
+					<?php echo get_rank($mrank - 1)?><div class = "message error"><?php echo $consent?></div>
 				</li>
 
 			<?php endif?>
