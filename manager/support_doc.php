@@ -14,15 +14,19 @@
 
 		$lrid = mysql_sanitize_input($link, $_GET["lrid"]);
 
-		$query = "select ftype, support_doc from leave_request where lrid = $lrid";
+		$query = "select ftype, support_doc from leave_request where lrid = $lrid and support_doc is not null and ftype is not null";
 
 		// read the file contents corresponding to the id from database
 
 		$result = $link -> query($query);
 
-		if($result === false)
+		if($result === false || $result -> num_rows == 0)
 		{
-			die("Document not found, head back to <a href = 'index.php'> Home </a>");
+			// Document not found hence page not found error
+			
+			header("HTTP/1.0 404 Not Found", true, 404);
+
+			exit();
 		}
 
 		$link -> close();

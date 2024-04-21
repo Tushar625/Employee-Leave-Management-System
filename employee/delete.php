@@ -32,9 +32,13 @@
 			page (this is very unlikely to happen)
 		*/
 
-		if($link -> query($query) === false)
+		if($link -> query($query) == false)
 		{
-			die("Deletion failure, head back to <a href = 'index.php#navid$nav'> Home </a>");
+			// Deletion failure
+
+			header("HTTP/1.0 404 Not Found", true, 404);
+
+			exit();
 		}
 
 		$link -> close();

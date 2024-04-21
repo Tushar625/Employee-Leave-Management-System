@@ -35,9 +35,11 @@
 
 		if($result -> num_rows == 0)
 		{
-			// leave not exist
+			// leave not exist hence, page not found
 
-			die("Invalid leave request, head back to <a href = 'index.php'> Employee index </a>");
+			header("HTTP/1.0 404 Not Found", true, 404);
+
+			exit();
 		}
 
 		$tuple = $result -> fetch_assoc();
