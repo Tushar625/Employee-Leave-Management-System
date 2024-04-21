@@ -7,15 +7,6 @@
 
 	include "../PHP/check_mng_session.php";
 
-	if($_SESSION["MANAGER_RANK"] == 1)
-	{
-		// check if mg1 accessing it, he can't access it
-
-		header("location: ../index.php");
-
-		exit();
-	}
-
 	include "../PHP/config.php";
 
 	include "../PHP/mysql_sanitize_input.php";
@@ -28,15 +19,15 @@
 	{
 		$lrid = mysql_sanitize_input($link, $_GET['lrid']);
 
-		// collecting consent of junior manager
+		// collecting consent of junior manager and reason for leave
 
-		$consent = ($mrank == 2) ? "mg1_consent" : "mg2_consent";
+		$data = ($mrank == 1) ? "reason" : "reason, mg1_consent";
 
-		// mg2 can see the consent of mg1 only before he gives his consent
+		// mg2 or mg1 can see the reason and the consent of mg1 only before he gives his consent
 
-		$senior_consent = ($mrank == 1) ? "mg1_consent" : "mg2_consent";
+		$consent_check = ($mrank == 1) ? "mg1_consent IS NULL" : "mg1_consent IS NOT NULL AND mg2_consent IS NULL";
 
-		$query = "SELECT $consent from leave_request WHERE lrid = $lrid AND $senior_consent IS NULL";
+		$query = "SELECT $data from leave_request WHERE lrid = $lrid AND $consent_check";
 
 		$result = $link -> query($query);
 
@@ -53,11 +44,24 @@
 
 		if($result -> num_rows != 0)
 		{
-			$consent = get_rank($mrank - 1) . ": " . $result -> fetch_assoc()["$consent"];
+			$row = $result -> fetch_assoc();
+			
+			$reason = "Reason: " . $row["reason"];
+
+			if($mrank == 2)
+			{
+				// if mg2 is watching
+
+				$consent = get_rank($mrank - 1) . ": " . $row["mg1_consent"];
+			}
 		}
 		else
 		{
-			$consent = "No consent from " . get_rank($mrank);
+			// nothing to display hence, page not found
+
+			header("HTTP/1.0 404 Not Found", true, 404);
+
+			exit();
 		}
 	}
 	else
@@ -105,9 +109,19 @@
 		<main>
 		
 		<ul class = "main_box nice_shadow">
+			
 			<li>
-				<div class = "message info"><?php echo $consent?></div>
-			</li>
+				<div class = "message info"><?php echo $reason?></div>
+			</li>	
+			
+			<?php if(isset($consent)):?>
+
+				<li>
+					<div class = "message error"><?php echo $consent?></div>
+				</li>
+
+			<?php endif?>
+
 		</ul>
 
 		</main>

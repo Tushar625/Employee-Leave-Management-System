@@ -26,7 +26,7 @@
 
 	// all leave history desc order
 
-	$query = "SELECT lrid, type, start_date, end_date, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
+	$query = "SELECT lrid, type, start_date, end_date, reason, mg2_consent FROM leave_request NATURAL JOIN leave_rule WHERE eid = $eid order by lrid desc";
 
 	$result = $link -> query($query);
 
@@ -186,13 +186,23 @@
 				</div>
 			</li>
 
-			<!-- consent of manager 2 -->
+			<!-- consent of manager 2 and reason -->
 
 			<?php if(get_status_color($row['mg2_consent']) == 'red'):?>
 
 				<li>
 					<div class = "message">
-						<?php echo $row['mg2_consent']?> 
+						<?php echo $row['reason']?>
+						<br>
+						<b><?php echo $row['mg2_consent']?></b>
+					</div>
+				</li>
+
+			<?php else:?>
+
+				<li>
+					<div class = "message">
+						<?php echo $row['reason']?>
 					</div>
 				</li>
 

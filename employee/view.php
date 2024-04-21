@@ -206,21 +206,23 @@
 				</div>
 			</li>
 
-			<!-- reason -->
-
-			<li>
-				<div class = "message">
-					<?php echo $row['reason']?>
-				</div>
-			</li>
-
-			<!-- consent of manager 2 -->
+			<!-- consent of manager 2 and reason -->
 
 			<?php if(get_status_color($row['mg2_consent']) == 'red'):?>
 
 				<li>
 					<div class = "message">
-						<?php echo $row['mg2_consent']?> 
+						<?php echo $row['reason']?>
+						<br>
+						<b><?php echo $row['mg2_consent']?></b>
+					</div>
+				</li>
+
+			<?php else:?>
+
+				<li>
+					<div class = "message">
+						<?php echo $row['reason']?>
 					</div>
 				</li>
 

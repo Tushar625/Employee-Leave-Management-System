@@ -163,9 +163,9 @@
 						
 						<?php echo $approved_days . "/" . $row['days']?> Taken 
 
-						<?php if($mrank == 2):?>
+						<?php //if($mrank == 2):?>
 							<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a>
-						<?php endif?>
+						<?php //endif?>
 
 					</span>
 
