@@ -146,7 +146,7 @@
 
 				<li>
 					<div class = "message">
-						<?php echo $row["email"]?>
+						<a href = "<?php echo "mailto:" . $row["email"]?>"><?php echo $row["email"]?></a>
 					</div>
 				</li>
 

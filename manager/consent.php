@@ -31,7 +31,7 @@
 
 		$mg1_consent = ($mrank == 1) ? "IS NULL" : "IS NOT NULL";
 
-		$query = "SELECT $data from leave_request WHERE lrid = $lrid AND mg1_consent $mg1_consent AND mg2_consent IS NULL";
+		$query = "SELECT $data, need_doc FROM leave_request NATURAL JOIN leave_rule WHERE lrid = $lrid AND mg1_consent $mg1_consent AND mg2_consent IS NULL";
 
 		$result = $link -> query($query);
 
@@ -108,7 +108,20 @@
 		<ul class = "main_box nice_shadow">
 			
 			<li>
-				Reason<div class = "message"><?php echo $reason?></div>
+				Reason
+				
+				<div class = "message">
+					
+					<?php echo $reason?>
+
+					<?php if($row['need_doc'] == true):?>
+							
+							<a href = "<?php echo "support_doc.php?lrid=$lrid"?>">&#128209;</a>
+						
+					<?php endif?>
+					
+				</div>
+
 			</li>	
 			
 			<?php if(isset($consent)):?>

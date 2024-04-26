@@ -32,8 +32,6 @@
 
 	$result = $link -> query($query);
 
-	$link -> close();
-
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +68,72 @@
 
 		<main>
 
-		<!-- Displaying the Leaves -->
+		<!-- Displaying employee details -->
+
+		<?php if($result -> num_rows != 0):?>
+
+			<?php
+
+				// extracting employee data
+
+				$query = "SELECT * FROM employee WHERE eid = $eid";
+
+				$details = $link -> query($query);
+
+				if($details -> num_rows != 1)
+				{
+					// If no. of records is not 1 something is hrribly wrong, hence page not found error
+			
+					header("HTTP/1.0 404 Not Found", true, 404);
+
+					exit();
+				}
+
+				$row = $details -> fetch_assoc();
+				
+			?>
+
+			<!-- displaying emp data -->
+
+			<ul class = "main_box blue_box">
+
+				<!-- the emp attributes -->
+
+				<li>
+					<div class = "message">
+						<?php echo $row["name"]?>
+					</div>
+				</li>
+
+				<li>
+					<div class = "message">
+						<a href = "<?php echo "mailto:" . $row["email"]?>"><?php echo $row["email"]?></a>
+					</div>
+				</li>
+
+				<li>
+					<div class = "message">
+						<?php echo $row["phone"]?>
+					</div>
+				</li>
+
+				<li>
+					<div class = "message">
+						<?php
+							
+							include_once "../PHP/emp_ranking_system.php";
+
+							echo get_rank($row['ranks']);
+
+						?>
+					</div>
+				</li>
+
+			</ul>
+
+		<?php endif?>
+
+		<!-- Displaying the Leave history -->
 
 		<!-- 10 leaves between 2 navigation boxes -->
 
@@ -229,6 +292,8 @@
 		</ul>
 
 		</main>
+
+		<?php $link -> close()?>
 
 		<footer id = "last"></footer>
 

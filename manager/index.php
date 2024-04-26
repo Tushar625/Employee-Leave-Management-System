@@ -25,7 +25,7 @@
 
 	$mg1_consent = ($mrank == 1) ? "IS NULL" : "IS NOT NULL";
 
-	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE mg1_consent $mg1_consent AND mg2_consent IS NULL";
+	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE mg1_consent $mg1_consent AND mg2_consent IS NULL";
 
 	$result = $link -> query($query);
 
@@ -118,7 +118,7 @@
 			<li id = "<?php echo "lrid$lrid"?>">
 
 				<!-- 
-					here we show emp details and leave details
+					here we show emp details and leave stats
 				 -->
 				
 				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
@@ -135,19 +135,42 @@
 
 					</span>
 
+					<!-- 
+						leave stats as a progress bar and a hidden button to display complete
+						leave stats of this emp in brief with progress bars
+					 -->
+
+					<span><a href = "<?php echo "stats.php?eid=$eid"?>"><progress max = '<?php echo $row['days']?>' value = '<?php echo $approved_days?>'></progress></a></span>
+
+					<!-- no. of leaves already approved to this emp -->
+
+					<span>
+						
+						<?php echo $approved_days . "/" . $row['days']?> Taken
+
+					</span>
+				
+				</div>
+
+			</li>
+
+			<!-- 
+				leave type, reason and consent or approval
+			 -->
+
+			<li>
+
+				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
+
 					<!-- leave type and no. of days -->
 
 					<span>
 						
 						<?php echo $row['type']?>
 						
-						<!-- create view doc button only if this leave needs doc -->
+						<!-- button to display leave reason and mg1 consent -->
 
-						<?php if($row['need_doc'] == true):?>
-							
-							<a href = "<?php echo "support_doc.php?lrid=$lrid"?>">&#128209;</a>
-						
-						<?php endif?>
+						<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128209;</a>
 
 						<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
 
@@ -167,37 +190,6 @@
 								echo std_date_format($row['start_date']) . " &#8594; " . std_date_format($row['end_date']);
 							}
 						?>
-					</span>
-				
-				</div>
-
-			</li>
-
-			<!-- 
-				leave stats and consent or approval
-			 -->
-
-			<li>
-
-				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
-					
-					<!-- 
-						leave stats as a progress bar and a hidden button to display complete
-						leave stats of this emp in brief with progress bars
-					 -->
-
-					<span><a href = "<?php echo "stats.php?eid=$eid"?>"><progress max = '<?php echo $row['days']?>' value = '<?php echo $approved_days?>'></progress></a></span>
-
-					<!-- no. of leaves already approved to this emp -->
-
-					<span>
-						
-						<?php echo $approved_days . "/" . $row['days']?> Taken 
-
-						<!-- hidden button to display leave reason and mg1 consent -->
-
-						<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128065;</a>
-
 					</span>
 
 					<!-- approval and consent buttons -->
