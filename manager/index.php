@@ -62,7 +62,7 @@
 			{
 				border-radius: inherit;
 				margin: .2em;
-				box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
+				/* box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1); */
 			}
 
 		</style>
