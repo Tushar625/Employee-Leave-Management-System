@@ -76,3 +76,8 @@ a
 		the image.
 	*/
 }
+
+.no_shadow
+{
+	box-shadow: none !important;
+}

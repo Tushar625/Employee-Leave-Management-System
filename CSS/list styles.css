@@ -52,10 +52,10 @@
 
 .green_box, .main_box > * .greenbutton
 {
-	box-shadow: 1px 1px 5px -1px rgba(2, 133, 2, 0.6);
+	box-shadow: 1px 1px 5px -1px rgba(0, 87, 0, 0.8);
 }
 
 .blue_box, .main_box > * .bluebutton
 {
-	box-shadow: 1px 1px 5px -1px rgba(0, 0, 255, 0.6);
+	box-shadow: 1px 1px 5px -1px rgba(0, 0, 204, 0.7);
 }
