@@ -63,7 +63,7 @@
 			leave in leave rules table, we use progress bar for it
 		-->
 		
-		<ul class = "main_box no_shadow">
+		<ul class = "main_box red_box">
 
 			<!-- one iteration of the loop creates the entry for one leave in the dashboard -->
 

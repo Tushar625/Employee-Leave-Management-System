@@ -167,12 +167,12 @@
 					<span>
 						
 						<?php echo $row['type']?>
-						
+
+						<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
+
 						<!-- button to display leave reason and mg1 consent -->
 
 						<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128209;</a>
-
-						<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
 
 					</span>
 
