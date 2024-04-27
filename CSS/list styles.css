@@ -6,7 +6,7 @@
 	max-width: 95%;
 	width: 100%;
 	padding: 1em;
-	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.399);
+	box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.3);
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
@@ -22,7 +22,7 @@
 
 .main_box > * .message
 {
-	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.1);
 	border: none;
 }
 
@@ -37,7 +37,7 @@
 .main_box > * .button
 {
 	border: none;
-	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.1);
 }
 
 .main_box > * .greenbutton, .main_box > * .redbutton, .main_box > * .bluebutton, .main_box > * .whitebutton
@@ -47,15 +47,15 @@
 
 .red_box, .main_box > * .redbutton
 {
-	box-shadow: 1px 1px 5px -1px rgba(255, 0, 0, 0.6);
+	box-shadow: 0px 0px 5px -1px rgba(255, 0, 0, 0.6);
 }
 
 .green_box, .main_box > * .greenbutton
 {
-	box-shadow: 1px 1px 5px -1px rgba(0, 87, 0, 0.8);
+	box-shadow: 0px 0px 5px -1px rgba(0, 87, 0, 0.8);
 }
 
 .blue_box, .main_box > * .bluebutton
 {
-	box-shadow: 1px 1px 5px -1px rgba(0, 0, 204, 0.7);
+	box-shadow: 0px 0px 5px -1px rgba(0, 0, 204, 0.8);
 }

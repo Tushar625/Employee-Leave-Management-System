@@ -210,6 +210,20 @@
 
 		<?php endfor?>
 
+		<?php if($result -> num_rows):?>
+
+			<!-- A link to the list of all leaves, don't display it no waiting leaves exists -->
+
+			<ul class = "main_box">
+
+				<li>
+					<a href = "view.php?type=0"><button class = "button bluebutton"><b>All Leaves</b></button></a>
+				</li>
+
+			</ul>
+
+		<?php endif?>
+
 		<!--
 			>>>> Now we display last 3 ** approved leave requests **
 
