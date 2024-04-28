@@ -12,9 +12,12 @@
 	justify-content: space-evenly;
 }
 
+/* for list we want to have buttons and messages of perticular size */
+
 .main_box > * .button, .main_box > * .message
 {
 	/* text-align: center; */
+	/* base size of this thing (size can be extended from here but can't compressed) */
 	width: 15em;
 }
 
@@ -52,7 +55,7 @@
 
 .green_box, .main_box > * .greenbutton
 {
-	box-shadow: 0px 0px 5px -1px rgba(0, 87, 0, 0.8);
+	box-shadow: 0px 0px 5px -1px rgba(0, 140, 0, 0.8);
 }
 
 .blue_box, .main_box > * .bluebutton

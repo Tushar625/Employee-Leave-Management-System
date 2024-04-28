@@ -1,12 +1,20 @@
-.main_box > * .d_box
+/* 
+
+	"dashboard_menu" is an extension of message
+
+	"d_box" is an extension of button
+
+*/
+
+.main_box > * .d_box, .main_box > * .dashboard_menu
 {
-	width: 23.5em;
-	/* so that its size matches to that of dashboard_menu */
+	/* base size of this thing (size can be extended from here but can't compressed) */
+	width: 18em;
+	/* these element will have slightly bigger size than message or button */
 }
 
 .main_box > * .dashboard_menu
 {
-	width: 23em;
 	padding: .5em;
 	display: flex;	/* to properly align the progress bar */
 	white-space: nowrap;
