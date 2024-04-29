@@ -20,9 +20,9 @@ html
 	font-family: Segoe_ui, sans-serif;
     box-sizing: inherit;
 	/* To prevent font resizing in android */
-    -webkit-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
 }
 
 ul
