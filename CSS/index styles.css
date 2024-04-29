@@ -1,4 +1,6 @@
 
+/* this styles for the index page that contains some blue buttons only */
+
 /* enabling touch action for index pages */
 
 :root
@@ -6,23 +8,12 @@
 	touch-action: manipulation;
 }
 
-/*
-	to prevent the buttons in the middle of the page in main_box from shrinking
+/* 
+	removing the shadow around the header as
+	we are using the buttons with purple border only
 */
-
-/* main > *
-{
-	flex: 1 1 auto;
-} */
 
 ul.header_list
 {
 	box-shadow: none;
 }
-
-/* .main_box li .button
-{
-	border: none;
-
-	box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.7);
-} */
