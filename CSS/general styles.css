@@ -34,6 +34,10 @@ ul
 
 body
 {
+	/* 
+		Here, we consider 1vmax : 1vmin = 16 : 9, hence, we calculate (10/16 vmax + 10/9 vmin) * 1.05  
+	*/
+
 	font-size: calc((.625vmax + 1.111vmin) * 1.05);
     padding: 0;
 }
