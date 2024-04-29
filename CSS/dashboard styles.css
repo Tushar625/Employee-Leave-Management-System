@@ -9,7 +9,7 @@
 .main_box > * .d_box, .main_box > * .dashboard_menu
 {
 	/* base size of this thing (size can be extended from here but can't compressed) */
-	width: 18em;
+	width: 20em;
 	/* these element will have slightly bigger size than message or button */
 }
 

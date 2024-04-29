@@ -34,7 +34,7 @@ ul
 
 body
 {
-	font-size: calc((1.6vmin + .9vmax) * .8);
+	font-size: calc((.625vmax + 1.111vmin) * 1.05);
     padding: 0;
 }
 
