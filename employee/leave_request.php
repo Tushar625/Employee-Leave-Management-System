@@ -288,7 +288,7 @@
 				<!-- leave rule need support doc -->
 
 				<li>
-					<label> Doc
+					<label> Supporting Doc
 						<div class = "file">
 							<input type = "hidden" name = "MAX_FILE_SIZE" value = <?php echo ($max_size * 1024 * 1024)?>>
 							<input type = "file" name = "document" accept = "<?php echo $files_accepted?>" required>

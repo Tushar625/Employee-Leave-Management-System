@@ -1,4 +1,11 @@
 
+/* enabling touch action for index pages */
+
+:root
+{
+	touch-action: manipulation;
+}
+
 /* changing some attributes of main_box */
 
 .main_box
