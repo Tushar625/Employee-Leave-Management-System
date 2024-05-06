@@ -140,6 +140,13 @@ main
 	/* color: white; */
 }
 
+/* increasing space above form input buttons only for asthetics */
+
+.main_box > * input.button
+{
+	margin-top: 1.25em;
+}
+
 .main_box > * .file
 {
 	/* margin-top: 1em; */

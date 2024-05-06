@@ -125,6 +125,11 @@
 
 			@import url("CSS/form styles.css");
 
+			label
+			{
+				margin-top: -0.5em;
+			}
+
 		</style>
 
 	</head>
@@ -187,10 +192,6 @@
 
 			<li>
 				<input class = "button" type = "submit" name = "submit" value = "Login">
-			</li>
-
-			<li>
-				<span ></span>
 			</li>
 
 		</ul>
