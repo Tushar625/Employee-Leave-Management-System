@@ -248,13 +248,9 @@
 			<!-- Displaying the leave type and no. of days available (user friendly) -->
 
 			<li>
-				<div class = "info message">
-					<?php echo "$leave_name, available $days_avail days"?>
+				<div class = "heading">
+					<?php echo "<h1>$leave_name</h1><h5>*available for $days_avail days</h5>"?>
 				</div>
-			</li>
-
-			<li>
-				<label> Reason <textarea name = "reason" maxlength = 500 required></textarea></label>
 			</li>
 
 			<!-- date inputs -->
@@ -280,6 +276,12 @@
 				</li>
 
 			<?php endif; ?>
+
+			<!-- reason -->
+
+			<li>
+				<label> Reason <textarea name = "reason" maxlength = 500 required></textarea></label>
+			</li>
 
 			<!-- support doc input (only if required by the leave rule) -->
 
@@ -355,7 +357,7 @@
 			<?php endif?>
 
 			<li>
-				<input class = "button" type = "submit" name = "submit" value = "Request Leave">
+				<input class = "button" type = "submit" name = "submit" value = "Submit Application">
 			</li>
 
 		</ul>

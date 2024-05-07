@@ -185,12 +185,6 @@
 			</li>
 
 			<li>
-				<div class = "error message">
-					Enter your credentials
-				</div>
-			</li>
-
-			<li>
 				<input class = "button" type = "submit" name = "submit" value = "Login">
 			</li>
 

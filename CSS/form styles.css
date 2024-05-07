@@ -64,7 +64,7 @@ main
 	how input boxes and buttons should look like
 */
 
-.main_box > * input, .main_box > * select, .main_box > * textarea, .main_box > * .button, .main_box > * .message, .main_box > * .file
+.main_box > * .heading, .main_box > * input, .main_box > * select, .main_box > * textarea, .main_box > * .button, .main_box > * .message, .main_box > * .file
 {
 	/* fill entire space of parent element ".main_box > *" */
 	min-width: 100%;
@@ -78,6 +78,16 @@ main
 }
 
 /*
+	some extra property for form heading
+*/
+
+.main_box > * .heading
+{
+	color: rgb(30, 92, 150);
+	padding: 0;
+}
+
+/*
 	some extra property for text area
 */
 
@@ -88,6 +98,7 @@ main
 	min-height: 6em;
 	line-height: 1.2em;
 	padding: .5em;
+	margin-bottom: -.5em;
 }
 
 /*
