@@ -249,7 +249,7 @@
 
 			<li>
 				<div class = "heading">
-					<?php echo "<h1>$leave_name</h1><h5>*available for $days_avail days</h5>"?>
+					<?php echo "<h1>$leave_name</h1><em>*Only <b>$days_avail days</b> available</em>"?>
 				</div>
 			</li>
 
