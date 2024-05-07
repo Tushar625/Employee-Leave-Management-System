@@ -17,3 +17,8 @@ ul.header_list
 {
 	box-shadow: none;
 }
+
+.main_box > * .button
+{
+	border-color: rgb(71, 28, 114) !important;
+}
