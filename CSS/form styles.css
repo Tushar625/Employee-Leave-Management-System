@@ -74,6 +74,7 @@ main
 	border-radius: .3em;
 	border-width: 1px;
 	font-size: inherit;
+	border-color: rgb(71, 28, 114);
 }
 
 /*
@@ -83,7 +84,7 @@ main
 .main_box > * .heading
 {
 	padding: 0;
-	color: rgb(173, 200, 230);
+	color: rgb(59, 8, 111);
 }
 
 /*
@@ -123,7 +124,7 @@ main
 
 /* for error message */
 
-.error
+.main_box > * .error
 {
 	border-color: red;
 	background-color: rgba(255, 0, 0, 0.1);
@@ -131,7 +132,7 @@ main
 
 /* for info */
 
-.info
+.main_box > * .info
 {
 	border-color: rgb(0, 255, 0);
 	background-color: rgba(0, 255, 0, 0.1);
