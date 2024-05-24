@@ -291,7 +291,7 @@
 
 				<li>
 					<div class = "error message">
-						These days are not available
+						These days are already used
 					</div>
 				</li>
 
