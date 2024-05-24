@@ -87,15 +87,35 @@
 
 		$end_date = mysql_sanitize_input($link, $_POST['end_date']);
 
-		$requested_days = count_leave_days($start_date, $end_date);
+		// check if the dates are already booked or not (i.e., requested or approved)
 
-		// check if start > end date or requested_days are more than remaining days
+		$query = "SELECT lrid FROM leave_request WHERE eid = $eid AND (mg2_consent is NULL OR mg2_consent = 'A') AND end_date >= '$start_date' AND start_date <= '$end_date'";
 
-		if($requested_days <= 0 || $requested_days > leave_days_remaining($link, $eid, $lid))
+		$result = $link -> query($query);
+		
+		if($result === false)
 		{
-			// dates are not valid
+			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+		}
 
-			$get = "days_valid=false";
+		if($result -> num_rows > 0)
+		{
+			// the dates are already booked
+
+			$get = "days_booked=false";
+		}
+		else
+		{
+			$requested_days = count_leave_days($start_date, $end_date);
+
+			// check if start > end date or requested_days are more than remaining days
+
+			if($requested_days <= 0 || $requested_days > leave_days_remaining($link, $eid, $lid))
+			{
+				// dates are not valid
+
+				$get = "days_valid=false";
+			}
 		}
 
 		// >>>> checking the doc
@@ -264,6 +284,18 @@
 			</li>
 
 			<!-- date input errors -->
+
+			<?php if(isset($_GET['days_booked'])) :?>
+
+				<!-- the dates entered are booked -->
+
+				<li>
+					<div class = "error message">
+						These days are not available
+					</div>
+				</li>
+
+			<?php endif; ?>
 
 			<?php if(isset($_GET['days_valid'])) :?>
 

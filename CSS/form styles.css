@@ -126,7 +126,7 @@ main
 
 .main_box > * .error
 {
-	border-color: red;
+	/* border-color: red; */
 	background-color: rgba(255, 0, 0, 0.1);
 }
 
@@ -134,7 +134,7 @@ main
 
 .main_box > * .info
 {
-	border-color: rgb(0, 255, 0);
+	/* border-color: rgb(0, 255, 0); */
 	background-color: rgba(0, 255, 0, 0.1);
 }
 
