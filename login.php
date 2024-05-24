@@ -78,11 +78,7 @@
 
 			$user = strtoupper($user_section);
 
-			if(is_manager($rank))
-			{
-				// for managers we need to store his rank seperately
-				$_SESSION[$user . "_RANK"] = $rank;
-			}
+			$_SESSION[$user . "_RANK"] = $rank;
 
 			$_SESSION[$user . "_NAME"] = $arr['name'];
 
