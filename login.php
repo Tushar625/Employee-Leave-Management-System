@@ -41,13 +41,13 @@
 		{
 			// wants to login as an employee (every employee is allowed)
 
-			$query = "select eid, name from employee natural join login WHERE email = '$email' AND password = '$password'";
+			$query = "select eid, name, ranks from employee natural join login WHERE email = '$email' AND password = '$password'";
 		}
 		else
 		{
 			// wants to login with his own rank (a manager can't enter as HR and vice versa)
 
-			$query = "select eid, name from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks = $rank";
+			$query = "select eid, name, ranks from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks = $rank";
 		}
 
 		$result = $link -> query($query);
@@ -78,7 +78,7 @@
 
 			$user = strtoupper($user_section);
 
-			$_SESSION[$user . "_RANK"] = $rank;
+			$_SESSION[$user . "_RANK"] = $arr['ranks'];
 
 			$_SESSION[$user . "_NAME"] = $arr['name'];
 

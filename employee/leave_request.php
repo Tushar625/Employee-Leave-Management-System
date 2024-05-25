@@ -188,6 +188,25 @@
 
 		$reason = mysql_sanitize_input($link, $_POST['reason']);
 
+		// manager 1 doesn't need mg1_consent and manager 2 doesn't need mg1_consent or mg2_consent
+
+		$mng_attrib = '';
+
+		$mng_value = '';
+
+		if($_SESSION['EMPLOYEE_RANK'] == 1)	// manager1
+		{
+			$mng_attrib = ", mg1_consent";
+
+			$mng_value = ", 'NA'";
+		}
+		elseif($_SESSION['EMPLOYEE_RANK'] == 2)	// manager2
+		{
+			$mng_attrib = ", mg1_consent, mg2_consent";
+
+			$mng_value = ", 'NA', 'A'";
+		}
+
 		// checking if we need to store the document or not
 
 		if(isset($tname))	// $tname -> temporary location of the doc
@@ -196,11 +215,11 @@
 
 			$fcontent = $link -> real_escape_string(file_get_contents($tname));
 
-			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, reason, support_doc, ftype) VALUES($eid, $lid, '$start_date', '$end_date', '$reason', '$fcontent', '$ftype')";
+			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, reason, support_doc, ftype$mng_attrib) VALUES($eid, $lid, '$start_date', '$end_date', '$reason', '$fcontent', '$ftype'$mng_value)";
 		}
 		else
 		{
-			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, reason) VALUES($eid, $lid, '$start_date', '$end_date', '$reason')";
+			$query = "INSERT INTO leave_request(eid, lid, start_date, end_date, reason$mng_attrib) VALUES($eid, $lid, '$start_date', '$end_date', '$reason'$mng_value)";
 		}
 
 		// fail check
