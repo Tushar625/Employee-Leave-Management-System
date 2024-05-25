@@ -82,7 +82,7 @@ CREATE TABLE leave_request(
 
 CREATE TABLE login(
     eid         BIGINT,
-    password    CHAR(32) NOT NULL,
+    password    VARCHAR(255) NOT NULL,
 
     # constraints
 
@@ -114,3 +114,4 @@ DESC leave_request;
 ALTER TABLE employee AUTO_INCREMENT = 1;
 
 ALTER TABLE leave_rule AUTO_INCREMENT = 1;
+

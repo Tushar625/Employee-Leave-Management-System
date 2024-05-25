@@ -17,6 +17,8 @@
 
 		include "../PHP/validate_email.php";
 
+		include "../PHP/form_input_check.php";
+
 		// here we use get variables to send error messages while redirecting to itself
 
 		/*
@@ -29,60 +31,66 @@
 			While redirecting we use get method to send the error or success message.
 		*/
 
-		// check if two password are different
+		// ------------- Error Detection -------------
 
-		if($_POST['password'] != $_POST['password_reenter'])
+		// >>>> missing input parameter check
+
+		if(elements_exist($_POST, ['name', 'email', 'phone', 'ranks', 'password', 'password_reenter']))
 		{
-			$get = "pass_match=false";
+			// >>>> name check
+
+			/* nothimg to check yet */
+
+			// >>>> password check
+
+			// password length check
+
+			if(max_length_check($_POST['password'], 10) == false)
+			{
+				$get = url_parameters($get, "pass_valid=0");
+			}
+			elseif($_POST['password'] != $_POST['password_reenter'])
+			{
+				// two password are different
+				
+				$get = url_parameters($get, "pass_match=0");
+			}
+
+			// >>>> email check
+
+			// check if the email is new and valid or not
+
+			$email = strtolower(mysql_sanitize_input($link, $_POST['email']));
+
+			$result = $link -> query("SELECT * FROM employee WHERE email = '$email'");
+
+			if($result -> num_rows > 0)
+			{
+				// the email is already used
+
+				$get = url_parameters($get, "email_used=1");
+			}
+			elseif(!validate_email($email))
+			{
+				// the email is not used but not valid
+
+				$get = url_parameters($get, "email_valid=0");
+			}
+
+			// >>>> phone check
+
+			// check if the phone no. is valid or not
+
+			if(length_check($_POST['phone'], 10) == false)
+			{
+				// the phone no. is not valid
+
+				$get = url_parameters($get, "phone_valid=0");
+			}
 		}
-
-		// check if the email is new and valid or not
-
-		$email = strtolower(mysql_sanitize_input($link, $_POST['email']));
-
-		$result = $link -> query("SELECT * FROM employee WHERE email = '$email'");
-
-		if($result -> num_rows > 0)
+		else
 		{
-			// the email is already used
-
-			if(isset($get))
-			{
-				$get = "$get&email_used=true";
-			}
-			else
-			{
-				$get = "email_used=true";
-			}
-		}
-		elseif(!validate_email($email))
-		{
-			// the email is not used but not valid
-
-			if(isset($get))
-			{
-				$get = "$get&email_valid=false";
-			}
-			else
-			{
-				$get = "email_valid=false";
-			}
-		}
-
-		// check if the phone no. is valid or not
-
-		if(strlen($_POST['phone']) != 10)
-		{
-			// the phone no. is not valid
-
-			if(isset($get))
-			{
-				$get = "$get&phone_valid=false";
-			}
-			else
-			{
-				$get = "phone_valid=false";
-			}
+			$get = "input_missing=1";
 		}
 
 		// if get is created there is a problem and we reload the file
@@ -102,11 +110,7 @@
 
 			$pass = $_POST['password'];
 
-			$salt1 = "$#&^f";
-			
-			$salt2 = "$@gh^f";
-
-			$password = hash("ripemd128", $salt1 . $pass . $salt2);
+			$password = password_hash($pass, PASSWORD_DEFAULT);
 			
 			$query = "INSERT INTO employee(name, email, phone, ranks) VALUES('$name', '$email', $phone, $ranks);";
 
@@ -132,7 +136,7 @@
 				die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
 			}
 
-			$get = "success=true";
+			$get = "success=1";
 		}
 
 		$link -> close();
@@ -146,7 +150,7 @@
 		$get = '';
 	}
 
-	// add selfe redirect once
+	// add self redirect once
 
 	/*
 		redirecting to itself once to:
@@ -217,14 +221,24 @@
 
 			<?php endif; ?>
 
+			<?php if(isset($_GET['input_missing'])) :?>
+
+				<li>
+					<div class = "error message">
+						Missing inputs ...
+					</div>
+				</li>
+
+			<?php endif; ?>
+
 			<!-- Maxlength is set according to size of uname field in login table -->
 
 			<li>
-				<label> Emp Name <input name = "name" maxlength = 30 required> </label>
+				<label> Emp Name <input name = "name" maxlength = 30 placeholder = "30 letters max" required> </label>
 			</li>
 
 			<li>
-				<label> Email <input type = "email" name = "email" maxlength = 50 required> </label>
+				<label> Email <input type = "email" name = "email" maxlength = 50 placeholder = "50 characters max" required> </label>
 			</li>
 
 			<?php if(isset($_GET['email_used']) || isset($_GET['email_valid'])) :?>
@@ -240,7 +254,7 @@
 			<?php endif; ?>
 
 			<li>
-				<label> Phone <input type = "tel" name = "phone" maxlength = 10 required> </label>
+				<label> Phone <input type = "tel" name = "phone" maxlength = 10 placeholder = "10 characters max" required> </label>
 			</li>
 
 			<?php if(isset($_GET['phone_valid'])) :?>
@@ -268,11 +282,23 @@
 			</li>
 			
 			<li>
-				<label> Password (For Profile) <input type = "password" name = "password" maxlength = 10 required> </label>
+				<label> Password (For Profile) <input type = "password" name = "password" maxlength = 10 placeholder = "10 characters max" required> </label>
 			</li>
 
+			<?php if(isset($_GET['pass_valid'])) :?>
+
+				<!-- the password entered is invalid -->
+
+				<li>
+					<div class = "error message">
+						Invalid password.
+					</div>
+				</li>
+
+			<?php endif; ?>
+
 			<li>
-				<label> Reenter Password <input type = "password" name = "password_reenter" maxlength = 10 required> </label>
+				<label> Reenter Password <input type = "password" name = "password_reenter" maxlength = 10 placeholder = "10 characters max" required> </label>
 			</li>
 
 			<!-- Original and reentered passwords must match -->

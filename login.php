@@ -29,25 +29,19 @@
 
 		$pass = $_POST['password'];
 
-		$salt1 = "$#&^f";
-		
-		$salt2 = "$@gh^f";
-
-		$password = hash("ripemd128", $salt1 . $pass . $salt2);
-
 		$rank = mysql_sanitize_input($link, $_POST['ranks']);
 
 		if($rank == 0)
 		{
 			// wants to login as an employee (every employee is allowed)
 
-			$query = "select eid, name, ranks from employee natural join login WHERE email = '$email' AND password = '$password'";
+			$query = "select eid, name, ranks, password from employee natural join login WHERE email = '$email'";
 		}
 		else
 		{
 			// wants to login with his own rank (a manager can't enter as HR and vice versa)
 
-			$query = "select eid, name, ranks from employee natural join login WHERE email = '$email' AND password = '$password' AND ranks = $rank";
+			$query = "select eid, name, ranks, password from employee natural join login WHERE email = '$email' AND ranks = $rank";
 		}
 
 		$result = $link -> query($query);
@@ -57,7 +51,11 @@
 			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
 		}
 
-		if($result -> num_rows === 1)
+		// getting first record
+
+		$arr = $result -> fetch_assoc();
+
+		if($result -> num_rows === 1 && password_verify($pass, $arr['password']))
 		{
 			/*
 				an entry is found in employee and login tabel so we start a session and store
@@ -69,8 +67,6 @@
 			include "PHP/emp_ranking_system.php";
 
 			start_secure_session();
-
-			$arr = $result -> fetch_assoc();
 
 			// getting name of the directory where the section for this user is stored
 
@@ -91,7 +87,7 @@
 		else
 		{
 			/*
-				no entry is found hence, this login process fails, to indicate this
+				no entry is found hence with proper password, this login process fails, to indicate this
 				we redirect to this page and set the get variable fail
 
 				which is checked to indicate failure
