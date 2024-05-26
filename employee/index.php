@@ -63,7 +63,7 @@
 			leave in leave rules table, we use progress bar for it
 		-->
 		
-		<ul class = "main_box red_box">
+		<ul class = "main_box blue_box">
 
 			<!-- one iteration of the loop creates the entry for one leave in the dashboard -->
 
@@ -73,7 +73,7 @@
 				
 				<!-- from eid and lid (of a leave) we calculate no. of leave days used by the employee -->
 
-				<?php $remaining_days = $row['days'] - used_leave_days($link, $eid, $row['lid'])?>
+				<?php $used_days = used_leave_days($link, $eid, $row['lid'])?>
 
 				<!--
 					little bit of color coding used here:
@@ -81,13 +81,13 @@
 					green shadow -> not all leave days are spent
 				-->
 				
-				<div class = "message dashboard_menu <?php echo ($remaining_days == 0) ? "redbutton" : "greenbutton"?>">
+				<div class = "message dashboard_menu <?php echo ($used_days >= $row['days']) ? "redbutton" : "greenbutton"?>">
 					
 					<span><?php echo $row['type']?></span>
 					
-					<span><progress max = '<?php echo $row['days']?>' value = '<?php echo $remaining_days?>'></progress></span>
+					<span><progress max = '<?php echo $row['days']?>' value = '<?php echo $used_days?>'></progress></span>
 
-					<span><?php echo $remaining_days . "/" . $row['days']?></span>
+					<span><?php echo $used_days . "/" . $row['days']?></span>
 				
 				</div>
 
@@ -131,7 +131,6 @@
 			$result = $link -> query($query);
 
 			$nav_index = 0;
-
 		?>
 
 		<?php for(;$row = $result -> fetch_assoc(); $nav_index++): /* index of the record read */?>

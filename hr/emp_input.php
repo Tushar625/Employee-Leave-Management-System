@@ -298,7 +298,7 @@
 			<?php endif; ?>
 
 			<li>
-				<label> Reenter Password <input type = "password" name = "password_reenter" maxlength = 10 placeholder = "10 characters max" required> </label>
+				<label> Re-enter Password <input type = "password" name = "password_reenter" maxlength = 10 placeholder = "10 characters max" required> </label>
 			</li>
 
 			<!-- Original and reentered passwords must match -->

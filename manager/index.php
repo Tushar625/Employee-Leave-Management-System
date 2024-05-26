@@ -129,9 +129,9 @@
 						
 						<!-- button to display leave history of the employee -->
 
-						<a href = "<?php echo "view.php?eid=$eid"?>">&#x1F50D;</a>
+						<a href = "<?php echo "view.php?eid=$eid"?>"><?php echo $row['name']?></a>
 
-						<?php echo $row['name']?>
+						<!--<?php echo $row['name']?>-->
 
 					</span>
 
