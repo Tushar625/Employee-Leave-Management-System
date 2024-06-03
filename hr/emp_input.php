@@ -7,6 +7,8 @@
 
 	include "../PHP/check_hr_session.php";
 
+	include "../PHP/message_box.php";
+
 	// Empdetails input
 
 	if(isset($_POST['submit']))
@@ -18,6 +20,10 @@
 		include "../PHP/validate_email.php";
 
 		include "../PHP/form_input_check.php";
+
+		// backup input (it will be used to retain the inputs in case of a failure)
+
+		$_SESSION['inputs'] = $_POST;
 
 		// here we use get variables to send error messages while redirecting to itself
 
@@ -118,7 +124,7 @@
 
 			if($link -> query($query) === false)
 			{
-				die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+				message_box("Failed to add new employee (check lenghts of the inputs or use different password)", "hr/emp_input.php", true);
 			}
 
 			// collecting his eid
@@ -133,10 +139,14 @@
 
 			if($link -> query($query) === false)
 			{
-				die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+				message_box("Failed to add new employee (check lenghts of the inputs or use different password)", "hr/emp_input.php", true);
 			}
 
 			$get = "success=1";
+
+			// inputs entered successfully hence destroy backup
+
+			unset($_SESSION['inputs']);
 		}
 
 		$link -> close();
@@ -163,6 +173,25 @@
 	include "../PHP/self_redirect_once.php";
 
 	self_redirect_once($get);
+
+	// checking any backed up inputs can be found or not
+
+	if(isset($_SESSION['inputs']))
+	{
+		$name = $_SESSION['inputs']['name'];
+
+		$email = $_SESSION['inputs']['email'];
+
+		$phone = $_SESSION['inputs']['phone'];
+
+		$ranks = $_SESSION['inputs']['ranks'];
+
+		$password = $_SESSION['inputs']['password'];
+
+		$password_reenter = $_SESSION['inputs']['password_reenter'];
+
+		unset($_SESSION['inputs']);
+	}
 
 ?>
 
@@ -232,11 +261,11 @@
 			<!-- Maxlength is set according to size of uname field in login table -->
 
 			<li>
-				<label> Emp Name <input name = "name" maxlength = 30 placeholder = "30 letters max" required> </label>
+				<label> Emp Name <input name = "name" maxlength = 30 placeholder = "30 letters max" required <?php if(isset($name)) echo "value = '$name'";?>> </label>
 			</li>
 
 			<li>
-				<label> Email <input type = "email" name = "email" maxlength = 50 placeholder = "50 characters max" required> </label>
+				<label> Email <input type = "email" name = "email" maxlength = 50 placeholder = "50 characters max" required <?php if(isset($email)) echo "value = '$email'";?>> </label>
 			</li>
 
 			<?php if(isset($_GET['email_used']) || isset($_GET['email_valid'])) :?>
@@ -252,7 +281,7 @@
 			<?php endif; ?>
 
 			<li>
-				<label> Phone <input type = "tel" name = "phone" maxlength = 10 placeholder = "10 characters max" required> </label>
+				<label> Phone <input type = "tel" name = "phone" maxlength = 10 placeholder = "10 characters max" required <?php if(isset($phone)) echo "value = '$phone'";?>> </label>
 			</li>
 
 			<?php if(isset($_GET['phone_valid'])) :?>
@@ -271,16 +300,16 @@
 				<label>
 					Rank
 					<select name = "ranks">
-						<option value = 0> Employee </option>
-						<option value = 1> Manager1 </option>
-						<option value = 2> Manager2 </option>
-						<option value = 3> HR </option>
+						<option value = 0 <?php if(isset($ranks) && $ranks == 0) echo "selected";?>> Employee </option>
+						<option value = 1 <?php if(isset($ranks) && $ranks == 1) echo "selected";?>> Manager1 </option>
+						<option value = 2 <?php if(isset($ranks) && $ranks == 2) echo "selected";?>> Manager2 </option>
+						<option value = 3 <?php if(isset($ranks) && $ranks == 3) echo "selected";?>> HR </option>
 					</select>
 				</label>
 			</li>
 			
 			<li>
-				<label> Password (For Profile) <input type = "password" name = "password" maxlength = 10 placeholder = "10 characters max" required> </label>
+				<label> Password (For Profile) <input type = "password" name = "password" maxlength = 10 placeholder = "10 characters max" required <?php if(isset($password)) echo "value = '$password'";?>> </label>
 			</li>
 
 			<?php if(isset($_GET['pass_valid'])) :?>
@@ -296,7 +325,7 @@
 			<?php endif; ?>
 
 			<li>
-				<label> Re-enter Password <input type = "password" name = "password_reenter" maxlength = 10 placeholder = "10 characters max" required> </label>
+				<label> Re-enter Password <input type = "password" name = "password_reenter" maxlength = 10 placeholder = "10 characters max" required <?php if(isset($password_reenter)) echo "value = '$password_reenter'";?>> </label>
 			</li>
 
 			<!-- Original and reentered passwords must match -->
