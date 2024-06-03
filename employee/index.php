@@ -13,6 +13,8 @@
 
 	include "../PHP/std_date_format.php";
 
+	include "../PHP/leave_request_status.php";
+
 	$eid = $_SESSION['EMPLOYEE_ID'];
 
 	$result = $link -> query("SELECT lid, type, days FROM leave_rule");
@@ -107,7 +109,7 @@
 				<a href = "view.php?type=0"><button class = 'button d_box bluebutton'> Leave History </button></a>
 			</li>
 
-			<!-- delete buttom -->
+			<!-- request for leave buttom -->
 
 			<li>
 				<a href = "choose_leave.php"><button class = 'button d_box bluebutton'> Leave Request </button></a>
@@ -150,7 +152,7 @@
 			<li>
 				<!-- mark latest leave request with red -->
 				
-				<div class = "<?php echo (($nav_index === 0) ? "message redbutton" : "message")?>">
+				<div class = "<?php echo (($nav_index === 0) ? "message redbutton" : "message")?> <?php echo get_status_color('') . "_text"?>">
 
 					<!-- delete button -->
 
@@ -158,7 +160,7 @@
 					
 					<!-- leave type -->
 
-					<?php echo $row['type']?>
+					<b><?php echo $row['type']?></b>
 
 					<!-- create view doc button only if this leave needs doc -->
 
@@ -193,7 +195,7 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#128580;
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> <?php echo get_status_emoji('')?>
 				</div>
 			</li>
 
@@ -246,8 +248,8 @@
 			<!-- leave type -->
 			
 			<li>
-				<div class = "message">
-					<?php echo $row['type']?>
+				<div class = "message <?php echo get_status_color('A') . "_text"?>">
+					<b><?php echo $row['type']?></b>
 				</div>
 			</li>
 
@@ -273,7 +275,7 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#x1F44D;
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> <?php echo get_status_emoji('A')?>
 				</div>
 			</li>
 
@@ -320,8 +322,8 @@
 			<!-- leave type -->
 			
 			<li>
-				<div class = "message">
-					<?php echo $row['type']?>
+				<div class = "message <?php echo get_status_color('abc') . "_text"?>">
+					<b><?php echo $row['type']?></b>
 				</div>
 			</li>
 
@@ -347,7 +349,7 @@
 
 			<li>
 				<div class = "message">
-					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> &#x1F44E;
+					<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?> <?php echo get_status_emoji('abc')?>
 				</div>
 			</li>
 

@@ -220,8 +220,8 @@
 			<!-- type of leave requested -->
 
 			<li>
-				<div class = "message">
-					<?php echo $row['type']?>
+				<div class = "<?php echo "message " . get_status_color($row['mg2_consent']) . "_text"?>">
+					<b><?php echo $row['type']?></b>
 				</div>
 			</li>
 

@@ -4,9 +4,9 @@
 	{
 		switch($mg2consent)
 		{
-			case'A': return "&#x1F44D;";	//"Approved";
-			case'': return "&#128580;";	//"Waiting";
-			default: return "&#x1F44E;";	//"Declined";
+			case'A': return "<b><span class = 'green_text'>/ Approved</span></b>";	//"Approved";
+			case'': return "<b><span class = 'blue_text'>/ Waiting ...</span></b>";	//"Waiting";
+			default: return "<b><span class = 'red_text'>/ Declined</span></b>";	//"Declined";
 		}
 	}
 
