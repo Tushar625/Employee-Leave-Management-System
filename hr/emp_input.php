@@ -142,8 +142,6 @@
 		$link -> close();
 
 		$get = "?$get";
-
-		// header("location: emp_input.php?");
 	}
 	else
 	{
@@ -155,7 +153,7 @@
 	/*
 		redirecting to itself once to:
 		
-		clear the past inputs to avoid resubmission of same quiz when
+		clear the past inputs to avoid resubmission of same data when
 		user returns back to previous input form
 
 		and to avoid form resubmission error on reload (more about this

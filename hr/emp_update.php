@@ -2,10 +2,12 @@
 
 	/*
 		check if it's valid admin session or not if not redirect
-		to index or home page
+		to index or home page (with updated error management system)
 	*/
 
 	include "../PHP/check_hr_session.php";
+
+	include "../PHP/message_box.php";
 
 	// Empdetails input
 
@@ -29,7 +31,9 @@
 		{
 			// the email is already used
 
-			die("Update failure (use different email), head back to <a href = 'view.php?type=1#id$eid'> Display all Employees </a>");
+			// here an error message can be displayed along with a OK button (attached to a url)
+
+			message_box("Update failure (use different email)", "hr/update.php?id=$eid&type=1", true);
 		}
 
 		// check if the phone no. is valid or not
@@ -38,7 +42,7 @@
 		{
 			// the phone no. is not valid
 
-			die("Update failure (invalid phone number), head back to <a href = 'view.php?type=1#id$eid'> Display all Employees </a>");
+			message_box("Update failure (invalid phone number)", "hr/update.php?id=$eid&type=1", true);
 		}
 
 		$name = mysql_sanitize_input($link, $_POST['name']);
@@ -53,8 +57,8 @@
 				emp update failure will lead back to emp Display page (this
 				is very unlikely to happen).
 			*/
-			
-			die("Update failure, head back to <a href = 'view.php?type=1#id$eid'> Display all Employees </a>");
+
+			message_box("Update failure (unknown reason), click <b>OK</b> to head back to <b>Display all Employees</b>", "hr/view.php?type=1#id$eid", true);
 		}
 
 		$link -> close();
@@ -64,8 +68,8 @@
 	else
 	{
 		/*
-			here we check for the session variable we created in "emp
-			update delete.php"
+			here we check for the session variable we created in "
+			update.php"
 
 			If that thing doesn't exist we return to emp display page
 			at certain emp detail
@@ -78,19 +82,19 @@
 		if(!isset($_SESSION['tuple']))
 		{
 			/*
-				this file receives qid of the quiz to be updated from
-				"quiz update delete.php" so that we can return to proper
-				quiz in quiz display page
+				this file receives eid of the employee to be updated from
+				"update php" so that we can return to proper
+				emp in emp display page
 
 				if no such get value is received we simply go back to the
-				top of quiz display page
+				top of emp display page
 			*/
 			
 			// invalid access
 
 			$id = (isset($_GET["id"])) ? "#id" . $_GET["id"] : "";
 
-			die("Form initializing failure, head back to <a href = 'view.php?type=1$id'> Display all Employees </a>");
+			message_box("Form initializing failure, click <b>OK</b> to head back to <b>Display all Employees</b>", "hr/view.php?type=1#id$eid", true);
 		}
 		else
 		{

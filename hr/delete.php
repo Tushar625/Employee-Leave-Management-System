@@ -26,11 +26,8 @@
 		$query = ($type == true) ? "delete from employee where eid = $id" : "delete from leave_rule where lid = $id";
 
 		/*
-			Quiz deletion failure will lead back to Quiz Display
+			emp or leave deletion failure will lead back to emp or leave Display
 			page (this is very unlikely to happen)
-
-			note that in case of failure we don't set auto increment
-			value because the last quiz remains intact
 		*/
 
 		if($link -> query($query) === false)
