@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid hr session or not if not redirect
 		to index or home page
 	*/
 
@@ -11,7 +11,7 @@
 
 	$MAX_DAYS = 365;
 
-	// Empdetails input
+	// Leave details input
 
 	if(isset($_POST['submit']))
 	{
@@ -37,7 +37,7 @@
 		if($link -> query($query) === false)
 		{
 			/*
-				leave update failure will lead back to emp Display page (this
+				leave update failure will lead back to leave Display page (this
 				is very unlikely to happen).
 			*/
 			
@@ -51,11 +51,11 @@
 	else
 	{
 		/*
-			here we check for the session variable we created in "emp
-			update delete.php"
+			here we check for the session variable we created in
+			"update.php"
 
-			If that thing doesn't exist we return to emp display page
-			at certain emp detail
+			If that thing doesn't exist we return to leave display page
+			at certain leave detail
 
 			If that thing exists we store its data into local variables
 			and delete the session variable so that it can't be used
@@ -65,12 +65,12 @@
 		if(!isset($_SESSION['tuple']))
 		{
 			/*
-				this file receives qid of the quiz to be updated from
-				"quiz update delete.php" so that we can return to proper
-				quiz in quiz display page
+				this file receives lid of the leave to be updated from
+				"update.php" so that we can return to proper
+				leave in leave display page
 
 				if no such get value is received we simply go back to the
-				top of quiz display page
+				top of leave display page
 			*/
 			
 			// invalid access
@@ -114,13 +114,6 @@
 	</head>
 	
 	<body>
-
-		<!--
-			We don't keep any return to home button here to discourage
-			user from accidentally return from registration form, I want
-			him to create an account successfully and then login to his
-			profile and play
-		-->
 		
 		<header>
 			<?php include "header.php";?>
@@ -134,7 +127,7 @@
 		
 		<ul class = "main_box nice_shadow">
 
-			<!-- Maxlength is set according to size of uname field in login table -->
+			<!-- Maxlength is set according to size of uname field in leave_rule table -->
 
 			<li>
 				<label> Leave Name <input name = "type" maxlength = 30 value = "<?php echo $type;?>" required> </label>

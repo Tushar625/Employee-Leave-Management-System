@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid hr session or not if not redirect
 		to index or home page
 	*/
 
@@ -11,7 +11,7 @@
 
 	$MAX_DAYS = 365;
 
-	// Empdetails input
+	// leave details input
 
 	if(isset($_POST['submit']))
 	{
@@ -24,7 +24,7 @@
 		/*
 			After each successful submission we redirect to the same form to display
 			the error or success message. As the inputs submitted here will be stored
-			into the login file, redirection is used to ensure that no resubmission
+			into the database, redirection is used to ensure that no resubmission
 			error will be generated upon reload or back. (More about this error in the
 			documentation)
 

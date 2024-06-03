@@ -13,11 +13,11 @@
 
 		include "../PHP/mysql_sanitize_input.php";
 
-		// update request from emp display
+		// update request from view.php
 
 		$id = mysql_sanitize_input($link, $_GET["id"]);
 
-		$type = $_GET["type"];
+		$type = $_GET["type"];	// type = true for employee, type = false for leave
 
 		// extracting the tuple
 
@@ -37,8 +37,8 @@
 
 		/*
 			loading a tuple as an associative array into session to
-			be accessed from emp update form, to display current values
-			of the emp
+			be accessed from emp or leave update form, to display current values
+			of the emp or leave
 		*/
 
 		$_SESSION["tuple"] = $result -> fetch_assoc();
@@ -46,10 +46,10 @@
 		$link -> close();
 
 		/*
-			redirect to the form to accept inputs, also send the eid of
-			the quiz to be updated to that form as get value, so that if
+			redirect to the form to accept inputs, also send the eid or lid of
+			the entry to be updated to that form as get value, so that if
 			anything goes wrong there we can head directly back to the
-			emp details in emp display
+			emp or leave details in emp or leave display
 		*/
 
 		if($type == true)

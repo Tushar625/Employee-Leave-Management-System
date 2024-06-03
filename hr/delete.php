@@ -37,7 +37,7 @@
 
 		$link -> close();
 
-		// redirect to the quiz right before the deleted quiz
+		// redirect to the entry right before the deleted entry
 
 		header("location: view.php?type=$type#navid" . ($nav - 1));
 	}

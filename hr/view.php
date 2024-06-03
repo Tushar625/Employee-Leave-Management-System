@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid hr session or not if not redirect
 		to index or home page
 	*/
 
@@ -9,7 +9,7 @@
 
 	include "../PHP/config.php";	// connect to database
 
-	// all quizes in quiz table
+	// all entries in employee or leave_rule table
 
 	$type = $_GET["type"];
 
@@ -57,13 +57,13 @@
 
 		<main>
 
-		<!-- Displaying the Leaves -->
+		<!-- Displaying the entries -->
 
-		<!-- 10 leaves between 2 navigation boxes -->
+		<!-- 10 entries between 2 navigation boxes -->
 
 		<?php $nav_interval = 10; $nav_index = 0;?>
 
-		<!-- getting the tuples in emp rule table -->
+		<!-- getting the tuples in emp or leave_rule table -->
 
 		<?php for(;$row = $result -> fetch_assoc(); $nav_index++): /* index of the record read */?>
 

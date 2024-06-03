@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid hr session or not if not redirect
 		to index or home page (with updated error management system)
 	*/
 
@@ -132,13 +132,6 @@
 	</head>
 	
 	<body>
-
-		<!--
-			We don't keep any return to home button here to discourage
-			user from accidentally return from registration form, I want
-			him to create an account successfully and then login to his
-			profile and play
-		-->
 		
 		<header>
 			<?php include "header.php";?>

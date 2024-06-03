@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		check if it's valid admin session or not if not redirect
+		check if it's valid hr session or not if not redirect
 		to index or home page
 	*/
 
@@ -30,7 +30,7 @@
 		/*
 			After each successful submission we redirect to the same form to display
 			the error or success message. As the inputs submitted here will be stored
-			into the login file, redirection is used to ensure that no resubmission
+			into the database, redirection is used to ensure that no resubmission
 			error will be generated upon reload or back. (More about this error in the
 			documentation)
 
@@ -105,7 +105,7 @@
 		{
 			/*
 				no problem detected, hence we receive rest of the inputs
-				and load them into login table
+				and load them into employee and login table
 			*/
 
 			$name = mysql_sanitize_input($link, $_POST['name']);
@@ -218,13 +218,6 @@
 	</head>
 	
 	<body>
-
-		<!--
-			We don't keep any return to home button here to discourage
-			user from accidentally return from registration form, I want
-			him to create an account successfully and then login to his
-			profile and play
-		-->
 		
 		<header>
 			<?php include "header.php";?>
