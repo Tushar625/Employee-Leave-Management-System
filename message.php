@@ -20,9 +20,9 @@
 	{
 		// nothing to display hence, display empty message
 
-		$_SESSION["msg"] = "Hello, no message found, click <b>OK</b>.";
+		$_SESSION["msg"] = "Hello, no message found.";
 				
-		$_SESSION["url"] = $_SERVER['HTTP_REFERER'];
+		$_SESSION["url"] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : "";
 		
 		$_SESSION["error"] = false;
 	}
@@ -67,7 +67,7 @@
 			</li>	
 			
 			<li>
-				<a href = "<?php echo $_SESSION["url"]?>"><button class = "button">OK</button></a>
+				<a href = "<?php echo $_SESSION["url"]?>"><button class = "button" <?php if($_SESSION["url"] == '') echo "disabled"?>>OK</button></a>
 			</li>
 
 			<?php

@@ -13,6 +13,8 @@
 
 	include "../PHP/leave_days.php";
 
+	include "../PHP/message_box.php";
+
 	$max_size = 1;	// 1 MB
 
 	$files_accepted = ".jpg, .jpeg, .png, .pdf";
@@ -58,7 +60,7 @@
 		{
 			// cannot take this leave
 
-			die("You can't apply for this leave, head back to <a href = 'index.php'> Employee index </a>");
+			message_box("You can't apply for this leave", "employee/choose_leave.php", true);
 		}
 
 		$link -> close();
@@ -67,6 +69,10 @@
 	}
 	else if(isset($_POST['submit']))
 	{
+		// backup input (it will be used to retain the inputs in case of a failure)
+
+		$_SESSION['inputs'] = $_POST;
+
 		/*
 			After each successful submission we redirect to the same file to display
 			the error message.
@@ -95,7 +101,7 @@
 		
 		if($result === false)
 		{
-			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+			message_box("Failed to add new leave request (check the dates)", "employee/leave_request.php?lid=$lid", true);
 		}
 
 		if($result -> num_rows > 0)
@@ -226,12 +232,14 @@
 
 		if($link -> query($query) === false)
 		{
-			die("Form submission failure, head back to <a href = 'index.php'> Home </a>");
+			message_box("Failed to add new leave request (check lenghts of the inputs)", "employee/leave_request.php?lid=$lid", true);
 		}
 
 		$link -> close();
 
-		// success hence redirect to employee index
+		// success hence destroy input backup and redirect to employee index
+
+		unset($_SESSION['inputs']);
 		
 		// new waiting is kept on top, hence, "#navid0"
 
@@ -240,6 +248,19 @@
 	else
 	{
 		header("location: index.php");
+	}
+
+	// checking any backed up inputs can be found or not
+
+	if(isset($_SESSION['inputs']))
+	{
+		$start_date = $_SESSION['inputs']['start_date'];
+
+		$end_date = $_SESSION['inputs']['end_date'];
+
+		$reason = $_SESSION['inputs']['reason'];
+		
+		unset($_SESSION['inputs']);
 	}
 
 ?>
@@ -295,11 +316,11 @@
 			<!-- date inputs -->
 
 			<li>
-				<label> Start Date <input name = "start_date" type = date required> </label>
+				<label> Start Date <input name = "start_date" type = date required <?php if(isset($start_date)) echo "value = '$start_date'";?>> </label>
 			</li>
 
 			<li>
-				<label> End Date <input name = "end_date" type = date required> </label>
+				<label> End Date <input name = "end_date" type = date required <?php if(isset($end_date)) echo "value = '$end_date'";?>> </label>
 			</li>
 
 			<!-- date input errors -->
@@ -331,7 +352,7 @@
 			<!-- reason -->
 
 			<li>
-				<label> Reason <textarea name = "reason" maxlength = 500 required></textarea></label>
+				<label> Reason <textarea name = "reason" maxlength = 500 required><?php if(isset($reason)) echo "$reason";?></textarea></label>
 			</li>
 
 			<!-- support doc input (only if required by the leave rule) -->
