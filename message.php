@@ -11,20 +11,36 @@
 	{
 		// no active session exists
 
-		header("location: ../index.php");
+		header("location: index.php");
 
 		exit();
 	}
 
-	if(!(isset($_SESSION["msg"]) && isset($_SESSION["url"]) && isset($_SESSION["error"])))
+	if(isset($_SESSION["msg"]) && isset($_SESSION["url"]) && isset($_SESSION["error"]))
 	{
-		// nothing to display hence, display empty message
+		$msg = $_SESSION["msg"];
 
-		$_SESSION["msg"] = "Hello, no message found.";
+		$url = $_SESSION["url"];
+
+		$error = $_SESSION["error"];
+
+		unset($_SESSION["msg"]);
 				
-		$_SESSION["url"] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : "";
+		unset($_SESSION["url"]);
+				
+		unset($_SESSION["error"]);
+	}
+	else
+	{
+		// nothing to display as, no parameters given
+
+		$msg = "Hello, no message found.";
+
+		// if no previous page is found empty string is assigned as URL
+				
+		$url = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : "";
 		
-		$_SESSION["error"] = false;
+		$error = false;
 	}
 
 ?>
@@ -56,27 +72,21 @@
 		<ul class = "main_box nice_shadow">
 			
 			<li>
-				<?php $type = ($_SESSION["error"]) ? "error" : "info";?>
+				<?php $type = ($error) ? "error" : "info";?>
 				
 				<div class = "<?php echo $type?> message">
 					
-					<?php echo $_SESSION["msg"]?>
+					<?php echo $msg?>
 					
 				</div>
 
 			</li>	
 			
-			<li>
-				<a href = "<?php echo $_SESSION["url"]?>"><button class = "button" <?php if($_SESSION["url"] == '') echo "disabled"?>>OK</button></a>
-			</li>
+			<!-- the button is disabled if no URL is found -->
 
-			<?php
-				unset($_SESSION["msg"]);
-				
-				unset($_SESSION["url"]);
-				
-				unset($_SESSION["error"]);
-			?>
+			<li>
+				<a href = "<?php echo $url?>"><button class = "button" <?php if($url == '') echo "disabled"?>>OK</button></a>
+			</li>
 
 		</ul>
 
