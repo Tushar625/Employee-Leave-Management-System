@@ -25,7 +25,7 @@
 
 	$mg1_consent = ($mrank == 1) ? "IS NULL" : "IS NOT NULL";
 
-	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE mg1_consent $mg1_consent AND mg2_consent IS NULL";
+	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE mg1_consent $mg1_consent AND mg2_consent IS NULL ORDER BY lrid";
 
 	$result = $link -> query($query);
 
