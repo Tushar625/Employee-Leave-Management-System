@@ -17,6 +17,10 @@
 
 	$mrank = $_SESSION["MANAGER_RANK"];
 
+	// collecting consent of junior manager and reason for leave
+
+	$data = ($mrank == 1) ? "reason" : "reason, mg1_consent";
+
 	/*
 		manager1 can see the tuples where mg1_consent and mg2_consent both are null
 
@@ -25,7 +29,7 @@
 
 	$mg1_consent = ($mrank == 1) ? "IS NULL" : "IS NOT NULL";
 
-	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, days FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE mg1_consent $mg1_consent AND mg2_consent IS NULL ORDER BY lrid";
+	$query = "SELECT eid, lid, lrid, name, type, start_date, end_date, $data, days, need_doc FROM leave_request NATURAL JOIN leave_rule NATURAL JOIN employee WHERE mg1_consent $mg1_consent AND mg2_consent IS NULL ORDER BY lrid";
 
 	$result = $link -> query($query);
 
@@ -53,16 +57,32 @@
 
 			@import url("../CSS/dashboard styles.css");
 
+			.dashboard_menu
+			{
+				padding: 1.5em !important;
+				height: 100% !important;
+			}
+
 			/*
 				here span will contain important text information hence
 				getting nice border around it
 			*/
-
+			
 			.dashboard_menu > span
 			{
 				border-radius: inherit;
-				margin: .2em;
-				/* box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.1); */
+				margin: .3em;
+				text-align: left;
+			}
+
+			.bottom_second
+			{
+				margin-bottom: .6em !important;
+			}
+
+			.bottom_most
+			{
+				margin-top: auto !important;
 			}
 
 		</style>
@@ -111,7 +131,26 @@
 
 				$lrid = $row['lrid'];
 
+				$leave_name = $row['type'];
+
+				$days_used = $row['days'];
+
+				$days_requested = count_leave_days($row['start_date'], $row['end_date']);
+
+				$start_date = $row['start_date'];
+				
+				$end_date = $row['end_date'];
+
 				$approved_days = approved_leave_days($link, $eid, $lid);
+
+				$reason = $row["reason"];
+
+				if($mrank == 2)
+				{
+					// only mg2 sees mg1 consent
+
+					$consent = $row["mg1_consent"];
+				}
 				
 			?>
 
@@ -121,64 +160,30 @@
 					here we show emp details and leave stats
 				 -->
 				
-				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
+				<div class = "message dashboard_menu">
 					
+					<span class = "heading">
+
+						<?php echo "<h1>$leave_name</h1>"?>
+			
+					</span>
+
 					<!-- emp name -->
 
 					<span>
 						
 						<!-- button to display leave history of the employee -->
 
-						<a href = "<?php echo "view.php?eid=$eid"?>"><?php echo $row['name']?></a>
+						Name: <a href = "<?php echo "view.php?eid=$eid"?>"><?php echo $row['name']?></a>
 
 						<!--<?php echo $row['name']?>-->
-
-					</span>
-
-					<!-- 
-						leave stats as a progress bar and a hidden button to display complete
-						leave stats of this emp in brief with progress bars
-					 -->
-
-					<span><a href = "<?php echo "stats.php?eid=$eid"?>"><progress max = '<?php echo $row['days']?>' value = '<?php echo $approved_days?>'></progress></a></span>
-
-					<!-- no. of leaves already approved to this emp -->
-
-					<span>
-						
-						<?php echo $approved_days . "/" . $row['days']?> Taken
-
-					</span>
-				
-				</div>
-
-			</li>
-
-			<!-- 
-				leave type, reason and consent or approval
-			 -->
-
-			<li>
-
-				<div class = "message dashboard_menu <?php echo ($approved_days == $row['days']) ? "redbutton" : "bluebutton"?>">
-
-					<!-- leave type and no. of days -->
-
-					<span>
-						
-						<?php echo $row['type']?>
-
-						<?php echo count_leave_days($row['start_date'], $row['end_date']) . (($row['start_date'] == $row['end_date']) ? " Day" : " Days")?>
-
-						<!-- button to display leave reason and mg1 consent -->
-
-						<a href = "<?php echo "consent.php?lrid=$lrid"?>">&#128209;</a>
 
 					</span>
 
 					<!-- start and end date -->
 
 					<span>
+						Duration: 
 						<?php
 
 							if($row['start_date'] == $row['end_date'])
@@ -192,22 +197,73 @@
 						?>
 					</span>
 
+					<span>
+						
+						No of days: 
+
+						<?php echo $days_requested?>
+
+					</span>
+
+					<!-- no. of leaves already approved to this emp -->
+
+					<span>
+						
+						Used days: 
+
+						<?php echo $approved_days . "/" . $row['days']?>
+
+					</span>
+
+					<span>
+						Reason:
+					</span>
+
+					<span>
+						
+						<div class = "message">
+							
+							<?php echo $reason?>
+							
+						</div>
+
+					</span>
+
+					<?php if($row['need_doc'] == true):?>
+
+						<span><a href = "<?php echo "support_doc.php?lrid=$lrid"?>"><button class = "button bluebutton">Support Document</button></a></span>
+						
+					<?php endif?>
+					
+					<?php if(isset($consent)):?>
+
+						<span>
+							<?php echo get_rank($mrank - 1) . ":"?>
+						</span>
+
+						<span>
+							<div class = "message"><?php echo $consent?></div>
+						</span>
+
+					<?php endif?>
+
+					<span class = "bottom_second"><a href = "<?php echo "stats.php?eid=$eid"?>"><button class = "button bluebutton">Leave Statistics</button></a></span>
+
 					<!-- approval and consent buttons -->
 
 					<?php if($mrank == 1):?>
 
 						<!-- for mg1 -->
-						
-						<span>Comment <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a> Please</span>
+
+						<span class = "bottom_most"><a href = "<?php echo "comment.php?lrid=$lrid"?>"><button class = "button">Comment Please</button></a></span>
 
 					<?php else:?>
 
 						<!-- for mg2 -->
 
-						<span>
-							Approve <a href = "<?php echo "approve.php?lrid=$lrid"?>">&#10004;</a>
-							Decline <a href = "<?php echo "comment.php?lrid=$lrid"?>">&#128221;</a>
-						</span>
+						<span class = "bottom_most"><a href = "<?php echo "approve.php?lrid=$lrid"?>"><button class = "button">Approve</button></a></span>
+
+						<span><a href = "<?php echo "comment.php?lrid=$lrid"?>"><button class = "button">Decline</button></a></span>
 
 					<?php endif?>
 				
@@ -216,6 +272,14 @@
 			</li>
 
 			<?php endfor?>
+
+			<!-- print an extra invisible box if odd no. of leave requests found -->
+
+			<?php if($result -> num_rows % 2 != 0):?>
+				
+				<li><div class = "message dashboard_menu no_shadow"></div></li>
+			
+			<?php endif?>
 
 		</ul>
 
