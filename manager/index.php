@@ -229,11 +229,15 @@
 
 					</span>
 
+					<!-- supporting doc -->
+
 					<?php if($row['need_doc'] == true):?>
 
 						<span><a href = "<?php echo "support_doc.php?lrid=$lrid"?>"><button class = "button bluebutton">Support Document</button></a></span>
 						
 					<?php endif?>
+
+					<!-- mamager 1 consent -->
 					
 					<?php if(isset($consent)):?>
 
