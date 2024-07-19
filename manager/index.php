@@ -215,8 +215,8 @@
 
 					</span>
 
-					<span>
-						Reason:
+					<span class = "blue_text">
+						<b>Reason:</b>
 					</span>
 
 					<span>
@@ -241,8 +241,8 @@
 					
 					<?php if(isset($consent)):?>
 
-						<span>
-							<?php echo get_rank($mrank - 1) . ":"?>
+						<span class = "red_text">
+							<b><?php echo get_rank($mrank - 1) . ":"?></b>
 						</span>
 
 						<span>
