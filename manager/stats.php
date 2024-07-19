@@ -116,8 +116,6 @@
 
 		<footer></footer>
 
-		<script src="../JS/scroll_back.js"></script>
-
 	</body>
 
 </html>
