@@ -120,6 +120,7 @@ main
 {
 	border-style: dashed;
 	height: fit-content;
+	text-wrap: wrap;
 }
 
 /* for error message */
