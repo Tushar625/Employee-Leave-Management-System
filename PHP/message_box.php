@@ -1,6 +1,7 @@
 <?php
 
 	// uses message.php to display an error message along with a OK button (attached to a url)
+	// can be used only if there is an active session
 
 	function message_box($msg, $url, $error)
 	{
