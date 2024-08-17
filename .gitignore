@@ -7,3 +7,7 @@ segoe_ui/*
 # ignore the images
 
 images/*
+
+# ignore documentation
+
+documentation/*
