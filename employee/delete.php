@@ -5,13 +5,13 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_emp_session.php";
+	include_once "../PHP/check_emp_session.php";
 
 	if(isset($_GET["lrid"]) && isset($_GET["lid"]) && isset($_GET["navid"]))
 	{
-		include "../PHP/config.php";	// connect to database
+		include_once "../PHP/config.php";	// connect to database
 
-		include "../PHP/mysql_sanitize_input.php";
+		include_once "../PHP/mysql_sanitize_input.php";
 
 		// DELETE request from emp index
 

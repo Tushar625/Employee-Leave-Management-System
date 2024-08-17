@@ -5,7 +5,7 @@
 		the message content and url will be send via session variables
 	*/
 
-	include "PHP/check_destroy_secure_session.php";
+	include_once "PHP/check_destroy_secure_session.php";
 
 	if(check_secure_session() == false)
 	{

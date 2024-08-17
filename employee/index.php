@@ -5,15 +5,15 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_emp_session.php";
+	include_once "../PHP/check_emp_session.php";
 
-	include "../PHP/config.php";
+	include_once "../PHP/config.php";
 
-	include "../PHP/leave_days.php";
+	include_once "../PHP/leave_days.php";
 
-	include "../PHP/std_date_format.php";
+	include_once "../PHP/std_date_format.php";
 
-	include "../PHP/leave_request_status.php";
+	include_once "../PHP/leave_request_status.php";
 
 	$eid = $_SESSION['EMPLOYEE_ID'];
 
@@ -51,7 +51,7 @@
 		
 		<header>
 
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 
 		</header>
 

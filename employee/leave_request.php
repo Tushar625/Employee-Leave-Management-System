@@ -5,15 +5,15 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_emp_session.php";
+	include_once "../PHP/check_emp_session.php";
 	
-	include "../PHP/config.php";
+	include_once "../PHP/config.php";
 
-	include "../PHP/mysql_sanitize_input.php";
+	include_once "../PHP/mysql_sanitize_input.php";
 
-	include "../PHP/leave_days.php";
+	include_once "../PHP/leave_days.php";
 
-	include "../PHP/message_box.php";
+	include_once "../PHP/message_box.php";
 
 	$max_size = 1;	// 1 MB
 
@@ -290,7 +290,7 @@
 	<body>
 		
 		<header>
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 		</header>
 
 		<main>

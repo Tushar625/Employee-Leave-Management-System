@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_mng_session.php";
+	include_once "../PHP/check_mng_session.php";
 
 	if($_SESSION["MANAGER_RANK"] == 1)
 	{
@@ -16,9 +16,9 @@
 		exit();
 	}
 
-	include "../PHP/config.php";
+	include_once "../PHP/config.php";
 
-	include "../PHP/mysql_sanitize_input.php";
+	include_once "../PHP/mysql_sanitize_input.php";
 
 	$mrank = $_SESSION["MANAGER_RANK"];
 

@@ -5,9 +5,9 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_hr_session.php";
+	include_once "../PHP/check_hr_session.php";
 
-	include "../PHP/config.php";	// connect to database
+	include_once "../PHP/config.php";	// connect to database
 
 	// all entries in employee or leave_rule table
 
@@ -51,7 +51,7 @@
 		
 		<header id = 'first'>
 
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 			
 		</header>
 

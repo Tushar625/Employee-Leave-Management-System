@@ -5,21 +5,21 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_hr_session.php";
+	include_once "../PHP/check_hr_session.php";
 
-	include "../PHP/message_box.php";
+	include_once "../PHP/message_box.php";
 
 	// Empdetails input
 
 	if(isset($_POST['submit']))
 	{
-		include "../PHP/config.php";
+		include_once "../PHP/config.php";
 
-		include "../PHP/mysql_sanitize_input.php";
+		include_once "../PHP/mysql_sanitize_input.php";
 
-		include "../PHP/validate_email.php";
+		include_once "../PHP/validate_email.php";
 
-		include "../PHP/form_input_check.php";
+		include_once "../PHP/form_input_check.php";
 
 		// backup input (it will be used to retain the inputs in case of a failure)
 
@@ -170,7 +170,7 @@
 		in the documentation)
 	*/
 
-	include "../PHP/self_redirect_once.php";
+	include_once "../PHP/self_redirect_once.php";
 
 	self_redirect_once($get);
 
@@ -220,7 +220,7 @@
 	<body>
 		
 		<header>
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 		</header>
 
 		<main>

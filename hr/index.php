@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_hr_session.php";
+	include_once "../PHP/check_hr_session.php";
 
 ?>
 
@@ -37,7 +37,7 @@
 		
 		<header>
 
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 		
 		</header>
 

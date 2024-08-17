@@ -5,15 +5,15 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_mng_session.php";
+	include_once "../PHP/check_mng_session.php";
 
-	include "../PHP/config.php";
+	include_once "../PHP/config.php";
 
-	include "../PHP/leave_days.php";
+	include_once "../PHP/leave_days.php";
 
-	include "../PHP/std_date_format.php";
+	include_once "../PHP/std_date_format.php";
 
-	include "../PHP/emp_ranking_system.php";
+	include_once "../PHP/emp_ranking_system.php";
 
 	$mrank = $_SESSION["MANAGER_RANK"];
 
@@ -93,7 +93,7 @@
 		
 		<header>
 
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 
 		</header>
 

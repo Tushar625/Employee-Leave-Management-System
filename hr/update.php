@@ -5,13 +5,13 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_hr_session.php";
+	include_once "../PHP/check_hr_session.php";
 
 	if(isset($_GET["id"]) && isset($_GET["type"]))
 	{
-		include "../PHP/config.php";	// connect to database
+		include_once "../PHP/config.php";	// connect to database
 
-		include "../PHP/mysql_sanitize_input.php";
+		include_once "../PHP/mysql_sanitize_input.php";
 
 		// update request from view.php
 

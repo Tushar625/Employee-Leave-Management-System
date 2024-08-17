@@ -21,9 +21,9 @@
 
 		// linking with database
 
-		include "PHP/config.php";
+		include_once "PHP/config.php";
 
-		include "PHP/mysql_sanitize_input.php";
+		include_once "PHP/mysql_sanitize_input.php";
 
 		$email = strtolower(mysql_sanitize_input($link, $_POST['email']));
 
@@ -62,9 +62,9 @@
 				user name, user id 
 			*/
 
-			include "PHP/start_secure_session.php";
+			include_once "PHP/start_secure_session.php";
 
-			include "PHP/emp_ranking_system.php";
+			include_once "PHP/emp_ranking_system.php";
 
 			start_secure_session();
 

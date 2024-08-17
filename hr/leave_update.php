@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_hr_session.php";
+	include_once "../PHP/check_hr_session.php";
 
 	$MIN_DAYS = 1;
 
@@ -15,9 +15,9 @@
 
 	if(isset($_POST['submit']))
 	{
-		include "../PHP/config.php";
+		include_once "../PHP/config.php";
 
-		include "../PHP/mysql_sanitize_input.php";
+		include_once "../PHP/mysql_sanitize_input.php";
 
 		$lid = mysql_sanitize_input($link, $_POST["lid"]);
 
@@ -116,7 +116,7 @@
 	<body>
 		
 		<header>
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 		</header>
 
 		<main>

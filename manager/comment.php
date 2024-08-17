@@ -5,11 +5,11 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_mng_session.php";
+	include_once "../PHP/check_mng_session.php";
 
-	include "../PHP/config.php";
+	include_once "../PHP/config.php";
 
-	include "../PHP/mysql_sanitize_input.php";
+	include_once "../PHP/mysql_sanitize_input.php";
 
 	$mrank = $_SESSION["MANAGER_RANK"];
 
@@ -82,7 +82,7 @@
 	<body>
 		
 		<header>
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 		</header>
 
 		<main>

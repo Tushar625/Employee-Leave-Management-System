@@ -5,7 +5,7 @@
 		to index or home page
 	*/
 
-	include "../PHP/check_mng_session.php";
+	include_once "../PHP/check_mng_session.php";
 
 	if(!isset($_GET["eid"]))
 	{
@@ -14,15 +14,15 @@
 		header("location: index.php");
 	}
 
-	include "../PHP/config.php";	// connect to database
+	include_once "../PHP/config.php";	// connect to database
 
-	include "../PHP/mysql_sanitize_input.php";
+	include_once "../PHP/mysql_sanitize_input.php";
 
-	include "../PHP/leave_days.php";
+	include_once "../PHP/leave_days.php";
 
-	include "../PHP/std_date_format.php";
+	include_once "../PHP/std_date_format.php";
 
-	include "../PHP/leave_request_status.php";
+	include_once "../PHP/leave_request_status.php";
 
 	$eid = mysql_sanitize_input($link, $_GET["eid"]);
 
@@ -62,7 +62,7 @@
 		
 		<header id = 'first'>
 
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 			
 		</header>
 

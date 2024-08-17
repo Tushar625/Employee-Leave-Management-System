@@ -5,19 +5,19 @@
 		to index or home page (with updated error management system)
 	*/
 
-	include "../PHP/check_hr_session.php";
+	include_once "../PHP/check_hr_session.php";
 
-	include "../PHP/message_box.php";
+	include_once "../PHP/message_box.php";
 
 	// Empdetails input
 
 	if(isset($_POST['submit']))
 	{
-		include "../PHP/config.php";
+		include_once "../PHP/config.php";
 		
-		include "../PHP/mysql_sanitize_input.php";
+		include_once "../PHP/mysql_sanitize_input.php";
 
-		include "../PHP/validate_email.php";
+		include_once "../PHP/validate_email.php";
 
 		$eid = mysql_sanitize_input($link, $_POST["eid"]);
 
@@ -134,7 +134,7 @@
 	<body>
 		
 		<header>
-			<?php include "header.php";?>
+			<?php include_once "header.php";?>
 		</header>
 
 		<main>
