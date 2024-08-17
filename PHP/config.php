@@ -12,7 +12,9 @@
 
 	if($link -> connect_error)
 	{
-		die("Failure ($link -> connect_error)");
+		// die("Failure ($link -> connect_error)");
+
+		die("Something went wrong. Please go back.");
 	}
 
 ?>
