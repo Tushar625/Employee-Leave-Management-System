@@ -1,0 +1,102 @@
+<mxfile host="65bd71144e">
+    <diagram id="GSmkipb4u6FblYhkABzl" name="Page-1">
+        <mxGraphModel dx="770" dy="611" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Leave Balance&lt;br&gt;Display" style="whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="120" width="110" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Employee Leave&lt;br&gt;History" style="whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="330" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Leave ID" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#808080;" parent="1" source="5" target="14" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="210" y="70" as="sourcePoint"/>
+                        <mxPoint x="396.26890154817625" y="271.5866220212996" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="Employee Leave&lt;br&gt;Request" style="whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="No. of levaes&amp;nbsp;&lt;br&gt;taken and total&lt;br&gt;available leaves" style="edgeStyle=none;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#808080;" parent="1" source="18" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="454.5910984518239" y="271.58662202129983" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="All waiting,&lt;br&gt;approved,&lt;br&gt;declined leaves" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#808080;" parent="1" source="21" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="454.5910984518239" y="328.41337797870005" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="Doc" style="edgeStyle=none;html=1;exitX=0.797;exitY=1.121;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;strokeColor=#808080;" parent="1" source="21" target="13" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="425.43000000000006" y="340" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="LRID" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#808080;" parent="1" source="11" target="28" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="200" y="350" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="Leave Request&lt;br&gt;Delete" style="whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="440" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="LRID" style="edgeStyle=none;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.544;entryY=1.068;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#808080;fontColor=default;" parent="1" source="13" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="Supporting Doc&lt;br&gt;Display" style="whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="365.43" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="No. of days&lt;br&gt;available" style="edgeStyle=none;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;strokeColor=#808080;" parent="1" source="14" target="23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Leave ID&lt;br&gt;Emp ID" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;strokeColor=#808080;" parent="1" source="14" target="18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Check Leave Balance" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="190" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Complete&lt;br&gt;Leave&lt;br&gt;Request" style="edgeStyle=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#808080;" parent="1" source="15" target="18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Date and&lt;br&gt;Document&lt;br&gt;Validation" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="30" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Start &amp;amp; End Dates,&lt;br&gt;Reason, Doc" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#808080;" parent="1" source="23" target="15" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="330" y="70" as="sourcePoint"/>
+                        <mxPoint x="295.43000000000006" y="80.00000000000011" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="18" value="ELMS Database" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="230" width="140" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="employee" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillStyle=solid;labelBackgroundColor=none;fillColor=default;" parent="18" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="leave_rules" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillStyle=solid;labelBackgroundColor=none;fillColor=default;" parent="18" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="leave_request" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillStyle=solid;labelBackgroundColor=none;fillColor=default;" parent="18" vertex="1">
+                    <mxGeometry y="90" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Leave Request&lt;br&gt;Input Form" style="whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="No. of levaes&amp;nbsp;&lt;br&gt;taken and total&lt;br&gt;available leaves" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeColor=#808080;" parent="1" source="21" target="14" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="50" y="370" as="sourcePoint"/>
+                        <mxPoint x="280.0000000000002" y="290.0000000000001" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="LRID" style="edgeStyle=none;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.238;entryY=1.061;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#808080;" parent="1" source="28" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="Delete&lt;br&gt;Request&lt;br&gt;Validation" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="430" width="80" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
