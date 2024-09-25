@@ -1,19 +1,12 @@
 <?php
 
-	// check if any session exists
+	// check if any session exists and destroy it
+
+	include_once "PHP/check_destroy_secure_session.php";
 
 	session_start();
 
-	if(!empty($_SESSION))
-	{
-		// if non empty session found head back to home or index
-
-		header("location: index.php");
-	}
-
-	// destroy any session that might get created here
-
-	session_destroy();
+	destroy_session_and_data();	// destroy any existing session
 
 	if(isset($_POST['submit']))
 	{

@@ -2,6 +2,8 @@
 
 	include_once "PHP/check_destroy_secure_session.php";
 
+	session_start();
+
 	destroy_session_and_data();	// destroy any existing session
 
 ?>
