@@ -39,9 +39,9 @@ I made this as a final year college project. It's a very simple system where emp
 
 ### Here's some demo videos:
 
-!["Login System"](documentation\demo\login.gif)
+![Login System](documentation\demo\login.gif)
 
-!["Leave Application"](documentation\demo\leave application.gif)
+![Leave Application](documentation\demo\leave application.gif)
 
 ![Manager 1 Consent](documentation\demo\Manager 1 consent.gif)
 
