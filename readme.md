@@ -37,16 +37,28 @@ I made this as a final year college project. It's a very simple system where emp
 
 	- Git with SourceTree GUI
 
-### Here's some demo videos:
+## Here's some demo videos:
 
-![Login System](documentation\demo\login.gif)
+### *Login System*
 
-![Leave Application](documentation\demo\leave application.gif)
+https://github.com/user-attachments/assets/2092631c-ef11-4890-8337-b44e372f89c3
 
-![Manager 1 Consent](documentation\demo\Manager 1 consent.gif)
+### *Leave Application*
 
-![Manager 2 Consent](documentation\demo\Manager 2 Approval and Decline.gif)
+https://github.com/user-attachments/assets/cc2e5b78-c8e2-4780-a8d3-07ba3e76b1ff
 
-![Error Handling (Invalid Input)](documentation\demo\error Handling (Invalid Input).gif)
+### *Junior Manager Consent*
 
-![Error Handling (Invalid URL Parameter)](documentation\demo\error Handling (Invalid URL Parameter).gif)
+https://github.com/user-attachments/assets/fc526ed3-50cb-4699-8494-0a61f40222cf
+
+### *Senior Manager Approval and Decline*
+
+https://github.com/user-attachments/assets/55198a70-4bda-4c14-a59f-4468a2f13c2f
+
+### *Error Handling (Invalid Input)*
+
+https://github.com/user-attachments/assets/9b3527fe-7dd6-4da9-bfaf-aa54707bc56e
+
+### *Error Handling (Invalid URL Parameter)*
+
+https://github.com/user-attachments/assets/36d84371-b2f8-4acd-a432-5bde69fcbbc9
